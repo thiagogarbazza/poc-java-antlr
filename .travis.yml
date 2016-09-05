@@ -1,0 +1,10 @@
+language: java
+sudo: false
+
+script:
+    - mvn verify
+
+deploy:
+  skip_cleanup: true
+  on:
+    tags: true
