@@ -6,6 +6,10 @@
     <groupId>com.github.thiagogarbazza</groupId>
     <artifactId>expression-resolver-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>antlr-parser</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>Expression Resolver</name>
     <description></description>
@@ -19,6 +23,7 @@
 
         <dependency.junit.version>4.12</dependency.junit.version>
         <dependency.lombok.version>1.16.8</dependency.lombok.version>
+        <dependency.antlr.version>4.5.3</dependency.antlr.version>
 
         <maven.plugin.lombok.version>1.16.8.0</maven.plugin.lombok.version>
     </properties>
@@ -148,7 +153,6 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <tags>
-                                <!-- @todo A ser utilizado quando for demonstrar que ainda h� algo a ser feito! -->
                                 <tag>
                                     <name>todo</name>
                                     <placement>a</placement>
