@@ -6,11 +6,12 @@
   <groupId>com.github.thiagogarbazza</groupId>
   <artifactId>expression-resolver-parent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
   <modules>
     <module>antlr-parser</module>
     <module>runtime</module>
   </modules>
-  <packaging>pom</packaging>
 
   <name>Expression Resolver</name>
   <description></description>
@@ -25,6 +26,9 @@
     <dependency.junit.version>4.12</dependency.junit.version>
     <dependency.lombok.version>1.16.8</dependency.lombok.version>
     <dependency.antlr.version>4.5.3</dependency.antlr.version>
+    <dependency.commons-lang3.version>3.5</dependency.commons-lang3.version>
+    <dependency.commons-collections4.version>4.1</dependency.commons-collections4.version>
+    <dependency.commons-logging.version>1.2</dependency.commons-logging.version>
 
     <maven.plugin.lombok.version>1.16.8.0</maven.plugin.lombok.version>
   </properties>
