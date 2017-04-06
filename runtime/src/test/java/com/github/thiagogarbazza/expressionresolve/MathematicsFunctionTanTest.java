@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionTanTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal TAN_90 = BigDecimal.valueOf(-1.995200412208242);
 
     @Test
     public void testMathematicsTanBy5() {
         final Expression expression = new Expression("tan(90)");
-        final Result expected = new Result(TAN_90);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_TAN_90);
     }
 
     @Test
     public void testMathematicsTanByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(90));
         final Expression expression = new Expression("tan(X)");
-        final Result expected = new Result(TAN_90);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_TAN_90);
     }
 
     @Test

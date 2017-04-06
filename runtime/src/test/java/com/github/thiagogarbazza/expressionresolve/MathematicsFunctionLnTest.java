@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionLnTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal LN_5 = BigDecimal.valueOf(1.6094379124341003);
 
     @Test
     public void testMathematicsLnBy5() {
         final Expression expression = new Expression("ln(5)");
-        final Result expected = new Result(LN_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_LN_5);
     }
 
     @Test
     public void testMathematicsLnByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(5));
         final Expression expression = new Expression("ln(X)");
-        final Result expected = new Result(LN_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_LN_5);
     }
 
     @Test

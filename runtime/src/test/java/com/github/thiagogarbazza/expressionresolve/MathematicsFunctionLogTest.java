@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionLogTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal LOG_5 = BigDecimal.valueOf(0.6989700043360189);
 
     @Test
     public void testMathematicsLogBy5() {
         final Expression expression = new Expression("log(5)");
-        final Result expected = new Result(LOG_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_LOG_5);
     }
 
     @Test
     public void testMathematicsLogByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(5));
         final Expression expression = new Expression("log(X)");
-        final Result expected = new Result(LOG_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_LOG_5);
     }
 
     @Test

@@ -1,54 +1,57 @@
 package com.github.thiagogarbazza.expressionresolve;
 
-import java.math.BigDecimal;
-
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class AssignmentExpressionTest extends AbstractFunctionsTest {
 
     @Test
     public void testAssignmentNumberInteger() {
         final Expression expression = new Expression("A=20;");
-        assertExpression(expression, V_20);
+        assertExpression(expression, RESULT_20);
     }
 
     @Test
-    public void testAssignmentNumberDouble() {
-        final Expression expression = new Expression("A=29.99;");
-        assertExpression(expression, new Result(BigDecimal.valueOf(29.99)));
+    public void testAssignmentNumberDoublePositive() {
+        final Expression expression = new Expression("A=0.8939966636005579;");
+        assertExpression(expression, RESULT_SIN_90);
+    }
+
+    @Test
+    public void testAssignmentNumberDoubleNegative() {
+        final Expression expression = new Expression("A=-0.4480736161291702;");
+        assertExpression(expression, RESULT_COS_90);
     }
 
     @Test
     public void testAssignmentBoolean() {
         final Expression expression = new Expression("A=true;");
-        assertExpression(expression, TRUE);
+        assertExpression(expression, RESULT_TRUE);
 
     }
 
     @Test
     public void testAssignmentNumberAndUseInMathematicsOperation() {
         final Expression expression = new Expression("A=5; A^2");
-        assertExpression(expression, V_25);
+        assertExpression(expression, RESULT_25);
     }
 
     @Test
     public void testAssignmentNumberAndUseInMathematicsFunction() {
         final Expression expression = new Expression("A=90; cos(A)");
-        assertExpression(expression, COS_90);
+        assertExpression(expression, RESULT_COS_90);
     }
 
     @Test
     public void testAssignmentResultMathematicsFunctionAndUseInMathematicsOperation() {
         final Expression expression = new Expression("A=day(2015/05/20); 100/A");
-        assertExpression(expression, new Result(BigDecimal.valueOf(5)));
+        assertExpression(expression, RESULT_5);
     }
 
     @Test
     public void test2AssignmentsAndUseInMathematicsOperation() {
         final Expression expression = new Expression("A=96;B=4; A+B");
-        assertExpression(expression, V_100);
+        assertExpression(expression, RESULT_100);
     }
 }

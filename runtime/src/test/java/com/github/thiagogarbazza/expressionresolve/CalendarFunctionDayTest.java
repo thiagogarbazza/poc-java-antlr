@@ -1,30 +1,22 @@
 package com.github.thiagogarbazza.expressionresolve;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class CalendarFunctionDayTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal CURRENT_DAY = BigDecimal.valueOf(CURRENT.get(Calendar.DAY_OF_MONTH));
 
     @Test
     public void testCalendarDayBy2015_03_20() {
         final Expression expression = new Expression("day(2015/03/20)");
-        final Result expected = new Result(BigDecimal.valueOf(20));
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_20);
     }
 
     @Test
     public void testCalendarDayByIdentifier() {
         EXPRESSION_CONTEXT.set("CURRENT", CURRENT);
         final Expression expression = new Expression("day(CURRENT)");
-        final Result expected = new Result(CURRENT_DAY);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_CURRENT_DAY_OF_MONTH);
     }
 
     @Test

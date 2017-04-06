@@ -1,32 +1,22 @@
 package com.github.thiagogarbazza.expressionresolve;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class CalendarFunctionMonthTest extends AbstractFunctionsTest {
-
-    private static final Calendar CURRENT = Calendar.getInstance();
-
-    private static final BigDecimal CURRENT_MONTH = BigDecimal.valueOf(CURRENT.get(Calendar.MONTH) + 1);
 
     @Test
     public void testCalendarMonthBy2015_03_20() {
         final Expression expression = new Expression("month(2015/03/20)");
-        final Result expected = new Result(BigDecimal.valueOf(3));
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_3);
     }
 
     @Test
     public void testCalendarMonthByIdentifier() {
         EXPRESSION_CONTEXT.set("CURRENT", CURRENT);
         final Expression expression = new Expression("month(CURRENT)");
-        final Result expected = new Result(CURRENT_MONTH);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_CURRENT_MONTH);
     }
 
     @Test

@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionAcosTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal ACOS_0_5 = BigDecimal.valueOf(1.0471975511965979);
 
     @Test
     public void testMathematicsAcosBy5() {
         final Expression expression = new Expression("acos(0.5)");
-        final Result expected = new Result(ACOS_0_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_ACOS_0_5);
     }
 
     @Test
     public void testMathematicsAcosByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(0.5));
         final Expression expression = new Expression("acos(X)");
-        final Result expected = new Result(ACOS_0_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_ACOS_0_5);
     }
 
     @Test

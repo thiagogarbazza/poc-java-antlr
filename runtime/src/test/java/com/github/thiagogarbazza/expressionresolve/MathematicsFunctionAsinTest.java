@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionAsinTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal ASIN_0_5 = BigDecimal.valueOf(0.5235987755982989);
 
     @Test
     public void testMathematicsAsinBy5() {
         final Expression expression = new Expression("asin(0.5)");
-        final Result expected = new Result(ASIN_0_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_ASIN_0_5);
     }
 
     @Test
     public void testMathematicsAsinByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(0.5));
         final Expression expression = new Expression("asin(X)");
-        final Result expected = new Result(ASIN_0_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_ASIN_0_5);
     }
 
     @Test

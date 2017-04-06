@@ -1,13 +1,12 @@
 package com.github.thiagogarbazza.expressionresolve;
 
-import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class CompareDateTest extends AbstractFunctionsTest {
 
@@ -24,22 +23,19 @@ public class CompareDateTest extends AbstractFunctionsTest {
     @Test
     public void testCompareToEquals() {
         final Expression expression = new Expression("compareDate(2015/03/20, 2015/03/20)");
-        final Result expected = new Result(BigDecimal.valueOf(0));
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_0);
     }
 
     @Test
     public void testCompareToLess() {
         final Expression expression = new Expression("compareDate(2015/01/01, 2015/10/31)");
-        final Result expected = new Result(BigDecimal.valueOf(-1));
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_1_NEGATIVE);
     }
 
     @Test
     public void testCompareToGreater() {
         final Expression expression = new Expression("compareDate(2015/10/31, 2015/01/01)");
-        final Result expected = new Result(BigDecimal.valueOf(1));
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_1);
     }
 
     @Test
@@ -47,7 +43,13 @@ public class CompareDateTest extends AbstractFunctionsTest {
         EXPRESSION_CONTEXT.set("A", present);
         EXPRESSION_CONTEXT.set("B", past);
         final Expression expression = new Expression("compareDate(A, B)");
-        final Result expected = new Result(BigDecimal.valueOf(1));
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_1);
+    }
+
+    @Test
+    public void testCompareToIdentifierAndText() {
+        EXPRESSION_CONTEXT.set("DATE", new GregorianCalendar(2015,9,31));
+        final Expression expression = new Expression("compareDate(2015/10/31, DATE)");
+        assertExpression(expression, RESULT_0);
     }
 }

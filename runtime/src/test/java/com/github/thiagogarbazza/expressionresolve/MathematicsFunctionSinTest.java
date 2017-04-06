@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionSinTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal SIN_90 = BigDecimal.valueOf(0.8939966636005579);
 
     @Test
     public void testMathematicsSinBy5() {
         final Expression expression = new Expression("sin(90)");
-        final Result expected = new Result(SIN_90);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_SIN_90);
     }
 
     @Test
     public void testMathematicsSinByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(90));
         final Expression expression = new Expression("sin(X)");
-        final Result expected = new Result(SIN_90);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_SIN_90);
     }
 
     @Test

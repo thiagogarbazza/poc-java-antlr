@@ -11,14 +11,14 @@ public class MathematicsFunctionCosTest extends AbstractFunctionsTest {
     @Test
     public void testMathematicsCosBy5() {
         final Expression expression = new Expression("cos(90)");
-        assertExpression(expression, COS_90);
+        assertExpression(expression, RESULT_COS_90);
     }
 
     @Test
     public void testMathematicsCosByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(90));
         final Expression expression = new Expression("cos(X)");
-        assertExpression(expression, COS_90);
+        assertExpression(expression, RESULT_COS_90);
     }
 
     @Test

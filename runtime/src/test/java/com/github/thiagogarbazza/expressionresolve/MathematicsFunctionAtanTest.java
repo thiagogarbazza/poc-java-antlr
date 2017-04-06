@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionAtanTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal ATAN_0_5 = BigDecimal.valueOf(0.4636476090008061);
 
     @Test
     public void testMathematicsAtanBy0_5() {
         final Expression expression = new Expression("atan(0.5)");
-        final Result expected = new Result(ATAN_0_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_ATAN_0_5);
     }
 
     @Test
     public void testMathematicsAtanByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(0.5));
         final Expression expression = new Expression("atan(X)");
-        final Result expected = new Result(ATAN_0_5);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_ATAN_0_5);
     }
 
     @Test

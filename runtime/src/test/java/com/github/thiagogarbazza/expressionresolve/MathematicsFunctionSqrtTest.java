@@ -5,25 +5,20 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
 
 public class MathematicsFunctionSqrtTest extends AbstractFunctionsTest {
-
-    private static final BigDecimal SQRT_25 = BigDecimal.valueOf(5.0);
 
     @Test
     public void testMathematicsSqrtBy25() {
         final Expression expression = new Expression("sqrt(25)");
-        final Result expected = new Result(SQRT_25);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_5_0);
     }
 
     @Test
     public void testMathematicsSqrtByIdentifier() {
         EXPRESSION_CONTEXT.set("X", BigDecimal.valueOf(25));
         final Expression expression = new Expression("sqrt(X)");
-        final Result expected = new Result(SQRT_25);
-        assertExpression(expression, expected);
+        assertExpression(expression, RESULT_5_0);
     }
 
     @Test
