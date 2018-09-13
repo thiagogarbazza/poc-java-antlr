@@ -5,6 +5,7 @@ import com.github.thiagogarbazza.expressionresolve.exception.SyntaxException;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.BooleanExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.StatementBlockContext;
+import org.apache.commons.lang3.BooleanUtils;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -102,6 +103,12 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
+  public Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
+    Boolean value = (Boolean) visit(ctx.booleanExpression());
+    return value;
+  }
+
+  @Override
   public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
     final Boolean value = getExecutionContext().get(identifier, Boolean.class);
@@ -109,9 +116,37 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
+  public final Object visitBooleanArithmeticComparison(final ExpressionParser.BooleanArithmeticComparisonContext ctx) {
+    final BigDecimal left = (BigDecimal) visit(ctx.arithmeticExpression(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.arithmeticExpression(1));
+    Comparison comparison = Comparison.findByOperator(ctx.op.getText());
+    return comparison.compare(left, right);
+  }
+
+  @Override
+  public Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
+    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
+    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+    return left || right;
+  }
+
+  @Override
   public final Object visitPrimitiveBoolean(final ExpressionParser.PrimitiveBooleanContext ctx) {
     final String bool = ctx.getText();
     return new Boolean(bool);
+  }
+
+  @Override
+  public final Object visitBooleanNegation(final ExpressionParser.BooleanNegationContext ctx) {
+    Boolean value = (Boolean) visit(ctx.booleanExpression());
+    return BooleanUtils.negate(value);
+  }
+
+  @Override
+  public Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
+    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
+    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+    return left && right;
   }
 
   @Override
