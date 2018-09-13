@@ -1,5 +1,9 @@
 package com.github.thiagogarbazza.expressionresolve.domain;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +13,9 @@ import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.apache.commons.lang3.Validate.isInstanceOf;
 import static org.apache.commons.lang3.Validate.notNull;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 public class ExpressionContext {
 
   private final Map<String, Object> variables;
@@ -26,9 +33,10 @@ public class ExpressionContext {
     return (T) value;
   }
 
-  public void set(final String variable, final Object value) {
+  public ExpressionContext set(final String variable, final Object value) {
     final String key = buildKey(variable);
     variables.put(key, value);
+    return this;
   }
 
   private String buildKey(final String variable) {
