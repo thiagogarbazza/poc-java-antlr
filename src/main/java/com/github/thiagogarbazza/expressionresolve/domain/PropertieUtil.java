@@ -9,16 +9,16 @@ import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 
 public class PropertieUtil {
 
-    private static final ResourceBundle APPLICATION_BUNDLE = getBundle("expression-resolver");
+  private static final ResourceBundle APPLICATION_BUNDLE = getBundle("expression-resolver");
 
-    public static String getPropertie(String key, Object... arguments) {
-        if (isEmpty(arguments)) {
-            return getPropertie(key);
-        }
-        return format(getPropertie(key), arguments);
+  public static String getPropertie(String key, Object... arguments) {
+    if (isEmpty(arguments)) {
+      return getPropertie(key);
     }
+    return format(getPropertie(key), arguments);
+  }
 
-    public static String getPropertie(String key) {
-        return trimToEmpty(APPLICATION_BUNDLE.getString(key));
-    }
+  public static String getPropertie(String key) {
+    return trimToEmpty(APPLICATION_BUNDLE.getString(key));
+  }
 }
