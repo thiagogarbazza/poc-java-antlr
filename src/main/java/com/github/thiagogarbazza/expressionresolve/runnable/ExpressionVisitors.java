@@ -4,10 +4,6 @@ import com.github.thiagogarbazza.expressionresolve.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.exception.SyntaxException;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.BooleanExpressionContext;
-import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.CompareDateContext;
-import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.CompareStringContext;
-import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.IfExpressionContext;
-import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.ParseContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.StatementBlockContext;
 
 import java.math.BigDecimal;
@@ -27,12 +23,20 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public final Object visitParse(final ParseContext ctx) {
+  public final Object visitParse(final ExpressionParser.ParseContext ctx) {
     return visit(ctx.block());
   }
 
   @Override
-  public final Object visitIfExpression(final IfExpressionContext ctx) {
+  public Object visitAssignment(final ExpressionParser.AssignmentContext ctx) {
+    final String variable = ctx.IDENTIFIER().getText();
+    final Object value = visit(ctx.expression());
+    getExecutionContext().set(variable, value);
+    return value;
+  }
+
+  @Override
+  public final Object visitIfExpression(final ExpressionParser.IfExpressionContext ctx) {
     int i = -1;
     BooleanExpressionContext booleanExpression = null;
     do {
@@ -50,7 +54,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public final Object visitCompareDate(final CompareDateContext ctx) {
+  public final Object visitCompareDate(final ExpressionParser.CompareDateContext ctx) {
     final Calendar left = (Calendar) visit(ctx.dateExpresion(0));
     final Calendar right = (Calendar) visit(ctx.dateExpresion(1));
     final Integer compare = left.compareTo(right);
@@ -58,7 +62,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public final Object visitCompareString(final CompareStringContext ctx) {
+  public final Object visitCompareString(final ExpressionParser.CompareStringContext ctx) {
     final String left = (String) visit(ctx.stringExpression(0));
     final String right = (String) visit(ctx.stringExpression(1));
     final Integer compare = left.compareTo(right);
@@ -69,6 +73,13 @@ final class ExpressionVisitors extends BooleanVisitors {
   public final Object visitPrimitiveNumber(final ExpressionParser.PrimitiveNumberContext ctx) {
     final BigDecimal result = new BigDecimal(ctx.getText());
     return result;
+  }
+
+  @Override
+  public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final BigDecimal value = getExecutionContext().get(identifier, BigDecimal.class);
+    return value;
   }
 
   @Override
@@ -84,6 +95,20 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
+  public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final Calendar value = getExecutionContext().get(identifier, Calendar.class);
+    return value;
+  }
+
+  @Override
+  public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final Boolean value = getExecutionContext().get(identifier, Boolean.class);
+    return value;
+  }
+
+  @Override
   public final Object visitPrimitiveBoolean(final ExpressionParser.PrimitiveBooleanContext ctx) {
     final String bool = ctx.getText();
     return new Boolean(bool);
@@ -92,5 +117,12 @@ final class ExpressionVisitors extends BooleanVisitors {
   @Override
   public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
     return ctx.getText();
+  }
+
+  @Override
+  public final Object visitIdentifierString(final ExpressionParser.IdentifierStringContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final String value = getExecutionContext().get(identifier, String.class);
+    return value;
   }
 }
