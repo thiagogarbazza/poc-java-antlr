@@ -7,8 +7,8 @@
   <artifactId>expression-resolver</artifactId>
   <version>0.1.0-SNAPSHOT</version>
 
-  <name>Expression Resolver</name>
-  <description></description>
+  <name>Expression resolver</name>
+  <description>An example of Antlr implementation.</description>
   <url>https://github.com/thiagogarbazza/expression-resolver</url>
 
   <properties>
