@@ -3,8 +3,8 @@ package com.github.thiagogarbazza.expressionresolve.runnable;
 import org.apache.commons.collections4.Predicate;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
+import static java.util.Arrays.asList;
 import static org.apache.commons.collections4.IterableUtils.find;
 
 enum Comparison {
@@ -78,7 +78,7 @@ enum Comparison {
   public abstract Boolean compare(BigDecimal left, BigDecimal right);
 
   public static Comparison findByOperator(final String operator) {
-    return find(Arrays.asList(values()), new Predicate<Comparison>() {
+    return find(asList(values()), new Predicate<Comparison>() {
       public boolean evaluate(final Comparison comparison) {
         return comparison.operator.equals(operator);
       }
