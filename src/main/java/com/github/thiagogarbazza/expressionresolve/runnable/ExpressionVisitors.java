@@ -5,6 +5,7 @@ import com.github.thiagogarbazza.expressionresolve.exception.SyntaxException;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.BooleanExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.StatementBlockContext;
+import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParserBaseVisitor;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.math.BigDecimal;
@@ -16,14 +17,13 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
-final class ExpressionVisitors extends BooleanVisitors {
+final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
   private final ExpressionContext executionContext;
 
   public ExpressionVisitors(final ExpressionContext expressionContext) {
-    super(expressionContext);
     this.executionContext = expressionContext;
   }
 
@@ -33,10 +33,10 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public Object visitAssignment(final ExpressionParser.AssignmentContext ctx) {
+  public final Object visitAssignment(final ExpressionParser.AssignmentContext ctx) {
     final String variable = ctx.IDENTIFIER().getText();
     final Object value = visit(ctx.expression());
-    getExecutionContext().set(variable, value);
+    executionContext.set(variable, value);
     return value;
   }
 
@@ -220,7 +220,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public Object visitMathematicsFunctionSqrt(final ExpressionParser.MathematicsFunctionSqrtContext ctx) {
+  public final Object visitMathematicsFunctionSqrt(final ExpressionParser.MathematicsFunctionSqrtContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
     final double value = child.doubleValue();
     final double sqrt = Math.sqrt(value);
@@ -272,7 +272,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   @Override
   public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final BigDecimal value = getExecutionContext().get(identifier, BigDecimal.class);
+    final BigDecimal value = executionContext.get(identifier, BigDecimal.class);
     return value;
   }
 
@@ -283,7 +283,7 @@ final class ExpressionVisitors extends BooleanVisitors {
 
   @Override
   public final Object visitCalendarFunctionToday(final ExpressionParser.CalendarFunctionTodayContext ctx) {
-    final Calendar value = getExecutionContext().get("today", Calendar.class);
+    final Calendar value = executionContext.get("today", Calendar.class);
     return value;
   }
 
@@ -302,12 +302,12 @@ final class ExpressionVisitors extends BooleanVisitors {
   @Override
   public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final Calendar value = getExecutionContext().get(identifier, Calendar.class);
+    final Calendar value = executionContext.get(identifier, Calendar.class);
     return value;
   }
 
   @Override
-  public Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
+  public final Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
     Boolean value = (Boolean) visit(ctx.booleanExpression());
     return value;
   }
@@ -315,7 +315,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   @Override
   public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final Boolean value = getExecutionContext().get(identifier, Boolean.class);
+    final Boolean value = executionContext.get(identifier, Boolean.class);
     return value;
   }
 
@@ -328,7 +328,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
+  public final Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
     Boolean left = (Boolean) visit(ctx.booleanExpression(0));
     Boolean right = (Boolean) visit(ctx.booleanExpression(1));
     return left || right;
@@ -347,7 +347,7 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
-  public Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
+  public final Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
     Boolean left = (Boolean) visit(ctx.booleanExpression(0));
     Boolean right = (Boolean) visit(ctx.booleanExpression(1));
     return left && right;
@@ -361,7 +361,15 @@ final class ExpressionVisitors extends BooleanVisitors {
   @Override
   public final Object visitIdentifierString(final ExpressionParser.IdentifierStringContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final String value = getExecutionContext().get(identifier, String.class);
+    final String value = executionContext.get(identifier, String.class);
     return value;
+  }
+
+  private final Object resultNormatize(final Integer result) {
+    return resultNormatize(BigDecimal.valueOf(result));
+  }
+
+  private final Object resultNormatize(final BigDecimal result) {
+    return result;
   }
 }
