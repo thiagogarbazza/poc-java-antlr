@@ -12,20 +12,28 @@
   <url>https://github.com/thiagogarbazza/expression-resolver</url>
 
   <properties>
-    <java.version>1.6</java.version>
+    <java.version>1.7</java.version>
     <java.encoding>UTF-8</java.encoding>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.build.sourceEncoding>${java.encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${java.encoding}</project.reporting.outputEncoding>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <dependency.antlr.version>4.5.3</dependency.antlr.version>
-    <dependency.junit.version>4.12</dependency.junit.version>
-    <dependency.lombok.version>1.16.8</dependency.lombok.version>
-    <dependency.commons-collections4.version>4.1</dependency.commons-collections4.version>
+    <dependency.commons-collections4.version>4.2</dependency.commons-collections4.version>
+    <dependency.commons-lang3.version>3.8</dependency.commons-lang3.version>
     <dependency.commons-logging.version>1.2</dependency.commons-logging.version>
-    <dependency.commons-lang3.version>3.5</dependency.commons-lang3.version>
+    <dependency.junit.version>4.12</dependency.junit.version>
+    <dependency.lombok.version>1.18.2</dependency.lombok.version>
 
-    <maven.plugin.antlr.version>4.5.3</maven.plugin.antlr.version>
-    <maven.plugin.lombok.version>1.16.8.0</maven.plugin.lombok.version>
+    <plugin.antlr.version>4.5.3</plugin.antlr.version>
+    <plugin.compiler.version>3.8.0</plugin.compiler.version>
+    <plugin.deploy.version>2.8.2</plugin.deploy.version>
+    <plugin.gpg.version>1.6</plugin.gpg.version>
+    <plugin.javadoc.version>3.0.1</plugin.javadoc.version>
+    <plugin.lombok.version>1.18.0.0</plugin.lombok.version>
+    <plugin.release.version>2.5.3</plugin.release.version>
+    <plugin.source.version>3.0.1</plugin.source.version>
   </properties>
 
   <developers>
@@ -99,7 +107,7 @@
       <plugin>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${maven.plugin.antlr.version}</version>
+        <version>${plugin.antlr.version}</version>
         <configuration>
           <visitor>true</visitor>
           <listener>false</listener>
@@ -116,37 +124,39 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>${plugin.compiler.version}</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
           <encoding>${project.build.sourceEncoding}</encoding>
           <debug>true</debug>
           <verbose>true</verbose>
+          <annotationProcessors>
+            <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+          </annotationProcessors>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>2.8.2</version>
+        <version>${plugin.deploy.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
+        <version>${plugin.release.version}</version>
         <configuration>
           <preparationGoals>clean verify</preparationGoals>
-          <goals>deploy</goals>
           <tagNameFormat>@{project.version}</tagNameFormat>
           <autoVersionSubmodules>true</autoVersionSubmodules>
-          <useReleaseProfile>false</useReleaseProfile>
-          <releaseProfiles>profile-release</releaseProfiles>
+          <releaseProfiles>prepare-release</releaseProfiles>
+          <useReleaseProfile>true</useReleaseProfile>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok-maven-plugin</artifactId>
-        <version>${maven.plugin.lombok.version}</version>
+        <version>${plugin.lombok.version}</version>
         <dependencies>
           <dependency>
             <groupId>org.projectlombok</groupId>
@@ -160,7 +170,7 @@
 
   <profiles>
     <profile>
-      <id>profile-release</id>
+      <id>prepare-release</id>
 
       <build>
         <plugins>
@@ -168,6 +178,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
+            <version>${plugin.source.version}</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
@@ -182,6 +193,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${plugin.javadoc.version}</version>
             <configuration>
               <tags>
                 <tag>
@@ -205,7 +217,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
+            <version>${plugin.gpg.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
