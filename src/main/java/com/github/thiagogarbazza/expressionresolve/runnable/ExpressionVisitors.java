@@ -19,8 +19,11 @@ final class ExpressionVisitors extends BooleanVisitors {
 
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
+  private final ExpressionContext executionContext;
+
   public ExpressionVisitors(final ExpressionContext expressionContext) {
     super(expressionContext);
+    this.executionContext = expressionContext;
   }
 
   @Override
