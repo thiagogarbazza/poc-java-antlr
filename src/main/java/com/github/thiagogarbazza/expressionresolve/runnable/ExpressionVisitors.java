@@ -12,6 +12,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
+
 final class ExpressionVisitors extends BooleanVisitors {
 
   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
@@ -71,6 +75,24 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
+  public final Object visitCalendarFunctionDay(final ExpressionParser.CalendarFunctionDayContext ctx) {
+    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    return BigDecimal.valueOf(cal.get(DAY_OF_MONTH));
+  }
+
+  @Override
+  public final Object visitCalendarFunctionMonth(final ExpressionParser.CalendarFunctionMonthContext ctx) {
+    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    return BigDecimal.valueOf(cal.get(MONTH) + 1);
+  }
+
+  @Override
+  public final Object visitCalendarFunctionYear(final ExpressionParser.CalendarFunctionYearContext ctx) {
+    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    return BigDecimal.valueOf(cal.get(YEAR));
+  }
+
+  @Override
   public final Object visitPrimitiveNumber(final ExpressionParser.PrimitiveNumberContext ctx) {
     final BigDecimal result = new BigDecimal(ctx.getText());
     return result;
@@ -80,6 +102,17 @@ final class ExpressionVisitors extends BooleanVisitors {
   public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
     final BigDecimal value = getExecutionContext().get(identifier, BigDecimal.class);
+    return value;
+  }
+
+  @Override
+  public final Object visitCalendarFunctionDate(final ExpressionParser.CalendarFunctionDateContext ctx) {
+    throw new IllegalStateException("not implemented");
+  }
+
+  @Override
+  public final Object visitCalendarFunctionToday(final ExpressionParser.CalendarFunctionTodayContext ctx) {
+    final Calendar value = getExecutionContext().get("today", Calendar.class);
     return value;
   }
 
