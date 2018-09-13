@@ -76,10 +76,10 @@ numberExpresion
   ;
 
 dateExpresion
-  : FN_CALENDAR_DATE LPAREN DATE_YEAR COMMA DATE_MONTH COMMA DATE_DAY RPAREN  # calendarFunctionDate
-  | FN_CALENDAR_TODAY                                                         # calendarFunctionToday
-  | DATE                                                                      # primitiveDate
-  | IDENTIFIER                                                                # identifierDate
+  : FN_CALENDAR_DATE LPAREN DateYear COMMA DateMonth COMMA DateDay RPAREN  # calendarFunctionDate
+  | FN_CALENDAR_TODAY                                                      # calendarFunctionToday
+  | DATE                                                                   # primitiveDate
+  | IDENTIFIER                                                             # identifierDate
   ;
 
 booleanExpression

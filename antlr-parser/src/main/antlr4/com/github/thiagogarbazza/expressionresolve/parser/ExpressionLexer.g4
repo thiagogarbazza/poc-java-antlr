@@ -1,9 +1,5 @@
 lexer grammar ExpressionLexer;
 
-channels {
-  OFF_CHANNEL  // non-default channel for whitespace and comments
-}
-
 IF    : 'if';
 ELSE  : 'else';
 
@@ -43,12 +39,6 @@ COMMA      : ',';
 SEMICOLON  : ';';
 PIPE       : '|';
 
-fragment GT  : '>';
-fragment GE  : '>=';
-fragment LT  : '<';
-fragment LE  : '<=';
-fragment EQ  : '==';
-fragment NE  : '!=';
 COMPARISON   : GT | GE | LT | LE | EQ | NE;
 NOT          : '!';
 ASSIG        : '=';
@@ -60,58 +50,32 @@ RBRACK  : ']';
 LBRACE  : '{';
 RBRACE  : '}';
 
-fragment DIGIT  : [0-9];
-fragment INT4   : DIGIT DIGIT DIGIT DIGIT;
-
-fragment QUOTES_SIMPLE  : '\'';
-fragment QUOTES_DOUBLE  : '"';
-fragment ANYTHING       : .*?;
-
-fragment JAN  : [Jj][Aa][Nn];
-fragment FEB  : [Ff][Ee][Bb];
-fragment MAR  : [Mm][Aa][Rr];
-fragment APR  : [Aa][Pp][Rr];
-fragment MAY  : [Mm][Aa][Yy];
-fragment JUN  : [Jj][Uu][Nn];
-fragment JUL  : [Jj][Uu][Ll];
-fragment AUG  : [Aa][Uu][Gg];
-fragment SEP  : [Ss][Ee][Pp];
-fragment OCT  : [Oo][Cc][Tt];
-fragment NOV  : [Nn][Oo][Vv];
-fragment DEC  : [Dd][Ee][Cc];
-
-fragment MONTH_TYPE  : JAN | FEB | MAR | APR | MAY | JUN | JUL | AUG | SEP | OCT | NOV | DEC;
-
-fragment DATE_DAY    : [0-3]? DIGIT;
-fragment DATE_MONTH  : ([0-1]? DIGIT | MONTH_TYPE);
-fragment DATE_YEAR   : INT4;
-
-//##########################################################################################################################
-//#########    Types                                                                                       #################
-//##########################################################################################################################
-
 BOOLEAN  : ('true' | 'false');
-INTEGER  : DIGIT+;
-DECIMAL  : INTEGER POINT INTEGER;
+INTEGER  : Digits;
+DECIMAL  : Digits POINT Digits;
 
 STRING
-  : QUOTES_SIMPLE ANYTHING QUOTES_SIMPLE
-  | QUOTES_DOUBLE ANYTHING QUOTES_DOUBLE
+  : QuotesSimple Anything QuotesSimple
+  | QuotesDouble Anything QuotesDouble
   ;
 
-DATE  : DATE_YEAR '/' DATE_MONTH '/' DATE_DAY;
+DATE  : DateYear '/' DateMonth '/' DateDay;
 
-// COMMENT and WS are stripped from the output token stream by sending to a different channel 'skip'
-COMMENT_LINE   : '//' ANYTHING '\r'? '\n'   -> channel(OFF_CHANNEL);
-COMMENT_BLOCK  : '/*' ANYTHING '*/'         -> channel(OFF_CHANNEL);
-WHITESPACE     : [ \f\n\r\t\u000C]+         -> channel(OFF_CHANNEL);
-//NEWLINE       : '\r'? '\n';
+IDENTIFIER  : Letter LetterOrDigit*;
 
-IDENTIFIER: Letter LetterOrDigit*;
+fragment Digit   : [0-9];
+fragment Digit4  : Digit Digit Digit Digit;
+fragment Digits  : Digit+;
 
-fragment Digits
-  : [0-9] ([0-9_]* [0-9])?
-  ;
+fragment QuotesSimple  : '\'';
+fragment QuotesDouble  : '"';
+fragment Anything      : .*?;
+fragment GT            : '>';
+fragment GE            : '>=';
+fragment LT            : '<';
+fragment LE            : '<=';
+fragment EQ            : '==';
+fragment NE            : '!=';
     
 fragment LetterOrDigit
   : Letter
@@ -123,3 +87,26 @@ fragment Letter
   | ~[\u0000-\u007F\uD800-\uDBFF] // covers all characters above 0x7F which are not a surrogate
   | [\uD800-\uDBFF] [\uDC00-\uDFFF] // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
   ;
+  
+fragment DateDay    : [0-3]? Digit;
+fragment DateMonth  : ([0-1]? Digit | MonthType);
+fragment DateYear   : Digit4;
+fragment MonthType  : Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec;
+
+fragment Jan  : [Jj][Aa][Nn];
+fragment Feb  : [Ff][Ee][Bb];
+fragment Mar  : [Mm][Aa][Rr];
+fragment Apr  : [Aa][Pp][Rr];
+fragment May  : [Mm][Aa][Yy];
+fragment Jun  : [Jj][Uu][Nn];
+fragment Jul  : [Jj][Uu][Ll];
+fragment Aug  : [Aa][Uu][Gg];
+fragment Sep  : [Ss][Ee][Pp];
+fragment Oct  : [Oo][Cc][Tt];
+fragment Nov  : [Nn][Oo][Vv];
+fragment Dec  : [Dd][Ee][Cc];
+
+// COMMENT and WS are stripped from the output token stream by sending to a different channel 'skip'
+COMMENT_LINE  : '//' ~[\r\n]*       -> channel(HIDDEN);
+COMMENT_BLOCK : '/*' .*? '*/'       -> channel(HIDDEN);
+WHITESPACE    : [ \f\n\r\t\u000C]+  -> channel(HIDDEN);
