@@ -59,6 +59,177 @@ final class ExpressionVisitors extends BooleanVisitors {
   }
 
   @Override
+  public final Object visitMathematicsOperationPow(final ExpressionParser.MathematicsOperationPowContext ctx) {
+    final BigDecimal left = (BigDecimal) visit(ctx.arithmeticExpression(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.arithmeticExpression(1));
+    return left.pow(right.intValue());
+  }
+
+  @Override
+  public final Object visitMathematicsOperationSign(final ExpressionParser.MathematicsOperationSignContext ctx) {
+    final BigDecimal result = (BigDecimal) visit(ctx.arithmeticExpression());
+    if (ctx.MINUS() != null) {
+      return result.multiply(BigDecimal.valueOf(-1));
+    }
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsOperationDivide(final ExpressionParser.MathematicsOperationDivideContext ctx) {
+    BigDecimal result = (BigDecimal) visit(ctx.arithmeticExpression(0));
+    for (int i = 1; i < ctx.arithmeticExpression().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression(i));
+      result = result.divide(child);
+    }
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsOperationSubtract(final ExpressionParser.MathematicsOperationSubtractContext ctx) {
+    BigDecimal result = (BigDecimal) visit(ctx.arithmeticExpression(0));
+    for (int i = 1; i < ctx.arithmeticExpression().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression(i));
+      result = result.subtract(child);
+    }
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsOperationModulo(final ExpressionParser.MathematicsOperationModuloContext ctx) {
+    final BigDecimal left = (BigDecimal) visit(ctx.arithmeticExpression(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.arithmeticExpression(1));
+    return left.remainder(right);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctions(final ExpressionParser.MathematicsFunctionsContext ctx) {
+    final BigDecimal result = (BigDecimal) visit(ctx.functionsExpression());
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsOperationAddition(final ExpressionParser.MathematicsOperationAdditionContext ctx) {
+    BigDecimal result = BigDecimal.ZERO;
+    for (ExpressionParser.ArithmeticExpressionContext aectx : ctx.arithmeticExpression()) {
+      BigDecimal child = (BigDecimal) visit(aectx);
+      result = result.add(child);
+    }
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsGroupedBy(final ExpressionParser.MathematicsGroupedByContext ctx) {
+    final BigDecimal result = (BigDecimal) visit(ctx.arithmeticExpression());
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsNumeric(final ExpressionParser.MathematicsNumericContext ctx) {
+    final BigDecimal result = (BigDecimal) visit(ctx.numberExpresion());
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsOperationMultiply(final ExpressionParser.MathematicsOperationMultiplyContext ctx) {
+    BigDecimal result = (BigDecimal) visit(ctx.arithmeticExpression(0));
+    for (int i = 1; i < ctx.arithmeticExpression().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression(i));
+      result = result.multiply(child);
+    }
+    return result;
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionCos(final ExpressionParser.MathematicsFunctionCosContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double degrees = child.doubleValue();
+    final double cos = Math.cos(degrees);
+
+    final BigDecimal result = BigDecimal.valueOf(cos);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionAcos(final ExpressionParser.MathematicsFunctionAcosContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double degrees = child.doubleValue();
+    final double acos = Math.acos(degrees);
+
+    final BigDecimal result = BigDecimal.valueOf(acos);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionSin(final ExpressionParser.MathematicsFunctionSinContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double degrees = child.doubleValue();
+    final double sin = Math.sin(degrees);
+
+    final BigDecimal result = BigDecimal.valueOf(sin);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionAsin(final ExpressionParser.MathematicsFunctionAsinContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double degrees = child.doubleValue();
+    final double asin = Math.asin(degrees);
+
+    final BigDecimal result = BigDecimal.valueOf(asin);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionTan(final ExpressionParser.MathematicsFunctionTanContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double degrees = child.doubleValue();
+    final double tan = Math.tan(degrees);
+
+    final BigDecimal result = BigDecimal.valueOf(tan);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionAtan(final ExpressionParser.MathematicsFunctionAtanContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double degrees = child.doubleValue();
+    final double atan = Math.atan(degrees);
+
+    final BigDecimal result = BigDecimal.valueOf(atan);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionLn(final ExpressionParser.MathematicsFunctionLnContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double value = child.doubleValue();
+    final double log = Math.log(value);
+
+    final BigDecimal result = BigDecimal.valueOf(log);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public final Object visitMathematicsFunctionLog(final ExpressionParser.MathematicsFunctionLogContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double value = child.doubleValue();
+    final double log = Math.log10(value);
+
+    final BigDecimal result = BigDecimal.valueOf(log);
+    return resultNormatize(result);
+  }
+
+  @Override
+  public Object visitMathematicsFunctionSqrt(final ExpressionParser.MathematicsFunctionSqrtContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression());
+    final double value = child.doubleValue();
+    final double sqrt = Math.sqrt(value);
+
+    final BigDecimal result = BigDecimal.valueOf(sqrt);
+    return resultNormatize(result);
+  }
+
+  @Override
   public final Object visitCompareDate(final ExpressionParser.CompareDateContext ctx) {
     final Calendar left = (Calendar) visit(ctx.dateExpresion(0));
     final Calendar right = (Calendar) visit(ctx.dateExpresion(1));
