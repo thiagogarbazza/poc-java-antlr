@@ -50,3 +50,16 @@ Feature: Mathematics operations
       | 27.5 / 5              | 5.5                                 |
       | 100 / 3               | 33.33333333333333333333333333333333 |
       | 120 / 5 / 4 / 3 / 2 1 | 1                                   |
+
+  Scenario Outline: 05. Perform exponentiation mathematical operation.
+    Given Send the operation "<expression>".
+    When I ask what the result is?
+    Then I should be result "<expression-result>".
+    Examples:
+      | expression | expression-result |
+      | 1 ^ 1      | 1                 |
+      | 15 ^ 0     | 1                 |
+      | 5 ^ 3      | 125               |
+      | 12 ^ 2     | 144               |
+      | 8 ^ 3      | 512               |
+      | 3.3 ^ 3    | 35.937            |
