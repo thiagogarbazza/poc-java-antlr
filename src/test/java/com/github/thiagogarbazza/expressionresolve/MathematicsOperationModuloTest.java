@@ -3,6 +3,7 @@ package com.github.thiagogarbazza.expressionresolve;
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
 import org.junit.Test;
 
+@Deprecated //"replaced by acceptance test with cucumber"
 public class MathematicsOperationModuloTest extends AbstractFunctionsTest {
 
   @Test

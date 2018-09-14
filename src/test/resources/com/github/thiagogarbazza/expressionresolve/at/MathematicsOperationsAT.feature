@@ -63,3 +63,14 @@ Feature: Mathematics operations
       | 12 ^ 2     | 144               |
       | 8 ^ 3      | 512               |
       | 3.3 ^ 3    | 35.937            |
+
+  Scenario Outline: 06. Perform modulo mathematical operation.
+    Given Send the operation "<expression>".
+    When I ask what the result is?
+    Then I should be result "<expression-result>".
+    Examples:
+      | expression | expression-result |
+      | 1 % 1      | 0                 |
+      | 10 % 3     | 1                 |
+      | 33 % 3     | 0                 |
+      | 24.4 % 5   | 4.4               |
