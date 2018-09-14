@@ -1,5 +1,5 @@
-Feature: Mathematics operation addition
-  It is necessary that expression-resolver perform sum math operation.
+Feature: Mathematics operations
+  It is necessary that expression-resolver perform math operations.
 
   Scenario Outline: Perform sum math operation.
     Given Send the operation "<expression>".

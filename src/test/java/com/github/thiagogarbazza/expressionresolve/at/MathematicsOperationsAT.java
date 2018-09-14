@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = true, plugin = {"pretty", "html:target/cucumber"}, tags = {"not @Ignore"},
-  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/MathematicsOperationAdditionAT.feature")
-public class MathematicsOperationAdditionAT {
+  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/MathematicsOperationsAT.feature")
+public class MathematicsOperationsAT {
 
 }
