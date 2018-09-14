@@ -29,7 +29,24 @@ Feature: Mathematics operations
     When I ask what the result is?
     Then I should be result "<expression-result>".
     Examples:
-      | expression        | expression-result |
-      | 1 * 1             | 1                 |
-      | 5 * 5             | 25                |
-      | 5 * 4 * 3 * 2 * 1 | 120               |
+      | expression                              | expression-result                   |
+      | 1 * 1                                   | 1                                   |
+      | 5 * 5                                   | 25                                  |
+      | 5.5 * 5                                 | 27.5                                |
+      | 33.33333333333333333333333333333333 * 3 | 99.99999999999999999999999999999999 |
+      | 5 * 4 * 3 * 2 * 1                       | 120                                 |
+
+  Scenario Outline: 04. Perform division mathematical operation.
+    Given Send the operation "<expression>".
+    When I ask what the result is?
+    Then I should be result "<expression-result>".
+    Examples:
+      | expression            | expression-result                   |
+      | 1 / 1                 | 1                                   |
+      | 5 / 5                 | 1                                   |
+      | 15 / 5                | 3                                   |
+      | 99 / 3                | 33                                  |
+      | 99.99 / 3             | 33.33                               |
+      | 27.5 / 5              | 5.5                                 |
+      | 100 / 3               | 33.33333333333333333333333333333333 |
+      | 120 / 5 / 4 / 3 / 2 1 | 1                                   |

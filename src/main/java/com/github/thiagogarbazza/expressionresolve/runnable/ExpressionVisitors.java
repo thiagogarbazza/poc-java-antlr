@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static java.math.MathContext.DECIMAL128;
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
@@ -79,7 +80,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     BigDecimal result = (BigDecimal) visit(ctx.arithmeticExpression(0));
     for (int i = 1; i < ctx.arithmeticExpression().size(); i++) {
       final BigDecimal child = (BigDecimal) visit(ctx.arithmeticExpression(i));
-      result = result.divide(child);
+      result = result.divide(child, DECIMAL128);
     }
     return result;
   }
