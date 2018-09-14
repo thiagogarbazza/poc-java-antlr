@@ -23,3 +23,13 @@ Feature: Mathematics operations
       | 15 - 5     | 10                |
       | 15.5 - 5.2 | 10.3              |
       | - 15 - 5   | -20               |
+
+  Scenario Outline: 03. Perform multiplication mathematical operation.
+    Given Send the operation "<expression>".
+    When I ask what the result is?
+    Then I should be result "<expression-result>".
+    Examples:
+      | expression        | expression-result |
+      | 1 * 1             | 1                 |
+      | 5 * 5             | 25                |
+      | 5 * 4 * 3 * 2 * 1 | 120               |
