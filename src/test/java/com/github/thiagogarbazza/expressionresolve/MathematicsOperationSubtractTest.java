@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+@Deprecated //"replaced by acceptance test with cucumber"
 public class MathematicsOperationSubtractTest extends AbstractFunctionsTest {
 
   @Test
