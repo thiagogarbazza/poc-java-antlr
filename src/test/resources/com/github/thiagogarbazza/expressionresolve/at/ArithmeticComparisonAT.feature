@@ -64,7 +64,7 @@ Feature: Arithmetic comparison
       | 3.3 < 3    | false             |
       | 5.5 < 5.5  | false             |
 
-  Scenario Outline: 04. perform "less than or equal" expression.
+  Scenario Outline: 06. perform "less than or equal" expression.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the boolean: "<expression-result>".
