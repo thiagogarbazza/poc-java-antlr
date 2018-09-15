@@ -10,3 +10,13 @@ Feature: Boolean expression
       | true && true   | true              |
       | true && false  | false             |
       | false && false | false             |
+
+  Scenario Outline: 02. perform "or" expression.
+    Given Send the expression "<expression>".
+    When I ask what the result is?
+    Then I should have resulted the boolean: "<expression-result>".
+    Examples:
+      | expression       | expression-result |
+      | true \|\|  true  | true              |
+      | true \|\| false  | true              |
+      | false \|\| false | false             |
