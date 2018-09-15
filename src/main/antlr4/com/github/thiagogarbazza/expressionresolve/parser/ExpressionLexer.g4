@@ -50,7 +50,10 @@ RBRACK  : ']';
 LBRACE  : '{';
 RBRACE  : '}';
 
-BOOLEAN  : ('true' | 'false');
+BOOLEAN
+  : 'true'
+  | 'false'
+  ;
 
 NUMBER
   : Integer
