@@ -26,3 +26,13 @@ Feature: Function compare
       | compare('a', 'a') | 0                 |
       | compare('z', 'a') | 1                 |
       | compare('Z', 'A') | 1                 |
+
+  Scenario Outline: 01. Perform "compare dates".
+    Given Send the expression "<expression>".
+    When I ask what the result is?
+    Then I should have resulted the number: "<expression-result>".
+    Examples:
+      | expression                      | expression-result |
+      | compare(1900/12/31, 2021/01/01) | -1                |
+      | compare(2018/12/31, 2018/12/31) | 0                 |
+      | compare(2021/01/01, 1900/12/31) | 1                 |

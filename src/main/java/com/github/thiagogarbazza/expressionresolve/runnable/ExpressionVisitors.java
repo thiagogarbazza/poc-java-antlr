@@ -296,6 +296,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitCompareDates(final ExpressionParser.CompareDatesContext ctx) {
+    final Calendar left = (Calendar) visit(ctx.dateExpresion(0));
+    final Calendar right = (Calendar) visit(ctx.dateExpresion(1));
+    final Integer result = left.compareTo(right);
+
+    return normalizeResultCompare(result);
+  }
+
+  @Override
   public final Object visitCalendarFunctionDate(final ExpressionParser.CalendarFunctionDateContext ctx) {
     throw new IllegalStateException("not implemented");
   }
