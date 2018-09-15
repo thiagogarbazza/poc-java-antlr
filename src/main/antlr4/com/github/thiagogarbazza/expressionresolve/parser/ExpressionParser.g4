@@ -81,7 +81,7 @@ functionsThatReturnDate
   ;
 
 functionsThatReturnNumber
-  : FN_MATH_COS  LPAREN numberExpresion RPAREN                        # mathematicsFunctionCos
+  : FN_MATH_COS  LPAREN numberExpresion RPAREN                        # functionCos
   | FN_MATH_ACOS LPAREN numberExpresion RPAREN                        # mathematicsFunctionAcos
   | FN_MATH_SIN  LPAREN numberExpresion RPAREN                        # mathematicsFunctionSin
   | FN_MATH_ASIN LPAREN numberExpresion RPAREN                        # mathematicsFunctionAsin

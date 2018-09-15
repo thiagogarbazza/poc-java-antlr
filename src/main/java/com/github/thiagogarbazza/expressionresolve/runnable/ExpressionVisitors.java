@@ -60,12 +60,77 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public final Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
+    Boolean value = (Boolean) visit(ctx.booleanExpression());
+    return value;
+  }
+
+  @Override
   public Object visitBooleanNumberComparison(final ExpressionParser.BooleanNumberComparisonContext ctx) {
     final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
     final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
     Comparison comparison = Comparison.findByOperator(ctx.op.getText());
 
     return comparison.compare(left, right);
+  }
+
+  @Override
+  public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final Boolean value = executionContext.get(identifier, Boolean.class);
+    return value;
+  }
+
+  @Override
+  public final Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
+    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
+    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+    return left || right;
+  }
+
+  @Override
+  public final Object visitPrimitiveBoolean(final ExpressionParser.PrimitiveBooleanContext ctx) {
+    final String bool = ctx.getText();
+    return new Boolean(bool);
+  }
+
+  @Override
+  public final Object visitBooleanNegation(final ExpressionParser.BooleanNegationContext ctx) {
+    Boolean value = (Boolean) visit(ctx.booleanExpression());
+    return BooleanUtils.negate(value);
+  }
+
+  @Override
+  public final Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
+    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
+    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+    return left && right;
+  }
+
+  @Override
+  public final Object visitPrimitiveDate(final ExpressionParser.PrimitiveDateContext ctx) {
+    final String date = ctx.getText();
+    try {
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(DATE_FORMAT.parse(date));
+      return cal;
+    } catch (ParseException e) {
+      throw new SyntaxException("Error format date.", e);
+    }
+  }
+
+  @Override
+  public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final Calendar value = executionContext.get(identifier, Calendar.class);
+    return value;
+  }
+
+  @Override
+  public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final BigDecimal value = executionContext.get(identifier, BigDecimal.class);
+    return value;
   }
 
   @Override
@@ -112,6 +177,12 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public final Object visitPrimitiveNumber(final ExpressionParser.PrimitiveNumberContext ctx) {
+    final BigDecimal result = new BigDecimal(ctx.getText());
+    return result;
+  }
+
+  @Override
   public final Object visitMathematicsOperationAddition(final ExpressionParser.MathematicsOperationAdditionContext ctx) {
     BigDecimal result = BigDecimal.ZERO;
     for (ExpressionParser.NumberExpresionContext numberExpresionContext : ctx.numberExpresion()) {
@@ -138,13 +209,35 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsFunctionCos(final ExpressionParser.MathematicsFunctionCosContext ctx) {
+  public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
+    return ctx.getText();
+  }
+
+  @Override
+  public final Object visitIdentifierString(final ExpressionParser.IdentifierStringContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final String value = executionContext.get(identifier, String.class);
+    return value;
+  }
+
+  @Override
+  public final Object visitCalendarFunctionDate(final ExpressionParser.CalendarFunctionDateContext ctx) {
+    throw new IllegalStateException("not implemented");
+  }
+
+  @Override
+  public final Object visitCalendarFunctionToday(final ExpressionParser.CalendarFunctionTodayContext ctx) {
+    final Calendar value = executionContext.get("today", Calendar.class);
+    return value;
+  }
+
+  @Override
+  public Object visitFunctionCos(final ExpressionParser.FunctionCosContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
     final double degrees = child.doubleValue();
     final double cos = Math.cos(degrees);
 
-    final BigDecimal result = BigDecimal.valueOf(cos);
-    return resultNormatize(result);
+    return normalizeResult(cos);
   }
 
   @Override
@@ -218,34 +311,13 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCalendarFunctionDay(final ExpressionParser.CalendarFunctionDayContext ctx) {
-    Calendar cal = (Calendar) visit(ctx.dateExpresion());
-    return BigDecimal.valueOf(cal.get(DAY_OF_MONTH));
-  }
+  public final Object visitMathematicsFunctionSqrt(final ExpressionParser.MathematicsFunctionSqrtContext ctx) {
+    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
+    final double value = child.doubleValue();
+    final double sqrt = Math.sqrt(value);
 
-  @Override
-  public final Object visitCalendarFunctionMonth(final ExpressionParser.CalendarFunctionMonthContext ctx) {
-    Calendar cal = (Calendar) visit(ctx.dateExpresion());
-    return BigDecimal.valueOf(cal.get(MONTH) + 1);
-  }
-
-  @Override
-  public final Object visitCalendarFunctionYear(final ExpressionParser.CalendarFunctionYearContext ctx) {
-    Calendar cal = (Calendar) visit(ctx.dateExpresion());
-    return BigDecimal.valueOf(cal.get(YEAR));
-  }
-
-  @Override
-  public final Object visitPrimitiveNumber(final ExpressionParser.PrimitiveNumberContext ctx) {
-    final BigDecimal result = new BigDecimal(ctx.getText());
-    return result;
-  }
-
-  @Override
-  public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-    final BigDecimal value = executionContext.get(identifier, BigDecimal.class);
-    return value;
+    final BigDecimal result = BigDecimal.valueOf(sqrt);
+    return resultNormatize(result);
   }
 
   @Override
@@ -276,94 +348,27 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCalendarFunctionDate(final ExpressionParser.CalendarFunctionDateContext ctx) {
-    throw new IllegalStateException("not implemented");
+  public final Object visitCalendarFunctionDay(final ExpressionParser.CalendarFunctionDayContext ctx) {
+    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    return BigDecimal.valueOf(cal.get(DAY_OF_MONTH));
   }
 
   @Override
-  public final Object visitCalendarFunctionToday(final ExpressionParser.CalendarFunctionTodayContext ctx) {
-    final Calendar value = executionContext.get("today", Calendar.class);
-    return value;
+  public final Object visitCalendarFunctionMonth(final ExpressionParser.CalendarFunctionMonthContext ctx) {
+    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    return BigDecimal.valueOf(cal.get(MONTH) + 1);
   }
 
   @Override
-  public final Object visitPrimitiveDate(final ExpressionParser.PrimitiveDateContext ctx) {
-    final String date = ctx.getText();
-    try {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(DATE_FORMAT.parse(date));
-      return cal;
-    } catch (ParseException e) {
-      throw new SyntaxException("Error format date.", e);
-    }
+  public final Object visitCalendarFunctionYear(final ExpressionParser.CalendarFunctionYearContext ctx) {
+    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    return BigDecimal.valueOf(cal.get(YEAR));
   }
 
-  @Override
-  public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-    final Calendar value = executionContext.get(identifier, Calendar.class);
-    return value;
-  }
+  private Object normalizeResult(final double value) {
+    final BigDecimal result = BigDecimal.valueOf(value);
 
-  @Override
-  public final Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
-    Boolean value = (Boolean) visit(ctx.booleanExpression());
-    return value;
-  }
-
-  @Override
-  public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-    final Boolean value = executionContext.get(identifier, Boolean.class);
-    return value;
-  }
-
-  @Override
-  public final Object visitMathematicsFunctionSqrt(final ExpressionParser.MathematicsFunctionSqrtContext ctx) {
-    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
-    final double value = child.doubleValue();
-    final double sqrt = Math.sqrt(value);
-
-    final BigDecimal result = BigDecimal.valueOf(sqrt);
     return resultNormatize(result);
-  }
-
-  @Override
-  public final Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
-    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
-    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
-    return left || right;
-  }
-
-  @Override
-  public final Object visitPrimitiveBoolean(final ExpressionParser.PrimitiveBooleanContext ctx) {
-    final String bool = ctx.getText();
-    return new Boolean(bool);
-  }
-
-  @Override
-  public final Object visitBooleanNegation(final ExpressionParser.BooleanNegationContext ctx) {
-    Boolean value = (Boolean) visit(ctx.booleanExpression());
-    return BooleanUtils.negate(value);
-  }
-
-  @Override
-  public final Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
-    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
-    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
-    return left && right;
-  }
-
-  @Override
-  public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
-    return ctx.getText();
-  }
-
-  @Override
-  public final Object visitIdentifierString(final ExpressionParser.IdentifierStringContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-    final String value = executionContext.get(identifier, String.class);
-    return value;
   }
 
   private final Object normalizeResultCompare(Integer result) {
