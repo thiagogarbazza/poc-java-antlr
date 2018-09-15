@@ -2,9 +2,9 @@ Feature: Mathematics operations
   It is necessary that expression-resolver perform math operations.
 
   Scenario Outline: 01. Perform addition mathematical operation.
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression             | expression-result |
       | 1 + 1                  | 2                 |
@@ -14,9 +14,9 @@ Feature: Mathematics operations
       | +1 + 2 + 3 + 4 + 5 + 6 | 21                |
 
   Scenario Outline: 02. Perform subtraction mathematical operation.
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression  | expression-result |
       | 1 - 1       | 0                 |
@@ -26,9 +26,9 @@ Feature: Mathematics operations
       | 20 - 15 + 3 | 8                 |
 
   Scenario Outline: 03. Perform multiplication mathematical operation.
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression                              | expression-result                   |
       | 1 * 1                                   | 1                                   |
@@ -38,9 +38,9 @@ Feature: Mathematics operations
       | 5 * 4 * 3 * 2 * 1                       | 120                                 |
 
   Scenario Outline: 04. Perform division mathematical operation.
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression            | expression-result                   |
       | 1 / 1                 | 1                                   |
@@ -53,9 +53,9 @@ Feature: Mathematics operations
       | 120 / 5 / 4 / 3 / 2 1 | 1                                   |
 
   Scenario Outline: 05. Perform exponentiation mathematical operation.
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression | expression-result |
       | 1 ^ 1      | 1                 |
@@ -66,9 +66,9 @@ Feature: Mathematics operations
       | 3.3 ^ 3    | 35.937            |
 
   Scenario Outline: 06. Perform modulo mathematical operation.
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression | expression-result |
       | 1 % 1      | 0                 |
@@ -77,9 +77,9 @@ Feature: Mathematics operations
       | 24.4 % 5   | 4.4               |
 
   Scenario Outline: 07. Numeric Expressions with Brackets, Brackets, and Braces
-    Given Send the operation "<expression>".
+    Given Send the expression "<expression>".
     When I ask what the result is?
-    Then I should be result "<expression-result>".
+    Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression                                                 | expression-result |
       | (6/2)                                                      | 3                 |

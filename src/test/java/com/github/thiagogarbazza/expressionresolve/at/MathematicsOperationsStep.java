@@ -26,13 +26,13 @@ public class MathematicsOperationsStep {
     context = new ExpressionContext();
   }
 
-  @Given("^Send the operation \"([^\"]*)\".$")
-  public void givenSendTheOperation(String expression) throws Throwable {
+  @Given("^Send the expression \"([^\"]*)\".$")
+  public void givenSendTheExpression(String expression) throws Throwable {
     this.expression = new Expression(expression);
   }
 
-  @Then("^I should be result \"([^\"]*)\".$")
-  public void thenIShouldBeResult(String expressionResult) throws Throwable {
+  @Then("^I should have resulted the number: \"([^\"]*)\".$")
+  public void thenIShouldHaveResultedTheNumber(String expressionResult) throws Throwable {
     Result expected = new Result(new BigDecimal(expressionResult));
     assertEquals(expected, this.expressionResult);
   }
