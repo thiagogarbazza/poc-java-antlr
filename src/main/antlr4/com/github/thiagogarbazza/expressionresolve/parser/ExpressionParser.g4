@@ -70,8 +70,13 @@ numberExpresion
   | FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                            # calendarFunctionDay
   | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                            # calendarFunctionMonth
   | FN_CALENDAR_YEAR  LPAREN dateExpresion RPAREN                            # calendarFunctionYear
+  | functionsThatReturnsNumber                                               # functionThatReturnsNumber
   | NUMBER                                                                   # primitiveNumber
   | IDENTIFIER                                                               # identifierNumber
+  ;
+
+functionsThatReturnsNumber
+  : FN_COMPARE LPAREN numberExpresion COMMA numberExpresion RPAREN  # compareNumbers
   ;
 
 dateExpresion

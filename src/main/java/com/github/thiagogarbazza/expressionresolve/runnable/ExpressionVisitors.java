@@ -278,6 +278,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitCompareNumbers(final ExpressionParser.CompareNumbersContext ctx) {
+    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+    final Integer compare = left.compareTo(right);
+
+    return resultNormatize(compare);
+  }
+
+  @Override
   public final Object visitCalendarFunctionDate(final ExpressionParser.CalendarFunctionDateContext ctx) {
     throw new IllegalStateException("not implemented");
   }
