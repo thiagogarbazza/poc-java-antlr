@@ -42,3 +42,14 @@ Feature: Boolean expression
       | true \|\| false && true   | true              |
       | false \|\| false && true  | false             |
       | false \|\| !false && true | true              |
+
+  Scenario Outline: 05. perform "grouped" expression.
+    Given Send the expression "<expression>".
+    When I ask what the result is?
+    Then I should have resulted the boolean: "<expression-result>".
+    Examples:
+      | expression                  | expression-result |
+      | (true \|\| false) && true   | true              |
+      | (false \|\| false) && true  | false             |
+      | (false \|\| !false) && true | true              |
+      | false \|\| (!false && true) | true              |
