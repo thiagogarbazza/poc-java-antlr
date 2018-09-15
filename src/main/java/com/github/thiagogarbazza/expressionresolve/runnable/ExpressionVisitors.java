@@ -250,13 +250,12 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsFunctionSin(final ExpressionParser.MathematicsFunctionSinContext ctx) {
+  public Object visitFunctionSin(final ExpressionParser.FunctionSinContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
     final double degrees = child.doubleValue();
     final double sin = Math.sin(degrees);
 
-    final BigDecimal result = BigDecimal.valueOf(sin);
-    return resultNormatize(result);
+    return normalizeResult(sin);
   }
 
   @Override
