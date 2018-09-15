@@ -32,59 +32,42 @@ ifExpression
   ;
 
 expression
-  : arithmeticExpression
+  : booleanExpression
   | dateExpresion
-  | booleanExpression
-  ;
-
-arithmeticExpression
-  : functionsExpression                              # mathematicsFunctions
-  | LBRACE arithmeticExpression RBRACE               # mathematicsGroupedBy
-  | LBRACK arithmeticExpression RBRACK               # mathematicsGroupedBy
-  | LPAREN arithmeticExpression RPAREN               # mathematicsGroupedBy
-  | op = (PLUS | MINUS) arithmeticExpression         # mathematicsOperationSign
-  | arithmeticExpression POW   arithmeticExpression  # mathematicsOperationPow
-  | arithmeticExpression MULT  arithmeticExpression  # mathematicsOperationMultiply
-  | arithmeticExpression DIV   arithmeticExpression  # mathematicsOperationDivide
-  | arithmeticExpression MOD   arithmeticExpression  # mathematicsOperationModulo
-  | arithmeticExpression MINUS arithmeticExpression  # mathematicsOperationSubtract
-  | arithmeticExpression PLUS  arithmeticExpression  # mathematicsOperationAddition
-  | numberExpresion                                  # mathematicsNumeric
-  ;
-
-functionsExpression
-  : FN_MATH_COS  LPAREN arithmeticExpression RPAREN  # mathematicsFunctionCos
-  | FN_MATH_ACOS LPAREN arithmeticExpression RPAREN  # mathematicsFunctionAcos
-  | FN_MATH_SIN  LPAREN arithmeticExpression RPAREN  # mathematicsFunctionSin
-  | FN_MATH_ASIN LPAREN arithmeticExpression RPAREN  # mathematicsFunctionAsin
-  | FN_MATH_TAN  LPAREN arithmeticExpression RPAREN  # mathematicsFunctionTan
-  | FN_MATH_ATAN LPAREN arithmeticExpression RPAREN  # mathematicsFunctionAtan
-  | FN_MATH_LN   LPAREN arithmeticExpression RPAREN  # mathematicsFunctionLn
-  | FN_MATH_LOG  LPAREN arithmeticExpression RPAREN  # mathematicsFunctionLog
-  | FN_MATH_SQRT LPAREN arithmeticExpression RPAREN  # mathematicsFunctionSqrt
-  ;
-
-numberExpresion
-  : functionsThatReturnNumber  # functionThatReturnNumber
-  | NUMBER                     # primitiveNumber
-  | IDENTIFIER                 # identifierNumber
-  ;
-
-dateExpresion
-  : FN_CALENDAR_DATE LPAREN DateYear COMMA DateMonth COMMA DateDay RPAREN  # calendarFunctionDate
-  | FN_CALENDAR_TODAY                                                      # calendarFunctionToday
-  | DATE                                                                   # primitiveDate
-  | IDENTIFIER                                                             # identifierDate
+  | numberExpresion
+  | stringExpression
   ;
 
 booleanExpression
-  : LPAREN booleanExpression RPAREN                          # booleanGroupedBy
-  | NOT booleanExpression                                    # booleanNegation
-  | booleanExpression AND booleanExpression                  # booleanAND
-  | booleanExpression OR  booleanExpression                  # booleanOR
-  | arithmeticExpression op=COMPARISON arithmeticExpression  # booleanArithmeticComparison
-  | BOOLEAN                                                  # primitiveBoolean
-  | IDENTIFIER                                               # identifierBoolean
+  : LPAREN booleanExpression RPAREN                # booleanGroupedBy
+  | NOT booleanExpression                          # booleanNegation
+  | booleanExpression AND booleanExpression        # booleanAND
+  | booleanExpression OR  booleanExpression        # booleanOR
+  | numberExpresion op=COMPARISON numberExpresion  # booleanNumberComparison
+  | BOOLEAN                                        # primitiveBoolean
+  | IDENTIFIER                                     # identifierBoolean
+  ;
+
+dateExpresion
+  : functionsThatReturnDate  # functionThatReturnDate
+  | DATE                     # primitiveDate
+  | IDENTIFIER               # identifierDate
+  ;
+
+numberExpresion
+  : LBRACE numberExpresion RBRACE          # mathematicsGroupedBy
+  | LBRACK numberExpresion RBRACK          # mathematicsGroupedBy
+  | LPAREN numberExpresion RPAREN          # mathematicsGroupedBy
+  | op = (PLUS | MINUS) numberExpresion    # mathematicsOperationSign
+  | numberExpresion POW   numberExpresion  # mathematicsOperationPow
+  | numberExpresion MULT  numberExpresion  # mathematicsOperationMultiply
+  | numberExpresion DIV   numberExpresion  # mathematicsOperationDivide
+  | numberExpresion MOD   numberExpresion  # mathematicsOperationModulo
+  | numberExpresion MINUS numberExpresion  # mathematicsOperationSubtract
+  | numberExpresion PLUS  numberExpresion  # mathematicsOperationAddition
+  | functionsThatReturnNumber              # functionThatReturnNumber
+  | NUMBER                                 # primitiveNumber
+  | IDENTIFIER                             # identifierNumber
   ;
 
 stringExpression
@@ -92,8 +75,22 @@ stringExpression
   | IDENTIFIER  # identifierString
   ;
 
+functionsThatReturnDate
+  : FN_CALENDAR_DATE LPAREN DateYear COMMA DateMonth COMMA DateDay RPAREN  # calendarFunctionDate
+  | FN_CALENDAR_TODAY                                                      # calendarFunctionToday
+  ;
+
 functionsThatReturnNumber
-  : FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
+  : FN_MATH_COS  LPAREN numberExpresion RPAREN                        # mathematicsFunctionCos
+  | FN_MATH_ACOS LPAREN numberExpresion RPAREN                        # mathematicsFunctionAcos
+  | FN_MATH_SIN  LPAREN numberExpresion RPAREN                        # mathematicsFunctionSin
+  | FN_MATH_ASIN LPAREN numberExpresion RPAREN                        # mathematicsFunctionAsin
+  | FN_MATH_TAN  LPAREN numberExpresion RPAREN                        # mathematicsFunctionTan
+  | FN_MATH_ATAN LPAREN numberExpresion RPAREN                        # mathematicsFunctionAtan
+  | FN_MATH_LN   LPAREN numberExpresion RPAREN                        # mathematicsFunctionLn
+  | FN_MATH_LOG  LPAREN numberExpresion RPAREN                        # mathematicsFunctionLog
+  | FN_MATH_SQRT LPAREN numberExpresion RPAREN                        # mathematicsFunctionSqrt
+  | FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
   | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # compareStrings
   | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # compareDates
   | FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                     # calendarFunctionDay

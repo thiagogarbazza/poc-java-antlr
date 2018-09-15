@@ -1,8 +1,10 @@
 package com.github.thiagogarbazza.expressionresolve;
 
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class AssignmentExpressionTest extends AbstractFunctionsTest {
 
   @Test
