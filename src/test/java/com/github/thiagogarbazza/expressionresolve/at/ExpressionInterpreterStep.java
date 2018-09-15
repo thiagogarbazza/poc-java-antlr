@@ -11,9 +11,10 @@ import cucumber.api.java.en.When;
 
 import java.math.BigDecimal;
 
+import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.junit.Assert.assertEquals;
 
-public class MathematicsOperationsStep {
+public class ExpressionInterpreterStep {
 
   private ExpressionContext context;
   private Expression expression;
@@ -29,6 +30,12 @@ public class MathematicsOperationsStep {
   @Given("^Send the expression \"([^\"]*)\".$")
   public void givenSendTheExpression(String expression) throws Throwable {
     this.expression = new Expression(expression);
+  }
+
+  @Then("^I should have resulted the boolean: \"([^\"]*)\".$")
+  public void thenIShouldHaveResultedTheBoolean(String expressionResult) throws Throwable {
+    Result expected = new Result(toBoolean(expressionResult));
+    assertEquals(expected, this.expressionResult);
   }
 
   @Then("^I should have resulted the number: \"([^\"]*)\".$")
