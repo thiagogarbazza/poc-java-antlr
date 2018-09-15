@@ -241,13 +241,12 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsFunctionAcos(final ExpressionParser.MathematicsFunctionAcosContext ctx) {
+  public Object visitFunctionAcos(final ExpressionParser.FunctionAcosContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
     final double degrees = child.doubleValue();
     final double acos = Math.acos(degrees);
 
-    final BigDecimal result = BigDecimal.valueOf(acos);
-    return resultNormatize(result);
+    return normalizeResult(acos);
   }
 
   @Override
