@@ -23,3 +23,17 @@ Feature: Arithmetic comparison
       | 3.3 != 3.33 | true              |
       | 7 != 7      | false             |
       | 3.3 != 3.3  | false             |
+
+
+  Scenario Outline: 03. perform "greater than" expression.
+    Given Send the expression "<expression>".
+    When I ask what the result is?
+    Then I should have resulted the boolean: "<expression-result>".
+    Examples:
+      | expression | expression-result |
+      | 9 > 5      | true              |
+      | 9.9 > 5.5  | true              |
+      | 9.9 > 5.5  | true              |
+      | 9.9 > 9    | true              |
+      | 7 > 7      | false             |
+      | 3 > 3.3    | false             |
