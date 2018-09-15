@@ -69,9 +69,9 @@ DATE  : DateYear '/' DateMonth '/' DateDay;
 
 IDENTIFIER  : Letter LetterOrDigit*;
 
-fragment Digit   : [0-9];
-fragment Digit4  : Digit Digit Digit Digit;
-fragment Digits  : Digit+;
+fragment Digit    : [0-9];
+fragment Digit4   : Digit Digit Digit Digit;
+fragment Digits   : Digit+;
 fragment Integer  : Digits;
 fragment Decimal  : Digits POINT Digits;
 
