@@ -1,7 +1,7 @@
 Feature: Mathematics operations
   It is necessary that expression-resolver perform math operations.
 
-  Scenario Outline: 01. Perform addition mathematical operation.
+  Scenario Outline: 01. Perform "addition" mathematical operation.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
@@ -14,7 +14,7 @@ Feature: Mathematics operations
       | + 15 + 5               | 20                |
       | +1 + 2 + 3 + 4 + 5 + 6 | 21                |
 
-  Scenario Outline: 02. Perform subtraction mathematical operation.
+  Scenario Outline: 02. Perform "subtraction" mathematical operation.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
@@ -27,7 +27,7 @@ Feature: Mathematics operations
       | - 15 - 5    | -20               |
       | 20 - 15 + 3 | 8                 |
 
-  Scenario Outline: 03. Perform multiplication mathematical operation.
+  Scenario Outline: 03. Perform "multiplication" mathematical operation.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
@@ -39,7 +39,7 @@ Feature: Mathematics operations
       | 33.33333333333333333333333333333333 * 3 | 99.99999999999999999999999999999999 |
       | 5 * 4 * 3 * 2 * 1                       | 120                                 |
 
-  Scenario Outline: 04. Perform division mathematical operation.
+  Scenario Outline: 04. Perform "division" mathematical operation.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
@@ -54,7 +54,7 @@ Feature: Mathematics operations
       | 100 / 3               | 33.33333333333333333333333333333333 |
       | 120 / 5 / 4 / 3 / 2 1 | 1                                   |
 
-  Scenario Outline: 05. Perform exponentiation mathematical operation.
+  Scenario Outline: 05. Perform "exponentiation" mathematical operation.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
@@ -67,7 +67,7 @@ Feature: Mathematics operations
       | 8 ^ 3      | 512               |
       | 3.3 ^ 3    | 35.937            |
 
-  Scenario Outline: 06. Perform modulo mathematical operation.
+  Scenario Outline: 06. Perform "modulo" mathematical operation.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
