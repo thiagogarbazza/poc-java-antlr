@@ -51,8 +51,11 @@ LBRACE  : '{';
 RBRACE  : '}';
 
 BOOLEAN  : ('true' | 'false');
-INTEGER  : Digits;
-DECIMAL  : Digits POINT Digits;
+
+NUMBER
+  : Integer
+  | Decimal
+  ;
 
 STRING
   : QuotesSimple Anything QuotesSimple
@@ -66,6 +69,8 @@ IDENTIFIER  : Letter LetterOrDigit*;
 fragment Digit   : [0-9];
 fragment Digit4  : Digit Digit Digit Digit;
 fragment Digits  : Digit+;
+fragment Integer  : Digits;
+fragment Decimal  : Digits POINT Digits;
 
 fragment QuotesSimple  : '\'';
 fragment QuotesDouble  : '"';
