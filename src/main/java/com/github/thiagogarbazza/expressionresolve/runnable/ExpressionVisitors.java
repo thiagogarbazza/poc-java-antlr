@@ -231,22 +231,6 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCompareDate(final ExpressionParser.CompareDateContext ctx) {
-    final Calendar left = (Calendar) visit(ctx.dateExpresion(0));
-    final Calendar right = (Calendar) visit(ctx.dateExpresion(1));
-    final Integer compare = left.compareTo(right);
-    return resultNormatize(compare);
-  }
-
-  @Override
-  public final Object visitCompareString(final ExpressionParser.CompareStringContext ctx) {
-    final String left = (String) visit(ctx.stringExpression(0));
-    final String right = (String) visit(ctx.stringExpression(1));
-    final Integer compare = left.compareTo(right);
-    return resultNormatize(compare);
-  }
-
-  @Override
   public final Object visitCalendarFunctionDay(final ExpressionParser.CalendarFunctionDayContext ctx) {
     Calendar cal = (Calendar) visit(ctx.dateExpresion());
     return BigDecimal.valueOf(cal.get(DAY_OF_MONTH));

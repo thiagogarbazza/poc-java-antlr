@@ -22,8 +22,6 @@ FN_MATH_LN    : 'ln';
 FN_MATH_LOG   : 'log';
 
 FN_COMPARE    : 'compare';
-FN_COMPARE_DATE    : 'compareDate';
-FN_COMPARE_STRING  : 'compareString';
 
 OR   : '||';
 AND  : '&&';
