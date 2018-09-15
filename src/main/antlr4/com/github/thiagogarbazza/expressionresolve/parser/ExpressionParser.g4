@@ -65,18 +65,9 @@ functionsExpression
   ;
 
 numberExpresion
-  : FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                            # calendarFunctionDay
-  | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                            # calendarFunctionMonth
-  | FN_CALENDAR_YEAR  LPAREN dateExpresion RPAREN                            # calendarFunctionYear
-  | functionsThatReturnNumber                                                # functionThatReturnNumber
-  | NUMBER                                                                   # primitiveNumber
-  | IDENTIFIER                                                               # identifierNumber
-  ;
-
-functionsThatReturnNumber
-  : FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
-  | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # compareStrings
-  | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # compareDates
+  : functionsThatReturnNumber  # functionThatReturnNumber
+  | NUMBER                     # primitiveNumber
+  | IDENTIFIER                 # identifierNumber
   ;
 
 dateExpresion
@@ -99,4 +90,13 @@ booleanExpression
 stringExpression
   : STRING      # primitiveString
   | IDENTIFIER  # identifierString
+  ;
+
+functionsThatReturnNumber
+  : FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
+  | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # compareStrings
+  | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # compareDates
+  | FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                     # calendarFunctionDay
+  | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                     # calendarFunctionMonth
+  | FN_CALENDAR_YEAR  LPAREN dateExpresion RPAREN                     # calendarFunctionYear
   ;
