@@ -7,6 +7,7 @@ Feature: Mathematics operations
     Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression             | expression-result |
+      | +7                     | 7                 |
       | 1 + 1                  | 2                 |
       | 6 + 4                  | 10                |
       | 5.6 + 4.5              | 10.1              |
@@ -19,6 +20,7 @@ Feature: Mathematics operations
     Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression  | expression-result |
+      | -7          | -7                |
       | 1 - 1       | 0                 |
       | 15 - 5      | 10                |
       | 15.5 - 5.2  | 10.3              |
@@ -85,6 +87,7 @@ Feature: Mathematics operations
       | (6/2)                                                      | 3                 |
       | (6/2) * (1+2)                                              | 9                 |
       | (3 + 2) * (6 - 4)                                          | 10                |
+      | -(7 - 14)                                                  | 7                 |
       | [6/2]                                                      | 3                 |
       | [6/2] * [1+2]                                              | 9                 |
       | [(-6) + (-1) * (+2)]                                       | -8                |
