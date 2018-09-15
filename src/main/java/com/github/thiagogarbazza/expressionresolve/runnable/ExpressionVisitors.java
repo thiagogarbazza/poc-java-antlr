@@ -281,9 +281,18 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public Object visitCompareNumbers(final ExpressionParser.CompareNumbersContext ctx) {
     final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
     final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
-    final Integer compare = left.compareTo(right);
+    final Integer result = left.compareTo(right);
 
-    return resultNormatize(compare);
+    return normalizeResultCompare(result);
+  }
+
+  @Override
+  public Object visitCompareStrings(final ExpressionParser.CompareStringsContext ctx) {
+    final String left = (String) visit(ctx.stringExpression(0));
+    final String right = (String) visit(ctx.stringExpression(1));
+    final Integer result = left.compareTo(right);
+
+    return normalizeResultCompare(result);
   }
 
   @Override
@@ -373,6 +382,16 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     final String identifier = ctx.IDENTIFIER().getText();
     final String value = executionContext.get(identifier, String.class);
     return value;
+  }
+
+  private final Object normalizeResultCompare(Integer result) {
+    if (result == 0) {
+      return resultNormatize(0);
+    }
+
+    return result < 0
+      ? resultNormatize(-1)
+      : resultNormatize(1);
   }
 
   private final Object resultNormatize(final Integer result) {

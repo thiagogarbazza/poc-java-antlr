@@ -76,7 +76,8 @@ numberExpresion
   ;
 
 functionsThatReturnsNumber
-  : FN_COMPARE LPAREN numberExpresion COMMA numberExpresion RPAREN  # compareNumbers
+  : FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
+  | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # compareStrings
   ;
 
 dateExpresion
