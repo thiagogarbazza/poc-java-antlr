@@ -47,8 +47,8 @@ arithmeticExpression
   | arithmeticExpression MULT  arithmeticExpression  # mathematicsOperationMultiply
   | arithmeticExpression DIV   arithmeticExpression  # mathematicsOperationDivide
   | arithmeticExpression MOD   arithmeticExpression  # mathematicsOperationModulo
-  | arithmeticExpression PLUS  arithmeticExpression  # mathematicsOperationAddition
   | arithmeticExpression MINUS arithmeticExpression  # mathematicsOperationSubtract
+  | arithmeticExpression PLUS  arithmeticExpression  # mathematicsOperationAddition
   | numberExpresion                                  # mathematicsNumeric
   ;
 

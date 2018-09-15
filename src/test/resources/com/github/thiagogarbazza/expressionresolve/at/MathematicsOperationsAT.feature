@@ -18,11 +18,12 @@ Feature: Mathematics operations
     When I ask what the result is?
     Then I should be result "<expression-result>".
     Examples:
-      | expression | expression-result |
-      | 1 - 1      | 0                 |
-      | 15 - 5     | 10                |
-      | 15.5 - 5.2 | 10.3              |
-      | - 15 - 5   | -20               |
+      | expression  | expression-result |
+      | 1 - 1       | 0                 |
+      | 15 - 5      | 10                |
+      | 15.5 - 5.2  | 10.3              |
+      | - 15 - 5    | -20               |
+      | 20 - 15 + 3 | 8                 |
 
   Scenario Outline: 03. Perform multiplication mathematical operation.
     Given Send the operation "<expression>".
@@ -74,3 +75,22 @@ Feature: Mathematics operations
       | 10 % 3     | 1                 |
       | 33 % 3     | 0                 |
       | 24.4 % 5   | 4.4               |
+
+  Scenario Outline: 07. Numeric Expressions with Brackets, Brackets, and Braces
+    Given Send the operation "<expression>".
+    When I ask what the result is?
+    Then I should be result "<expression-result>".
+    Examples:
+      | expression                                                 | expression-result |
+      | (6/2)                                                      | 3                 |
+      | (6/2) * (1+2)                                              | 9                 |
+      | (3 + 2) * (6 - 4)                                          | 10                |
+      | [6/2]                                                      | 3                 |
+      | [6/2] * [1+2]                                              | 9                 |
+      | [(-6) + (-1) * (+2)]                                       | -8                |
+      | [(3 + 2) * (6 - 4) + 2] * 4                                | 48                |
+      | {6/2}                                                      | 3                 |
+      | {6/2} * {1+2}                                              | 9                 |
+      | {(-2) + [(-4-2) + (-1) * (+2)] + 20} + 15                  | 25                |
+      | 25 - {3 * 17 - [10 + 6 * (8 - 4 * 2) + 2 + 3] - 4 * 4} / 5 | 21                |
+      | 20 - [4 + (5 - 1) ^ 2 - 5] + 3                             | 8                 |
