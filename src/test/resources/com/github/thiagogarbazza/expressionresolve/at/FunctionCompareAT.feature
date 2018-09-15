@@ -14,7 +14,7 @@ Feature: Function compare
       | compare(9, 1)         | 1                 |
       | compare(9.12, 1.98)   | 1                 |
 
-  Scenario Outline: 01. Perform "compare strings".
+  Scenario Outline: 02. Perform "compare strings".
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
@@ -27,7 +27,7 @@ Feature: Function compare
       | compare('z', 'a') | 1                 |
       | compare('Z', 'A') | 1                 |
 
-  Scenario Outline: 01. Perform "compare dates".
+  Scenario Outline: 03. Perform "compare dates".
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
