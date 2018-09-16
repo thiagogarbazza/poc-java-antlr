@@ -85,8 +85,8 @@ functionsThatReturnNumber
   | FN_MATH_ACOS LPAREN numberExpresion RPAREN                        # functionAcos
   | FN_MATH_SIN  LPAREN numberExpresion RPAREN                        # functionSin
   | FN_MATH_ASIN LPAREN numberExpresion RPAREN                        # functionAsin
-  | FN_MATH_TAN  LPAREN numberExpresion RPAREN                        # mathematicsFunctionTan
-  | FN_MATH_ATAN LPAREN numberExpresion RPAREN                        # mathematicsFunctionAtan
+  | FN_MATH_TAN  LPAREN numberExpresion RPAREN                        # functionTan
+  | FN_MATH_ATAN LPAREN numberExpresion RPAREN                        # functionAtan
   | FN_MATH_LN   LPAREN numberExpresion RPAREN                        # mathematicsFunctionLn
   | FN_MATH_LOG  LPAREN numberExpresion RPAREN                        # mathematicsFunctionLog
   | FN_MATH_SQRT LPAREN numberExpresion RPAREN                        # mathematicsFunctionSqrt

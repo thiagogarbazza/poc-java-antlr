@@ -268,23 +268,21 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsFunctionTan(final ExpressionParser.MathematicsFunctionTanContext ctx) {
+  public Object visitFunctionTan(final ExpressionParser.FunctionTanContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
     final double degrees = child.doubleValue();
     final double tan = Math.tan(degrees);
 
-    final BigDecimal result = BigDecimal.valueOf(tan);
-    return resultNormatize(result);
+    return normalizeResult(tan);
   }
 
   @Override
-  public final Object visitMathematicsFunctionAtan(final ExpressionParser.MathematicsFunctionAtanContext ctx) {
+  public Object visitFunctionAtan(final ExpressionParser.FunctionAtanContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
     final double degrees = child.doubleValue();
     final double atan = Math.atan(degrees);
 
-    final BigDecimal result = BigDecimal.valueOf(atan);
-    return resultNormatize(result);
+    return normalizeResult(atan);
   }
 
   @Override
