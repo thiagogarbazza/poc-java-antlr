@@ -7,5 +7,5 @@ Feature: Function sin
     Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression | expression-result   |
-      | cos(90)    | -0.4480736161291702 |
-      | cos(45)    | 0.5253219888177297  |
+      | sin(90)    | 0.8939966636005579 |
+      | sin(45)    | 0.8509035245341184 |
