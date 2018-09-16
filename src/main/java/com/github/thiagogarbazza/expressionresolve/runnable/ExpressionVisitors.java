@@ -354,9 +354,10 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCalendarFunctionYear(final ExpressionParser.CalendarFunctionYearContext ctx) {
+  public Object visitFunctionYear(final ExpressionParser.FunctionYearContext ctx) {
     Calendar cal = (Calendar) visit(ctx.dateExpresion());
-    return BigDecimal.valueOf(cal.get(YEAR));
+
+    return resultNormatize(cal.get(YEAR));
   }
 
   private Object normalizeResult(final double value) {
