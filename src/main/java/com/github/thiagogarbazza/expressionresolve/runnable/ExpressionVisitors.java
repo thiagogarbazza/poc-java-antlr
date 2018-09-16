@@ -313,7 +313,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitCompareNumbers(final ExpressionParser.CompareNumbersContext ctx) {
+  public Object visitFunctionCompareNumbers(final ExpressionParser.FunctionCompareNumbersContext ctx) {
     final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
     final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
     final Integer result = left.compareTo(right);
@@ -322,7 +322,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitCompareStrings(final ExpressionParser.CompareStringsContext ctx) {
+  public Object visitFunctionCompareStrings(final ExpressionParser.FunctionCompareStringsContext ctx) {
     final String left = (String) visit(ctx.stringExpression(0));
     final String right = (String) visit(ctx.stringExpression(1));
     final Integer result = left.compareTo(right);
@@ -331,7 +331,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitCompareDates(final ExpressionParser.CompareDatesContext ctx) {
+  public Object visitFunctionCompareDates(final ExpressionParser.FunctionCompareDatesContext ctx) {
     final Calendar left = (Calendar) visit(ctx.dateExpresion(0));
     final Calendar right = (Calendar) visit(ctx.dateExpresion(1));
     final Integer result = left.compareTo(right);

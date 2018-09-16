@@ -90,9 +90,9 @@ functionsThatReturnNumber
   | FN_MATH_LN   LPAREN numberExpresion RPAREN                        # functionLn
   | FN_MATH_LOG  LPAREN numberExpresion RPAREN                        # functionLog
   | FN_MATH_SQRT LPAREN numberExpresion RPAREN                        # functionSqrt
-  | FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
-  | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # compareStrings
-  | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # compareDates
+  | FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # functionCompareNumbers
+  | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
+  | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # functionCompareDates
   | FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                     # calendarFunctionDay
   | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                     # calendarFunctionMonth
   | FN_CALENDAR_YEAR  LPAREN dateExpresion RPAREN                     # calendarFunctionYear
