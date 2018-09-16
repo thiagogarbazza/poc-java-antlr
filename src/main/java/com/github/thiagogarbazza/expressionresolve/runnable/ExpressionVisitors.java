@@ -286,13 +286,12 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsFunctionLn(final ExpressionParser.MathematicsFunctionLnContext ctx) {
+  public Object visitFunctionLn(final ExpressionParser.FunctionLnContext ctx) {
     final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
     final double value = child.doubleValue();
-    final double log = Math.log(value);
+    final double ln = Math.log(value);
 
-    final BigDecimal result = BigDecimal.valueOf(log);
-    return resultNormatize(result);
+    return normalizeResult(ln);
   }
 
   @Override
