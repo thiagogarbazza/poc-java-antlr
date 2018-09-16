@@ -340,7 +340,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCalendarFunctionDay(final ExpressionParser.CalendarFunctionDayContext ctx) {
+  public Object visitFunctionDay(final ExpressionParser.FunctionDayContext ctx) {
     Calendar cal = (Calendar) visit(ctx.dateExpresion());
     return BigDecimal.valueOf(cal.get(DAY_OF_MONTH));
   }
