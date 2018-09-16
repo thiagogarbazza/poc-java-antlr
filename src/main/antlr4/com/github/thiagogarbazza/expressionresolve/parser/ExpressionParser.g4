@@ -88,8 +88,8 @@ functionsThatReturnNumber
   | FN_MATH_TAN  LPAREN numberExpresion RPAREN                        # functionTan
   | FN_MATH_ATAN LPAREN numberExpresion RPAREN                        # functionAtan
   | FN_MATH_LN   LPAREN numberExpresion RPAREN                        # functionLn
-  | FN_MATH_LOG  LPAREN numberExpresion RPAREN                        # mathematicsFunctionLog
-  | FN_MATH_SQRT LPAREN numberExpresion RPAREN                        # mathematicsFunctionSqrt
+  | FN_MATH_LOG  LPAREN numberExpresion RPAREN                        # functionLog
+  | FN_MATH_SQRT LPAREN numberExpresion RPAREN                        # functionSqrt
   | FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # compareNumbers
   | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # compareStrings
   | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # compareDates
