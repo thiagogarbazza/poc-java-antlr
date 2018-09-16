@@ -94,6 +94,6 @@ functionsThatReturnNumber
   | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
   | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # functionCompareDates
   | FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                     # functionDay
-  | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                     # calendarFunctionMonth
+  | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                     # functionMonth
   | FN_CALENDAR_YEAR  LPAREN dateExpresion RPAREN                     # calendarFunctionYear
   ;
