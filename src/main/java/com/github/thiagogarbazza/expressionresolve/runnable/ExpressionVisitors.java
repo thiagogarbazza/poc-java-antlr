@@ -127,21 +127,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-    final BigDecimal value = executionContext.get(identifier, BigDecimal.class);
-    return value;
-  }
-
-  @Override
-  public final Object visitMathematicsOperationPow(final ExpressionParser.MathematicsOperationPowContext ctx) {
-    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
-    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
-    return left.pow(right.intValue());
-  }
-
-  @Override
-  public final Object visitMathematicsOperationSign(final ExpressionParser.MathematicsOperationSignContext ctx) {
+  public final Object visitNumberOperationSign(final ExpressionParser.NumberOperationSignContext ctx) {
     final BigDecimal result = (BigDecimal) visit(ctx.numberExpresion());
     if (ctx.MINUS() != null) {
       return result.multiply(BigDecimal.valueOf(-1));
@@ -150,17 +136,14 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsOperationDivide(final ExpressionParser.MathematicsOperationDivideContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
-    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
-      result = result.divide(child, DECIMAL128);
-    }
-    return result;
+  public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    final BigDecimal value = executionContext.get(identifier, BigDecimal.class);
+    return value;
   }
 
   @Override
-  public final Object visitMathematicsOperationSubtract(final ExpressionParser.MathematicsOperationSubtractContext ctx) {
+  public final Object visitNumberOperationSubtract(final ExpressionParser.NumberOperationSubtractContext ctx) {
     BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
     for (int i = 1; i < ctx.numberExpresion().size(); i++) {
       final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
@@ -170,10 +153,30 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsOperationModulo(final ExpressionParser.MathematicsOperationModuloContext ctx) {
+  public final Object visitNumberOperationPow(final ExpressionParser.NumberOperationPowContext ctx) {
     final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
     final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
-    return left.remainder(right);
+    return left.pow(right.intValue());
+  }
+
+  @Override
+  public final Object visitNumberOperationMultiply(final ExpressionParser.NumberOperationMultiplyContext ctx) {
+    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
+    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
+      result = result.multiply(child);
+    }
+    return result;
+  }
+
+  @Override
+  public final Object visitNumberOperationDivide(final ExpressionParser.NumberOperationDivideContext ctx) {
+    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
+    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
+      result = result.divide(child, DECIMAL128);
+    }
+    return result;
   }
 
   @Override
@@ -183,7 +186,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsOperationAddition(final ExpressionParser.MathematicsOperationAdditionContext ctx) {
+  public final Object visitNumberOperationAddition(final ExpressionParser.NumberOperationAdditionContext ctx) {
     BigDecimal result = BigDecimal.ZERO;
     for (ExpressionParser.NumberExpresionContext numberExpresionContext : ctx.numberExpresion()) {
       BigDecimal child = (BigDecimal) visit(numberExpresionContext);
@@ -193,18 +196,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitMathematicsGroupedBy(final ExpressionParser.MathematicsGroupedByContext ctx) {
-    final BigDecimal result = (BigDecimal) visit(ctx.numberExpresion());
-    return result;
+  public final Object visitNumberOperationModulo(final ExpressionParser.NumberOperationModuloContext ctx) {
+    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+    return left.remainder(right);
   }
 
   @Override
-  public final Object visitMathematicsOperationMultiply(final ExpressionParser.MathematicsOperationMultiplyContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
-    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
-      result = result.multiply(child);
-    }
+  public final Object visitNumberGroupedBy(final ExpressionParser.NumberGroupedByContext ctx) {
+    final BigDecimal result = (BigDecimal) visit(ctx.numberExpresion());
     return result;
   }
 
@@ -221,7 +221,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCalendarFunctionDate(final ExpressionParser.CalendarFunctionDateContext ctx) {
+  public Object visitFunctionDate(final ExpressionParser.FunctionDateContext ctx) {
     throw new IllegalStateException("not implemented");
   }
 

@@ -55,16 +55,16 @@ dateExpresion
   ;
 
 numberExpresion
-  : LBRACE numberExpresion RBRACE          # mathematicsGroupedBy
-  | LBRACK numberExpresion RBRACK          # mathematicsGroupedBy
-  | LPAREN numberExpresion RPAREN          # mathematicsGroupedBy
-  | op = (PLUS | MINUS) numberExpresion    # mathematicsOperationSign
-  | numberExpresion POW   numberExpresion  # mathematicsOperationPow
-  | numberExpresion MULT  numberExpresion  # mathematicsOperationMultiply
-  | numberExpresion DIV   numberExpresion  # mathematicsOperationDivide
-  | numberExpresion MOD   numberExpresion  # mathematicsOperationModulo
-  | numberExpresion MINUS numberExpresion  # mathematicsOperationSubtract
-  | numberExpresion PLUS  numberExpresion  # mathematicsOperationAddition
+  : LBRACE numberExpresion RBRACE          # numberGroupedBy
+  | LBRACK numberExpresion RBRACK          # numberGroupedBy
+  | LPAREN numberExpresion RPAREN          # numberGroupedBy
+  | op = (PLUS | MINUS) numberExpresion    # numberOperationSign
+  | numberExpresion POW   numberExpresion  # numberOperationPow
+  | numberExpresion MULT  numberExpresion  # numberOperationMultiply
+  | numberExpresion DIV   numberExpresion  # numberOperationDivide
+  | numberExpresion MOD   numberExpresion  # numberOperationModulo
+  | numberExpresion MINUS numberExpresion  # numberOperationSubtract
+  | numberExpresion PLUS  numberExpresion  # numberOperationAddition
   | functionsThatReturnNumber              # functionThatReturnNumber
   | NUMBER                                 # primitiveNumber
   | IDENTIFIER                             # identifierNumber
@@ -76,7 +76,7 @@ stringExpression
   ;
 
 functionsThatReturnDate
-  : FN_CALENDAR_DATE LPAREN DateYear COMMA DateMonth COMMA DateDay RPAREN  # calendarFunctionDate
+  : FN_CALENDAR_DATE LPAREN DateYear COMMA DateMonth COMMA DateDay RPAREN  # functionDate
   | FN_CALENDAR_TODAY                                                      # functionToday
   ;
 
