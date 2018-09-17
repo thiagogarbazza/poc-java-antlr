@@ -44,14 +44,14 @@ booleanExpression
   | booleanExpression AND booleanExpression        # booleanAND
   | booleanExpression OR  booleanExpression        # booleanOR
   | numberExpresion op=COMPARISON numberExpresion  # booleanNumberComparison
-  | BOOLEAN                                        # primitiveBoolean
   | IDENTIFIER                                     # identifierBoolean
+  | BOOLEAN                                        # primitiveBoolean
   ;
 
 dateExpresion
   : functionsThatReturnDate  # functionThatReturnDate
-  | DATE                     # primitiveDate
   | IDENTIFIER               # identifierDate
+  | DATE                     # primitiveDate
   ;
 
 numberExpresion
@@ -66,13 +66,13 @@ numberExpresion
   | numberExpresion MINUS numberExpresion  # numberOperationSubtract
   | numberExpresion PLUS  numberExpresion  # numberOperationAddition
   | functionsThatReturnNumber              # functionThatReturnNumber
-  | NUMBER                                 # primitiveNumber
   | IDENTIFIER                             # identifierNumber
+  | NUMBER                                 # primitiveNumber
   ;
 
 stringExpression
-  : STRING      # primitiveString
-  | IDENTIFIER  # identifierString
+  : IDENTIFIER  # identifierString
+  | STRING      # primitiveString
   ;
 
 functionsThatReturnDate
