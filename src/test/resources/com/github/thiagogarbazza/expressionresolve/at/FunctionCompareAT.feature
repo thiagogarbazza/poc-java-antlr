@@ -20,11 +20,11 @@ Feature: Function compare
     Then I should have resulted the number: "<expression-result>".
     Examples:
       | expression        | expression-result |
-      | compare('a', 'z') | -1                |
+      | compare("a", "z") | -1                |
       | compare('A', 'Z') | -1                |
-      | compare('A', 'A') | 0                 |
+      | compare("A", "A") | 0                 |
       | compare('a', 'a') | 0                 |
-      | compare('z', 'a') | 1                 |
+      | compare("z", "a") | 1                 |
       | compare('Z', 'A') | 1                 |
 
   Scenario Outline: 03. Perform "compare dates".

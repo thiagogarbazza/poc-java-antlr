@@ -5,13 +5,15 @@ import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.BooleanExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.StatementBlockContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParserBaseVisitor;
-import org.apache.commons.lang3.BooleanUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
+import static org.apache.commons.lang3.BooleanUtils.negate;
+import static org.apache.commons.lang3.BooleanUtils.toBoolean;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
@@ -31,6 +33,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     final String variable = ctx.IDENTIFIER().getText();
     final Object value = visit(ctx.expression());
     executionContext.set(variable, value);
+
     return value;
   }
 
@@ -54,8 +57,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
-    Boolean value = (Boolean) visit(ctx.booleanExpression());
-    return value;
+    return visit(ctx.booleanExpression());
   }
 
   @Override
@@ -70,33 +72,37 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final Boolean value = executionContext.get(identifier, Boolean.class);
-    return value;
+
+    return executionContext.get(identifier, Boolean.class);
   }
 
   @Override
   public final Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
     Boolean left = (Boolean) visit(ctx.booleanExpression(0));
     Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+
     return left || right;
   }
 
   @Override
   public final Object visitPrimitiveBoolean(final ExpressionParser.PrimitiveBooleanContext ctx) {
     final String bool = ctx.getText();
-    return new Boolean(bool);
+
+    return toBoolean(bool);
   }
 
   @Override
   public final Object visitBooleanNegation(final ExpressionParser.BooleanNegationContext ctx) {
     Boolean value = (Boolean) visit(ctx.booleanExpression());
-    return BooleanUtils.negate(value);
+
+    return negate(value);
   }
 
   @Override
   public final Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
     Boolean left = (Boolean) visit(ctx.booleanExpression(0));
     Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+
     return left && right;
   }
 
@@ -120,14 +126,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     if (ctx.MINUS() != null) {
       return result.multiply(BigDecimal.valueOf(-1));
     }
+
     return result;
   }
 
   @Override
   public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final BigDecimal value = executionContext.get(identifier, BigDecimal.class);
-    return value;
+
+    return executionContext.get(identifier, BigDecimal.class);
   }
 
   @Override
@@ -137,6 +144,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
       final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
       result = result.subtract(child);
     }
+
     return result;
   }
 
@@ -144,6 +152,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public final Object visitNumberOperationPow(final ExpressionParser.NumberOperationPowContext ctx) {
     final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
     final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+
     return left.pow(right.intValue());
   }
 
@@ -154,6 +163,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
       final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
       result = result.multiply(child);
     }
+
     return result;
   }
 
@@ -164,13 +174,13 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
       final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
       result = result.divide(child, DECIMAL128);
     }
+
     return result;
   }
 
   @Override
   public final Object visitPrimitiveNumber(final ExpressionParser.PrimitiveNumberContext ctx) {
-    final BigDecimal result = new BigDecimal(ctx.getText());
-    return result;
+    return new BigDecimal(ctx.getText());
   }
 
   @Override
@@ -180,6 +190,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
       BigDecimal child = (BigDecimal) visit(numberExpresionContext);
       result = result.add(child);
     }
+
     return result;
   }
 
@@ -187,25 +198,25 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public final Object visitNumberOperationModulo(final ExpressionParser.NumberOperationModuloContext ctx) {
     final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
     final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+
     return left.remainder(right);
   }
 
   @Override
   public final Object visitNumberGroupedBy(final ExpressionParser.NumberGroupedByContext ctx) {
-    final BigDecimal result = (BigDecimal) visit(ctx.numberExpresion());
-    return result;
+    return visit(ctx.numberExpresion());
   }
 
   @Override
   public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
-    return ctx.getText();
+    return ctx.getText().replaceAll("^['\"]", EMPTY).replaceAll("['\"]$", EMPTY);
   }
 
   @Override
   public final Object visitIdentifierString(final ExpressionParser.IdentifierStringContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final String value = executionContext.get(identifier, String.class);
-    return value;
+
+    return executionContext.get(identifier, String.class);
   }
 
   @Override
@@ -357,7 +368,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     return resultNormatize(result);
   }
 
-  private final Object normalizeResultCompare(Integer result) {
+  private Object normalizeResultCompare(Integer result) {
     if (result == 0) {
       return resultNormatize(0);
     }
@@ -367,11 +378,11 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
       : resultNormatize(1);
   }
 
-  private final Object resultNormatize(final Integer result) {
+  private Object resultNormatize(final Integer result) {
     return resultNormatize(BigDecimal.valueOf(result));
   }
 
-  private final Object resultNormatize(final BigDecimal result) {
+  private Object resultNormatize(final BigDecimal result) {
     return result;
   }
 }

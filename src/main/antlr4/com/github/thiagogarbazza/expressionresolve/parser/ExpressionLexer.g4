@@ -66,11 +66,12 @@ STRING
 
 DATE  : DateYear '/' DateMonth '/' DateDay;
 
-IDENTIFIER  : Letter LetterOrDigit*;
+IDENTIFIER  : Dollar Letter LetterOrDigit*;
 
 fragment Digit    : [0-9];
 fragment Digit4   : Digit Digit Digit Digit;
 fragment Digits   : Digit+;
+fragment Dollar   : '$';
 fragment Integer  : Digits;
 fragment Decimal  : Digits POINT Digits;
 

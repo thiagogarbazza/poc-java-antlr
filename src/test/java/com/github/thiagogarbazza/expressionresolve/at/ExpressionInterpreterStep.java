@@ -30,18 +30,18 @@ public class ExpressionInterpreterStep {
     context = new ExpressionContext();
   }
 
-  @Given("^Send the expression \"([^\"]*)\".$")
+  @Given("^Send the expression \"(.*)\".$")
   public void givenSendTheExpression(String expression) throws Throwable {
     this.expression = new Expression(expression);
   }
 
-  @Then("^I should have resulted the boolean: \"([^\"]*)\".$")
+  @Then("^I should have resulted the boolean: \"(.*)\".$")
   public void thenIShouldHaveResultedTheBoolean(String expressionResult) throws Throwable {
     Result expected = new Result(toBoolean(expressionResult));
     assertEquals(expected, this.expressionResult);
   }
 
-  @Then("^I should have resulted the date: \"([^\"]*)\".$")
+  @Then("^I should have resulted the date: \"(.*)\".$")
   public void thenIShouldHaveResultedTheDate(String expressionResult) throws Throwable {
     Result expected;
     if (contains(expressionResult, "is today")) {
@@ -56,6 +56,12 @@ public class ExpressionInterpreterStep {
   @Then("^I should have resulted the number: \"([^\"]*)\".$")
   public void thenIShouldHaveResultedTheNumber(String expressionResult) throws Throwable {
     Result expected = new Result(new BigDecimal(expressionResult));
+    assertEquals(expected, this.expressionResult);
+  }
+
+  @Then("^I should have resulted the string: \"([^\"]*)\".$")
+  public void thenIShouldHaveResultedTheString(String expressionResult) throws Throwable {
+    Result expected = new Result(expressionResult);
     assertEquals(expected, this.expressionResult);
   }
 
