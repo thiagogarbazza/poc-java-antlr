@@ -7,4 +7,4 @@ Feature: Function today
     Then I should have resulted the date: "<expression-result>".
     Examples:
       | expression | expression-result |
-      | today      | 2018/09/16        |
+      | today      | is today          |

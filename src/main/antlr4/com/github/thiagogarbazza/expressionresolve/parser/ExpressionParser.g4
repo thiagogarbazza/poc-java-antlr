@@ -76,8 +76,8 @@ stringExpression
   ;
 
 functionsThatReturnDate
-  : FN_CALENDAR_DATE LPAREN DateYear COMMA DateMonth COMMA DateDay RPAREN  # functionDate
-  | FN_CALENDAR_TODAY                                                      # functionToday
+  : FN_CALENDAR_DATE LPAREN numberExpresion COMMA numberExpresion COMMA numberExpresion RPAREN  # functionDate
+  | FN_CALENDAR_TODAY                                                                           # functionToday
   ;
 
 functionsThatReturnNumber

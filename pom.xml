@@ -12,7 +12,7 @@
   <url>https://github.com/thiagogarbazza/expression-resolver</url>
 
   <properties>
-    <java.version>1.7</java.version>
+    <java.version>1.8</java.version>
     <java.encoding>UTF-8</java.encoding>
     <project.build.sourceEncoding>${java.encoding}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${java.encoding}</project.reporting.outputEncoding>

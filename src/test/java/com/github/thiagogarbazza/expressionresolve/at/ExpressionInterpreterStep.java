@@ -10,9 +10,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDate;
 
+import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
+import static org.apache.commons.lang3.StringUtils.contains;
 import static org.junit.Assert.assertEquals;
 
 public class ExpressionInterpreterStep {
@@ -33,15 +35,21 @@ public class ExpressionInterpreterStep {
     this.expression = new Expression(expression);
   }
 
-  @Then("^I should have resulted the date: \"([^\"]*)\".$")
-  public void thenIShouldHaveResultedTheDate(String expressionResult) throws Throwable {
-    Result expected = new Result(Calendar.getInstance());
-    assertEquals(expected, this.expressionResult);
-  }
-
   @Then("^I should have resulted the boolean: \"([^\"]*)\".$")
   public void thenIShouldHaveResultedTheBoolean(String expressionResult) throws Throwable {
     Result expected = new Result(toBoolean(expressionResult));
+    assertEquals(expected, this.expressionResult);
+  }
+
+  @Then("^I should have resulted the date: \"([^\"]*)\".$")
+  public void thenIShouldHaveResultedTheDate(String expressionResult) throws Throwable {
+    Result expected;
+    if (contains(expressionResult, "is today")) {
+      expected = new Result(LocalDate.now());
+    } else {
+      expected = new Result(toLocalDate(expressionResult));
+    }
+
     assertEquals(expected, this.expressionResult);
   }
 

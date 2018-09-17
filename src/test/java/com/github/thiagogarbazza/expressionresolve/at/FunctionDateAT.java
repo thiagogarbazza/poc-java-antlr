@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = true, plugin = {"pretty", "html:target/cucumber"}, tags = {"not @Ignore"},
-  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/FunctionTodayAT.feature")
-public class FunctionTodayAT {
+  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/FunctionDateAT.feature")
+public class FunctionDateAT {
 }

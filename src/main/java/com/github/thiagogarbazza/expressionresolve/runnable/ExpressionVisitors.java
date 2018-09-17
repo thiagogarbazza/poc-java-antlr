@@ -1,7 +1,6 @@
 package com.github.thiagogarbazza.expressionresolve.runnable;
 
 import com.github.thiagogarbazza.expressionresolve.domain.ExpressionContext;
-import com.github.thiagogarbazza.expressionresolve.exception.SyntaxException;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.BooleanExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.StatementBlockContext;
@@ -9,18 +8,12 @@ import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParserBaseVi
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
 
+import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
 
 final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
-
-  private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
   private final ExpressionContext executionContext;
 
@@ -110,20 +103,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public final Object visitPrimitiveDate(final ExpressionParser.PrimitiveDateContext ctx) {
     final String date = ctx.getText();
-    try {
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(DATE_FORMAT.parse(date));
-      return cal;
-    } catch (ParseException e) {
-      throw new SyntaxException("Error format date.", e);
-    }
+
+    return toLocalDate(date);
   }
 
   @Override
   public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
-    final Calendar value = executionContext.get(identifier, Calendar.class);
-    return value;
+
+    return executionContext.get(identifier, LocalDate.class);
   }
 
   @Override
@@ -222,12 +210,16 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionDate(final ExpressionParser.FunctionDateContext ctx) {
-    throw new IllegalStateException("not implemented");
+    BigDecimal year = (BigDecimal) visit(ctx.numberExpresion(0));
+    BigDecimal month = (BigDecimal) visit(ctx.numberExpresion(1));
+    BigDecimal day = (BigDecimal) visit(ctx.numberExpresion(2));
+
+    return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
   }
 
   @Override
   public Object visitFunctionToday(final ExpressionParser.FunctionTodayContext ctx) {
-    return executionContext.get("today", Calendar.class);
+    return executionContext.get("today", LocalDate.class);
   }
 
   @Override
@@ -331,8 +323,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionCompareDates(final ExpressionParser.FunctionCompareDatesContext ctx) {
-    final Calendar left = (Calendar) visit(ctx.dateExpresion(0));
-    final Calendar right = (Calendar) visit(ctx.dateExpresion(1));
+    final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
+    final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
     final Integer result = left.compareTo(right);
 
     return normalizeResultCompare(result);
@@ -340,23 +332,23 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionDay(final ExpressionParser.FunctionDayContext ctx) {
-    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    LocalDate date = (LocalDate) visit(ctx.dateExpresion());
 
-    return resultNormatize(cal.get(DAY_OF_MONTH));
+    return resultNormatize(date.getDayOfMonth());
   }
 
   @Override
   public Object visitFunctionMonth(final ExpressionParser.FunctionMonthContext ctx) {
-    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    LocalDate date = (LocalDate) visit(ctx.dateExpresion());
 
-    return resultNormatize(cal.get(MONTH) + 1);
+    return resultNormatize(date.getMonthValue());
   }
 
   @Override
   public Object visitFunctionYear(final ExpressionParser.FunctionYearContext ctx) {
-    Calendar cal = (Calendar) visit(ctx.dateExpresion());
+    LocalDate date = (LocalDate) visit(ctx.dateExpresion());
 
-    return resultNormatize(cal.get(YEAR));
+    return resultNormatize(date.getYear());
   }
 
   private Object normalizeResult(final double value) {

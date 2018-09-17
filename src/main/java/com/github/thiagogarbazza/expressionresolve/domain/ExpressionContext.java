@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +22,7 @@ public class ExpressionContext {
 
   public ExpressionContext() {
     variables = new HashMap<String, Object>();
-    set("today", Calendar.getInstance());
+    set("today", LocalDate.now());
   }
 
   public <T> T get(final String variable, Class<T> type) {
