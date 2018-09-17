@@ -226,9 +226,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitCalendarFunctionToday(final ExpressionParser.CalendarFunctionTodayContext ctx) {
-    final Calendar value = executionContext.get("today", Calendar.class);
-    return value;
+  public Object visitFunctionToday(final ExpressionParser.FunctionTodayContext ctx) {
+    return executionContext.get("today", Calendar.class);
   }
 
   @Override

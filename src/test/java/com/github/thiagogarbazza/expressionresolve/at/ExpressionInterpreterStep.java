@@ -10,6 +10,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.junit.Assert.assertEquals;
@@ -30,6 +31,12 @@ public class ExpressionInterpreterStep {
   @Given("^Send the expression \"([^\"]*)\".$")
   public void givenSendTheExpression(String expression) throws Throwable {
     this.expression = new Expression(expression);
+  }
+
+  @Then("^I should have resulted the date: \"([^\"]*)\".$")
+  public void thenIShouldHaveResultedTheDate(String expressionResult) throws Throwable {
+    Result expected = new Result(Calendar.getInstance());
+    assertEquals(expected, this.expressionResult);
   }
 
   @Then("^I should have resulted the boolean: \"([^\"]*)\".$")
