@@ -6,6 +6,6 @@ Feature: Function cos
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result   |
-      | cos(90)    | -0.4480736161291702 |
-      | cos(45)    | 0.5253219888177297  |
+      | expression      | expression-result   |
+      | return cos(90); | -0.4480736161291702 |
+      | return cos(45); | 0.5253219888177297  |

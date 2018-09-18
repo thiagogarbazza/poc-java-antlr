@@ -6,6 +6,6 @@ Feature: Function year
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression       | expression-result |
-      | year(1984/07/20) | 1984              |
-      | year(2017/09/06) | 2017              |
+      | expression               | expression-result |
+      | return year(1984/07/20); | 1984              |
+      | return year(2017/09/06); | 2017              |

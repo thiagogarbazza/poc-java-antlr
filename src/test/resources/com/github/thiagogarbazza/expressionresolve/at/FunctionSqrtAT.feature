@@ -6,6 +6,6 @@ Feature: Function sqrt
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result |
-      | sqrt(9)    | 3.0               |
-      | sqrt(16)   | 4.0               |
+      | expression       | expression-result |
+      | return sqrt(9);  | 3.0               |
+      | return sqrt(16); | 4.0               |

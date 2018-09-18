@@ -6,5 +6,5 @@ Feature: Function today
     When I ask what the result is?
     Then I should have resulted the date: "<expression-result>".
     Examples:
-      | expression | expression-result |
-      | today      | is today          |
+      | expression    | expression-result |
+      | return today; | is today          |

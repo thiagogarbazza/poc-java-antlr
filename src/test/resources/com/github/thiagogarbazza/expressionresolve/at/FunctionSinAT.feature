@@ -6,6 +6,6 @@ Feature: Function sin
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result   |
-      | sin(90)    | 0.8939966636005579 |
-      | sin(45)    | 0.8509035245341184 |
+      | expression      | expression-result  |
+      | return sin(90); | 0.8939966636005579 |
+      | return sin(45); | 0.8509035245341184 |

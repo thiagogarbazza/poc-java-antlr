@@ -6,6 +6,6 @@ Feature: Function ln
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result  |
-      | ln(5)      | 1.6094379124341003 |
-      | ln(4)      | 1.3862943611198906 |
+      | expression    | expression-result  |
+      | return ln(5); | 1.6094379124341003 |
+      | return ln(4); | 1.3862943611198906 |

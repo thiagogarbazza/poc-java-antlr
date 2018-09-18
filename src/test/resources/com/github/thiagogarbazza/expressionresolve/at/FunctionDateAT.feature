@@ -6,6 +6,6 @@ Feature: Function date
     When I ask what the result is?
     Then I should have resulted the date: "<expression-result>".
     Examples:
-      | expression         | expression-result |
-      | date(1984, 07, 20) | 1984/07/20        |
-      | date(2018, 12, 31) | 2018/12/31        |
+      | expression                 | expression-result |
+      | return date(1984, 07, 20); | 1984/07/20        |
+      | return date(2018, 12, 31); | 2018/12/31        |

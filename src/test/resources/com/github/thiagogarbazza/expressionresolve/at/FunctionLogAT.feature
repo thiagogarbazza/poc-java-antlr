@@ -6,6 +6,6 @@ Feature: Function log
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result  |
-      | log(5)     | 0.6989700043360189 |
-      | log(4)     | 0.6020599913279624 |
+      | expression     | expression-result  |
+      | return log(5); | 0.6989700043360189 |
+      | return log(4); | 0.6020599913279624 |

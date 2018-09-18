@@ -6,6 +6,6 @@ Feature: Function tan
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result  |
-      | tan(90)    | -1.995200412208242 |
-      | tan(45)    | 1.6197751905438615 |
+      | expression      | expression-result  |
+      | return tan(90); | -1.995200412208242 |
+      | return tan(45); | 1.6197751905438615 |

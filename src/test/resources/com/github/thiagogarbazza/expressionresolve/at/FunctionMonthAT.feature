@@ -6,6 +6,6 @@ Feature: Function month
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression        | expression-result |
-      | month(1984/07/20) | 07                |
-      | month(2017/09/06) | 09                |
+      | expression                | expression-result |
+      | return month(1984/07/20); | 07                |
+      | return month(2017/09/06); | 09                |

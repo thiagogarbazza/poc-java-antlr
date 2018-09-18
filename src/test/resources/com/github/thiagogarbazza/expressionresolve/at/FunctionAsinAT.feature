@@ -6,6 +6,6 @@ Feature: Function asin
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression | expression-result  |
-      | asin(0.5)  | 0.5235987755982989 |
-      | asin(0.8)  | 0.9272952180016123 |
+      | expression        | expression-result  |
+      | return asin(0.5); | 0.5235987755982989 |
+      | return asin(0.8); | 0.9272952180016123 |

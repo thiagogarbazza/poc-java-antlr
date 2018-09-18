@@ -6,50 +6,50 @@ Feature: Boolean expression
     When I ask what the result is?
     Then I should have resulted the boolean: "<expression-result>".
     Examples:
-      | expression            | expression-result |
-      | true && true          | true              |
-      | true && false         | false             |
-      | false && false        | false             |
-      | true && false && true | false             |
-      | true && true && true  | true              |
+      | expression                    | expression-result |
+      | return true && true;          | true              |
+      | return true && false;         | false             |
+      | return false && false;        | false             |
+      | return true && false && true; | false             |
+      | return true && true && true;  | true              |
 
   Scenario Outline: 02. perform "or" expression.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the boolean: "<expression-result>".
     Examples:
-      | expression                 | expression-result |
-      | true \|\|  true            | true              |
-      | true \|\| false            | true              |
-      | false \|\| false           | false             |
-      | true \|\| false \|\| false | true              |
+      | expression                         | expression-result |
+      | return true \|\|  true;            | true              |
+      | return true \|\| false;            | true              |
+      | return false \|\| false;           | false             |
+      | return true \|\| false \|\| false; | true              |
 
   Scenario Outline: 03. perform "negation" expression.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the boolean: "<expression-result>".
     Examples:
-      | expression | expression-result |
-      | !true      | false             |
-      | !false     | true              |
+      | expression     | expression-result |
+      | return !true;  | false             |
+      | return !false; | true              |
 
   Scenario Outline: 04. perform "combinations" expression.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the boolean: "<expression-result>".
     Examples:
-      | expression                | expression-result |
-      | true \|\| false && true   | true              |
-      | false \|\| false && true  | false             |
-      | false \|\| !false && true | true              |
+      | expression                        | expression-result |
+      | return true \|\| false && true;   | true              |
+      | return false \|\| false && true;  | false             |
+      | return false \|\| !false && true; | true              |
 
   Scenario Outline: 05. perform "grouped" expression.
     Given Send the expression "<expression>".
     When I ask what the result is?
     Then I should have resulted the boolean: "<expression-result>".
     Examples:
-      | expression                  | expression-result |
-      | (true \|\| false) && true   | true              |
-      | (false \|\| false) && true  | false             |
-      | (false \|\| !false) && true | true              |
-      | false \|\| (!false && true) | true              |
+      | expression                          | expression-result |
+      | return (true \|\| false) && true;   | true              |
+      | return (false \|\| false) && true;  | false             |
+      | return (false \|\| !false) && true; | true              |
+      | return false \|\| (!false && true); | true              |
