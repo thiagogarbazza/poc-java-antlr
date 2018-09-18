@@ -18,13 +18,8 @@ statementBlock
   ;
 
 statement
-  : assignment
-  | ifExpression
-  | expression
-  ;
-
-assignment
-  : IDENTIFIER ASSIG expression SEMICOLON
+  : IDENTIFIER ASSIG expression SEMICOLON   # assignment
+  | RETURN expression SEMICOLON             # returnExpression
   ;
 
 ifExpression

@@ -38,6 +38,11 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitReturnExpression(final ExpressionParser.ReturnExpressionContext ctx) {
+    return visit(ctx.expression());
+  }
+
+  @Override
   public final Object visitIfExpression(final ExpressionParser.IfExpressionContext ctx) {
     int i = -1;
     BooleanExpressionContext booleanExpression = null;
@@ -73,7 +78,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public final Object visitIdentifierBoolean(final ExpressionParser.IdentifierBooleanContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
 
-    return executionContext.get(identifier, Boolean.class);
+    return executionContext.get(identifier);
   }
 
   @Override
@@ -107,17 +112,17 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+
+    return executionContext.get(identifier);
+  }
+
+  @Override
   public final Object visitPrimitiveDate(final ExpressionParser.PrimitiveDateContext ctx) {
     final String date = ctx.getText();
 
     return toLocalDate(date);
-  }
-
-  @Override
-  public final Object visitIdentifierDate(final ExpressionParser.IdentifierDateContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-
-    return executionContext.get(identifier, LocalDate.class);
   }
 
   @Override
@@ -134,7 +139,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public final Object visitIdentifierNumber(final ExpressionParser.IdentifierNumberContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
 
-    return executionContext.get(identifier, BigDecimal.class);
+    return executionContext.get(identifier);
   }
 
   @Override
@@ -208,15 +213,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
-    return ctx.getText().replaceAll("^['\"]", EMPTY).replaceAll("['\"]$", EMPTY);
-  }
-
-  @Override
   public final Object visitIdentifierString(final ExpressionParser.IdentifierStringContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
 
-    return executionContext.get(identifier, String.class);
+    return executionContext.get(identifier);
+  }
+
+  @Override
+  public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
+    return ctx.getText().replaceAll("^['\"]", EMPTY).replaceAll("['\"]$", EMPTY);
   }
 
   @Override

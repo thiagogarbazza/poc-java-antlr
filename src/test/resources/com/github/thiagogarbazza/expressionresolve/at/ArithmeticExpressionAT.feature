@@ -44,15 +44,15 @@ Feature: Mathematics operations
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression                    | expression-result                   |
-      | return 1 / 1;                 | 1                                   |
-      | return 5 / 5;                 | 1                                   |
-      | return 15 / 5;                | 3                                   |
-      | return 99 / 3;                | 33                                  |
-      | return 99.99 / 3;             | 33.33                               |
-      | return 27.5 / 5;              | 5.5                                 |
-      | return 100 / 3;               | 33.33333333333333333333333333333333 |
-      | return 120 / 5 / 4 / 3 / 2 1; | 1                                   |
+      | expression                      | expression-result                   |
+      | return 1 / 1;                   | 1                                   |
+      | return 5 / 5;                   | 1                                   |
+      | return 15 / 5;                  | 3                                   |
+      | return 99 / 3;                  | 33                                  |
+      | return 99.99 / 3;               | 33.33                               |
+      | return 27.5 / 5;                | 5.5                                 |
+      | return 100 / 3;                 | 33.33333333333333333333333333333333 |
+      | return 120 / 5 / 4 / 3 / 2 / 1; | 1                                   |
 
   Scenario Outline: 05. Perform "exponentiation" mathematical operation.
     Given Send the expression "<expression>".
@@ -90,10 +90,10 @@ Feature: Mathematics operations
       | return -(7 - 14);                                                  | 7                 |
       | return [6/2];                                                      | 3                 |
       | return [6/2] * [1+2];                                              | 9                 |
-      | return [(-6) + (-1) * (+2);]                                       | -8                |
+      | return [(-6) + (-1) * (+2)];                                       | -8                |
       | return [(3 + 2) * (6 - 4) + 2] * 4;                                | 48                |
       | return {6/2};                                                      | 3                 |
       | return {6/2} * {1+2};                                              | 9                 |
-      | return {(-2) + [(-4-2) + (-1) * (+2)] + 20} + 1;5                  | 25                |
+      | return {(-2) + [(-4-2) + (-1) * (+2)] + 20} + 15;                  | 25                |
       | return 25 - {3 * 17 - [10 + 6 * (8 - 4 * 2) + 2 + 3] - 4 * 4} / 5; | 21                |
       | return 20 - [4 + (5 - 1) ^ 2 - 5] + 3;                             | 8                 |

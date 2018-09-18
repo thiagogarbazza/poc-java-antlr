@@ -2,8 +2,8 @@ lexer grammar ExpressionLexer;
 
 IF    : 'if';
 ELSE  : 'else';
-
 NULL  : 'null';
+RETURN: 'return';
 
 FN_CALENDAR_TODAY  : 'today';
 FN_CALENDAR_DATE   : 'date';

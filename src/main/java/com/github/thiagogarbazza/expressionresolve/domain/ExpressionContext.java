@@ -25,6 +25,14 @@ public class ExpressionContext {
     set("today", LocalDate.now());
   }
 
+  public Object get(final String variable) {
+    final String key = buildKey(variable);
+    final Object value = variables.get(key);
+    notNull(value, getPropertie("context.variable.not-present"), key);
+
+    return value;
+  }
+
   public <T> T get(final String variable, Class<T> type) {
     final String key = buildKey(variable);
     final Object value = variables.get(key);
