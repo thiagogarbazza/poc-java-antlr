@@ -14,7 +14,6 @@ block
 
 statementBlock
   : LBRACE statement RBRACE
-  | statement
   ;
 
 statement
@@ -23,7 +22,7 @@ statement
   ;
 
 ifExpression
-  : IF booleanExpression statementBlock (ELSE IF booleanExpression statementBlock)* (ELSE statementBlock)?
+  : IF LPAREN booleanExpression RPAREN statementBlock (ELSE IF LPAREN booleanExpression RPAREN statementBlock)* (ELSE statementBlock)?
   ;
 
 expression
