@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = true, plugin = {"pretty", "html:target/cucumber"}, tags = {"not @Ignore"},
-  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/ArithmeticComparisonAT.feature")
-public class ArithmeticComparisonAT {
+  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/ArithmeticComparisonExpressionAT.feature")
+public class ArithmeticComparisonExpressionAT {
 }

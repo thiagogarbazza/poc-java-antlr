@@ -1,4 +1,4 @@
-Feature: Arithmetic comparison
+Feature: Arithmetic comparison expression
   It is necessary that expression-resolver perform arithmetic comparison expression.
 
   Scenario Outline: 01. perform "equals" expression.
