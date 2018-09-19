@@ -18,11 +18,12 @@ statementBlock
 
 statement
   : IDENTIFIER ASSIG expression SEMICOLON   # assignment
+  | conditionalStatements                   # conditionalStatement
   | RETURN expression SEMICOLON             # returnExpression
   ;
 
-ifExpression
-  : IF LPAREN booleanExpression RPAREN statementBlock (ELSE IF LPAREN booleanExpression RPAREN statementBlock)* (ELSE statementBlock)?
+conditionalStatements
+  : IF LPAREN booleanExpression RPAREN statementBlock (ELSE IF LPAREN booleanExpression RPAREN statementBlock)* (ELSE statementBlock)?  # ifConditional
   ;
 
 expression

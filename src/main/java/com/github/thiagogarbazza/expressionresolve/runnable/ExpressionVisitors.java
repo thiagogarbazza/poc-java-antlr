@@ -2,9 +2,8 @@ package com.github.thiagogarbazza.expressionresolve.runnable;
 
 import com.github.thiagogarbazza.expressionresolve.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser;
-import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.BooleanExpressionContext;
-import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParser.StatementBlockContext;
 import com.github.thiagogarbazza.expressionresolve.parser.ExpressionParserBaseVisitor;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,6 +17,9 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   private final ExpressionContext executionContext;
+
+  @Getter
+  private Object valueToBeReturned;
 
   public ExpressionVisitors(final ExpressionContext expressionContext) {
     this.executionContext = expressionContext;
@@ -39,22 +41,26 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitReturnExpression(final ExpressionParser.ReturnExpressionContext ctx) {
-    return visit(ctx.expression());
+    if (this.valueToBeReturned == null) {
+      this.valueToBeReturned = visit(ctx.expression());
+    }
+
+    return this.valueToBeReturned;
   }
 
   @Override
-  public final Object visitIfExpression(final ExpressionParser.IfExpressionContext ctx) {
+  public Object visitIfConditional(final ExpressionParser.IfConditionalContext ctx) {
     int i = -1;
-    BooleanExpressionContext booleanExpression = null;
+    ExpressionParser.BooleanExpressionContext booleanExpressionContext;
+
     do {
       i++;
-      booleanExpression = ctx.booleanExpression(i);
-    } while (booleanExpression != null && !(Boolean) visit(booleanExpression));
+      booleanExpressionContext = ctx.booleanExpression(i);
+    } while (booleanExpressionContext != null && !(Boolean) visit(booleanExpressionContext));
 
-    final StatementBlockContext statementBlock = ctx.statementBlock(i);
+    final ExpressionParser.StatementBlockContext statementBlock = ctx.statementBlock(i);
     if (statementBlock != null) {
-      Object response = response = visit(statementBlock);
-      return response;
+      return visit(statementBlock);
     }
 
     return null;

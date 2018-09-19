@@ -10,6 +10,6 @@ public final class Runnable {
     ExpressionVisitors visitor = new ExpressionVisitors(expressionContext);
 
     final Object result = visitor.visit(tree);
-    return new Result(result);
+    return new Result(visitor.getValueToBeReturned());
   }
 }
