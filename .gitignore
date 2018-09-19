@@ -14,8 +14,8 @@
 #############################
 target/
 out/
-**/**.tokens
-**/**.releaseBackup
+**.tokens
+**.releaseBackup
 release.properties
 *.log
 *.jar
