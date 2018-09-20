@@ -38,6 +38,8 @@
     <plugin.release.version>2.5.3</plugin.release.version>
     <plugin.source.version>3.0.1</plugin.source.version>
     <plugin.surefire.version>2.22.0</plugin.surefire.version>
+
+    <cucumber.options>--plugin pretty --tags 'not @Ignore or @ignore'</cucumber.options>
   </properties>
 
   <developers>
@@ -162,6 +164,9 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${plugin.failsafe.version}</version>
         <configuration>
+          <systemPropertyVariables>
+            <cucumber.options>${cucumber.options}</cucumber.options>
+          </systemPropertyVariables>
           <includes>
             <include>**/*AT.java</include>
             <include>**/*IT.java</include>
