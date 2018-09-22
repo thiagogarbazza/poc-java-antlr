@@ -71,24 +71,24 @@ stringExpression
   ;
 
 functionsThatReturnDate
-  : FN_CALENDAR_DATE LPAREN numberExpresion COMMA numberExpresion COMMA numberExpresion RPAREN  # functionDate
-  | FN_CALENDAR_TODAY                                                                           # functionToday
+  : FN_DATE LPAREN numberExpresion COMMA numberExpresion COMMA numberExpresion RPAREN  # functionDate
+  | FN_TODAY                                                                           # functionToday
   ;
 
 functionsThatReturnNumber
-  : FN_MATH_COS  LPAREN numberExpresion RPAREN                        # functionCos
-  | FN_MATH_ACOS LPAREN numberExpresion RPAREN                        # functionAcos
-  | FN_MATH_SIN  LPAREN numberExpresion RPAREN                        # functionSin
-  | FN_MATH_ASIN LPAREN numberExpresion RPAREN                        # functionAsin
-  | FN_MATH_TAN  LPAREN numberExpresion RPAREN                        # functionTan
-  | FN_MATH_ATAN LPAREN numberExpresion RPAREN                        # functionAtan
-  | FN_MATH_LN   LPAREN numberExpresion RPAREN                        # functionLn
-  | FN_MATH_LOG  LPAREN numberExpresion RPAREN                        # functionLog
-  | FN_MATH_SQRT LPAREN numberExpresion RPAREN                        # functionSqrt
+  : FN_COS  LPAREN numberExpresion RPAREN                             # functionCos
+  | FN_ACOS LPAREN numberExpresion RPAREN                             # functionAcos
+  | FN_SIN  LPAREN numberExpresion RPAREN                             # functionSin
+  | FN_ASIN LPAREN numberExpresion RPAREN                             # functionAsin
+  | FN_TAN  LPAREN numberExpresion RPAREN                             # functionTan
+  | FN_ATAN LPAREN numberExpresion RPAREN                             # functionAtan
+  | FN_LN   LPAREN numberExpresion RPAREN                             # functionLn
+  | FN_LOG  LPAREN numberExpresion RPAREN                             # functionLog
+  | FN_SQRT LPAREN numberExpresion RPAREN                             # functionSqrt
   | FN_COMPARE LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # functionCompareNumbers
   | FN_COMPARE LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
   | FN_COMPARE LPAREN dateExpresion    COMMA dateExpresion    RPAREN  # functionCompareDates
-  | FN_CALENDAR_DAY   LPAREN dateExpresion RPAREN                     # functionDay
-  | FN_CALENDAR_MONTH LPAREN dateExpresion RPAREN                     # functionMonth
-  | FN_CALENDAR_YEAR  LPAREN dateExpresion RPAREN                     # functionYear
+  | FN_DAY   LPAREN dateExpresion RPAREN                              # functionDay
+  | FN_MONTH LPAREN dateExpresion RPAREN                              # functionMonth
+  | FN_YEAR  LPAREN dateExpresion RPAREN                              # functionYear
   ;
