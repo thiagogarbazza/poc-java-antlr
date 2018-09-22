@@ -1,27 +1,25 @@
 lexer grammar ExpressionLexer;
 
+FN_MATH_ACOS               : 'acos';
+FN_MATH_ASIN               : 'asin';
+FN_MATH_ATAN               : 'atan';
+FN_COMPARE                 : 'compare';
+FN_MATH_COS                : 'cos';
+FN_CALENDAR_DATE           : 'date';
+FN_CALENDAR_DAY            : 'day';
+FN_MATH_LN                 : 'ln';
+FN_MATH_LOG                : 'log';
+FN_CALENDAR_MONTH          : 'month';
+FN_MATH_SIN                : 'sin';
+FN_MATH_SQRT               : 'sqrt';
+FN_MATH_TAN                : 'tan';
+FN_CALENDAR_TODAY          : 'today';
+FN_CALENDAR_YEAR           : 'year';
+
 IF    : 'if';
 ELSE  : 'else';
 NULL  : 'null';
 RETURN: 'return';
-
-FN_CALENDAR_TODAY  : 'today';
-FN_CALENDAR_DATE   : 'date';
-FN_CALENDAR_DAY    : 'day';
-FN_CALENDAR_MONTH  : 'month';
-FN_CALENDAR_YEAR   : 'year';
-
-FN_MATH_SQRT  : 'sqrt';
-FN_MATH_COS   : 'cos';
-FN_MATH_ACOS  : 'acos';
-FN_MATH_SIN   : 'sin';
-FN_MATH_ASIN  : 'asin';
-FN_MATH_TAN   : 'tan';
-FN_MATH_ATAN  : 'atan';
-FN_MATH_LN    : 'ln';
-FN_MATH_LOG   : 'log';
-
-FN_COMPARE    : 'compare';
 
 OR   : '||';
 AND  : '&&';
