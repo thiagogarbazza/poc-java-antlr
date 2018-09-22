@@ -39,7 +39,7 @@
     <plugin.source.version>3.0.1</plugin.source.version>
     <plugin.surefire.version>2.22.0</plugin.surefire.version>
 
-    <cucumber.options>--plugin pretty --tags 'not @Ignore or @ignore'</cucumber.options>
+    <cucumber.options>--plugin pretty --tags 'not @Ignore and not @ignore'</cucumber.options>
   </properties>
 
   <developers>
