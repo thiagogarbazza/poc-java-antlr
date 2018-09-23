@@ -12,9 +12,9 @@ public class FunctionResolverAtan {
   private static final FunctionResolverAtan INSTANCE = new FunctionResolverAtan();
 
   public BigDecimal resolver(BigDecimal value) {
-    final double acos = Math.atan(value.doubleValue());
+    final double atan = Math.atan(value.doubleValue());
 
-    return BigDecimal.valueOf(acos);
+    return BigDecimal.valueOf(atan);
   }
 
   public static FunctionResolverAtan getFunctionResolverAtan() {
