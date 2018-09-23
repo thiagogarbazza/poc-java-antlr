@@ -260,7 +260,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
     BigDecimal acos = getFunctionResolverAcos().resolver(value);
 
-    return resultNormatize(acos);
+    return normalizeResult(acos);
   }
 
   @Override
@@ -357,44 +357,44 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public Object visitFunctionDay(final ExpressionParser.FunctionDayContext ctx) {
     LocalDate date = (LocalDate) visit(ctx.dateExpresion());
 
-    return resultNormatize(date.getDayOfMonth());
+    return this.normalizeResult(date.getDayOfMonth());
   }
 
   @Override
   public Object visitFunctionMonth(final ExpressionParser.FunctionMonthContext ctx) {
     LocalDate date = (LocalDate) visit(ctx.dateExpresion());
 
-    return resultNormatize(date.getMonthValue());
+    return this.normalizeResult(date.getMonthValue());
   }
 
   @Override
   public Object visitFunctionYear(final ExpressionParser.FunctionYearContext ctx) {
     LocalDate date = (LocalDate) visit(ctx.dateExpresion());
 
-    return resultNormatize(date.getYear());
+    return this.normalizeResult(date.getYear());
   }
 
   private Object normalizeResult(final double value) {
     final BigDecimal result = BigDecimal.valueOf(value);
 
-    return resultNormatize(result);
+    return normalizeResult(result);
+  }
+
+  private Object normalizeResult(final Integer result) {
+    return normalizeResult(BigDecimal.valueOf(result));
+  }
+
+  private Object normalizeResult(final BigDecimal result) {
+    return result;
   }
 
   private Object normalizeResultCompare(Integer result) {
     if (result == 0) {
-      return resultNormatize(0);
+      return this.normalizeResult(0);
     }
 
     return result < 0
-      ? resultNormatize(-1)
-      : resultNormatize(1);
-  }
-
-  private Object resultNormatize(final Integer result) {
-    return resultNormatize(BigDecimal.valueOf(result));
-  }
-
-  private Object resultNormatize(final BigDecimal result) {
-    return result;
+      ? this.normalizeResult(-1)
+      : this.normalizeResult(1);
   }
 }
