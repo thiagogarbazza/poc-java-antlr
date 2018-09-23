@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.atan.FunctionResolverAtan.getFunctionResolverAtan;
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
 import static org.apache.commons.lang3.BooleanUtils.negate;
@@ -293,9 +294,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionAtan(final ExpressionParser.FunctionAtanContext ctx) {
-    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
-    final double degrees = child.doubleValue();
-    final double atan = Math.atan(degrees);
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    final BigDecimal atan = getFunctionResolverAtan().resolver(value);
 
     return normalizeResult(atan);
   }
