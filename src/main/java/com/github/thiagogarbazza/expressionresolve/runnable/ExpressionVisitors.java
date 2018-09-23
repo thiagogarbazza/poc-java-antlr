@@ -12,6 +12,7 @@ import static com.github.thiagogarbazza.expressionresolve.functionresolver.acos.
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.atan.FunctionResolverAtan.getFunctionResolverAtan;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.ln.FunctionResolverLn.getFunctionResolverLn;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
@@ -306,9 +307,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionLn(final ExpressionParser.FunctionLnContext ctx) {
-    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
-    final double value = child.doubleValue();
-    final double ln = Math.log(value);
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    final BigDecimal ln = getFunctionResolverLn().resolver(value);
 
     return normalizeResult(ln);
   }
