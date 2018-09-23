@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.NormalizeResult.normalizeResult;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -14,7 +15,7 @@ public class FunctionResolverLn {
   public BigDecimal resolver(BigDecimal value) {
     final double ln = Math.log(value.doubleValue());
 
-    return BigDecimal.valueOf(ln);
+    return normalizeResult(ln);
   }
 
   public static FunctionResolverLn getFunctionResolverLn() {

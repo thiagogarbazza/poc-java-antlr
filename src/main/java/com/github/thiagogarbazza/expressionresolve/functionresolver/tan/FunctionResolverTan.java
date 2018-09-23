@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.NormalizeResult.normalizeResult;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -14,7 +15,7 @@ public class FunctionResolverTan {
   public BigDecimal resolver(BigDecimal value) {
     final double tan = Math.tan(value.doubleValue());
 
-    return BigDecimal.valueOf(tan);
+    return normalizeResult(tan);
   }
 
   public static FunctionResolverTan getFunctionResolverTan() {

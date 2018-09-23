@@ -30,7 +30,7 @@ enum Comparison {
   },
 
   /**
-   * less than
+   * Less than
    */
   LT("<") {
     @Override

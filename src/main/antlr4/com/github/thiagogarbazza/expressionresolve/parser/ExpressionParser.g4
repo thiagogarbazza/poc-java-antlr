@@ -76,19 +76,19 @@ functionsThatReturnDate
   ;
 
 functionsThatReturnNumber
-  : FN_COS  LPAREN numberExpresion RPAREN                                    # functionCos
-  | FN_ACOS LPAREN numberExpresion RPAREN                                    # functionAcos
-  | FN_SIN  LPAREN numberExpresion RPAREN                                    # functionSin
+  : FN_ACOS LPAREN numberExpresion RPAREN                                    # functionAcos
   | FN_ASIN LPAREN numberExpresion RPAREN                                    # functionAsin
-  | FN_TAN  LPAREN numberExpresion RPAREN                                    # functionTan
   | FN_ATAN LPAREN numberExpresion RPAREN                                    # functionAtan
+  | FN_COMPARE_DATE LPAREN dateExpresion    COMMA dateExpresion    RPAREN    # functionCompareDates
+  | FN_COMPARE_STRING LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
+  | FN_COMPARE_NUMBER LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # functionCompareNumbers
+  | FN_COS  LPAREN numberExpresion RPAREN                                    # functionCos
+  | FN_DAY   LPAREN dateExpresion RPAREN                                     # functionDay
   | FN_LN   LPAREN numberExpresion RPAREN                                    # functionLn
   | FN_LOG  LPAREN numberExpresion RPAREN                                    # functionLog
-  | FN_SQRT LPAREN numberExpresion RPAREN                                    # functionSqrt
-  | FN_COMPARE_NUMBER LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # functionCompareNumbers
-  | FN_COMPARE_STRING LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
-  | FN_COMPARE_DATE LPAREN dateExpresion    COMMA dateExpresion    RPAREN    # functionCompareDates
-  | FN_DAY   LPAREN dateExpresion RPAREN                                     # functionDay
   | FN_MONTH LPAREN dateExpresion RPAREN                                     # functionMonth
+  | FN_SIN  LPAREN numberExpresion RPAREN                                    # functionSin
+  | FN_SQRT LPAREN numberExpresion RPAREN                                    # functionSqrt
+  | FN_TAN  LPAREN numberExpresion RPAREN                                    # functionTan
   | FN_YEAR  LPAREN dateExpresion RPAREN                                     # functionYear
   ;

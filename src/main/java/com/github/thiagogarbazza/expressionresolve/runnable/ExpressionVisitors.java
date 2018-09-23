@@ -11,12 +11,19 @@ import java.time.LocalDate;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.atan.FunctionResolverAtan.getFunctionResolverAtan;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.comparedate.FunctionResolverCompareDate.getFunctionResolverCompareDate;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.comparenumber.FunctionResolverCompareNumber.getFunctionResolverCompareNumber;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.comparestring.FunctionResolverCompareString.getFunctionResolverCompareString;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.date.FunctionResolverDate.getFunctionResolverDate;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.day.FunctionResolverDay.getFunctionResolverDay;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.ln.FunctionResolverLn.getFunctionResolverLn;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.log.FunctionResolverLog.getFunctionResolverLog;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.month.FunctionResolverMonth.getFunctionResolverMonth;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.sqrt.FunctionResolverSqrt.getFunctionResolverSqrt;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.year.FunctionResolverYear.getFunctionResolvergetYear;
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
 import static org.apache.commons.lang3.BooleanUtils.negate;
@@ -24,6 +31,9 @@ import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
+
+  private static final String END_QUOTES = "['\"]$";
+  private static final String START_QUOTES = "^['\"]";
 
   private final ExpressionContext executionContext;
 
@@ -236,7 +246,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
-    return ctx.getText().replaceAll("^['\"]", EMPTY).replaceAll("['\"]$", EMPTY);
+    return ctx.getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
   }
 
   @Override
@@ -245,7 +255,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     BigDecimal month = (BigDecimal) visit(ctx.numberExpresion(1));
     BigDecimal day = (BigDecimal) visit(ctx.numberExpresion(2));
 
-    return LocalDate.of(year.intValue(), month.intValue(), day.intValue());
+    return getFunctionResolverDate().resolver(year, month, day);
   }
 
   @Override
@@ -254,161 +264,110 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitFunctionCos(final ExpressionParser.FunctionCosContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
-
-    final BigDecimal cos = getFunctionResolverCos().resolver(value);
-
-    return normalizeResult(cos);
-  }
-
-  @Override
   public Object visitFunctionAcos(final ExpressionParser.FunctionAcosContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
 
-    BigDecimal acos = getFunctionResolverAcos().resolver(value);
-
-    return normalizeResult(acos);
-  }
-
-  @Override
-  public Object visitFunctionSin(final ExpressionParser.FunctionSinContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
-
-    final BigDecimal sin = getFunctionResolverSin().resolver(value);
-
-    return normalizeResult(sin);
+    return getFunctionResolverAcos().resolver(value);
   }
 
   @Override
   public Object visitFunctionAsin(final ExpressionParser.FunctionAsinContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
 
-    final BigDecimal asin = getFunctionResolverAsin().resolver(value);
-
-    return normalizeResult(asin);
-  }
-
-  @Override
-  public Object visitFunctionTan(final ExpressionParser.FunctionTanContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
-
-    final BigDecimal tan = getFunctionResolverTan().resolver(value);
-
-    return normalizeResult(tan);
+    return getFunctionResolverAsin().resolver(value);
   }
 
   @Override
   public Object visitFunctionAtan(final ExpressionParser.FunctionAtanContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
 
-    final BigDecimal atan = getFunctionResolverAtan().resolver(value);
-
-    return normalizeResult(atan);
-  }
-
-  @Override
-  public Object visitFunctionLn(final ExpressionParser.FunctionLnContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
-
-    final BigDecimal ln = getFunctionResolverLn().resolver(value);
-
-    return normalizeResult(ln);
-  }
-
-  @Override
-  public Object visitFunctionLog(final ExpressionParser.FunctionLogContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
-
-    final BigDecimal log = getFunctionResolverLog().resolver(value);
-
-    return normalizeResult(log);
-  }
-
-  @Override
-  public Object visitFunctionSqrt(final ExpressionParser.FunctionSqrtContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
-
-    final BigDecimal sqrt = getFunctionResolverSqrt().resolver(value);
-
-    return normalizeResult(sqrt);
-  }
-
-  @Override
-  public Object visitFunctionCompareNumbers(final ExpressionParser.FunctionCompareNumbersContext ctx) {
-    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
-    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
-    final Integer result = left.compareTo(right);
-
-    return normalizeResultCompare(result);
-  }
-
-  @Override
-  public Object visitFunctionCompareStrings(final ExpressionParser.FunctionCompareStringsContext ctx) {
-    final String left = (String) visit(ctx.stringExpression(0));
-    final String right = (String) visit(ctx.stringExpression(1));
-    final Integer result = left.compareTo(right);
-
-    return normalizeResultCompare(result);
+    return getFunctionResolverAtan().resolver(value);
   }
 
   @Override
   public Object visitFunctionCompareDates(final ExpressionParser.FunctionCompareDatesContext ctx) {
     final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
     final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
-    final Integer result = left.compareTo(right);
 
-    return normalizeResultCompare(result);
+    return getFunctionResolverCompareDate().resolver(left, right);
+  }
+
+  @Override
+  public Object visitFunctionCompareStrings(final ExpressionParser.FunctionCompareStringsContext ctx) {
+    final String left = (String) visit(ctx.stringExpression(0));
+    final String right = (String) visit(ctx.stringExpression(1));
+
+    return getFunctionResolverCompareString().resolver(left, right);
+  }
+
+  @Override
+  public Object visitFunctionCompareNumbers(final ExpressionParser.FunctionCompareNumbersContext ctx) {
+    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+
+    return getFunctionResolverCompareNumber().resolver(left, right);
+  }
+
+  @Override
+  public Object visitFunctionCos(final ExpressionParser.FunctionCosContext ctx) {
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    return getFunctionResolverCos().resolver(value);
   }
 
   @Override
   public Object visitFunctionDay(final ExpressionParser.FunctionDayContext ctx) {
-    LocalDate date = (LocalDate) visit(ctx.dateExpresion());
+    final LocalDate value = (LocalDate) visit(ctx.dateExpresion());
 
-    return this.normalizeResult(date.getDayOfMonth());
+    return getFunctionResolverDay().resolver(value);
+  }
+
+  @Override
+  public Object visitFunctionLn(final ExpressionParser.FunctionLnContext ctx) {
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    return getFunctionResolverLn().resolver(value);
+  }
+
+  @Override
+  public Object visitFunctionLog(final ExpressionParser.FunctionLogContext ctx) {
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    return getFunctionResolverLog().resolver(value);
   }
 
   @Override
   public Object visitFunctionMonth(final ExpressionParser.FunctionMonthContext ctx) {
-    LocalDate date = (LocalDate) visit(ctx.dateExpresion());
+    final LocalDate value = (LocalDate) visit(ctx.dateExpresion());
 
-    return this.normalizeResult(date.getMonthValue());
+    return getFunctionResolverMonth().resolver(value);
+  }
+
+  @Override
+  public Object visitFunctionSin(final ExpressionParser.FunctionSinContext ctx) {
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    return getFunctionResolverSin().resolver(value);
+  }
+
+  @Override
+  public Object visitFunctionSqrt(final ExpressionParser.FunctionSqrtContext ctx) {
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    return getFunctionResolverSqrt().resolver(value);
+  }
+
+  @Override
+  public Object visitFunctionTan(final ExpressionParser.FunctionTanContext ctx) {
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    return getFunctionResolverTan().resolver(value);
   }
 
   @Override
   public Object visitFunctionYear(final ExpressionParser.FunctionYearContext ctx) {
-    LocalDate date = (LocalDate) visit(ctx.dateExpresion());
+    final LocalDate value = (LocalDate) visit(ctx.dateExpresion());
 
-    return this.normalizeResult(date.getYear());
-  }
-
-  private Object normalizeResult(final double value) {
-    final BigDecimal result = BigDecimal.valueOf(value);
-
-    return normalizeResult(result);
-  }
-
-  private Object normalizeResult(final int value) {
-    final BigDecimal result = BigDecimal.valueOf(value);
-
-    return normalizeResult(result);
-  }
-
-  private Object normalizeResult(final Integer result) {
-    return normalizeResult(BigDecimal.valueOf(result));
-  }
-
-  private Object normalizeResult(final BigDecimal result) {
-    return result;
-  }
-
-  private Object normalizeResultCompare(Integer result) {
-    if (result == 0) {
-      return this.normalizeResult(0);
-    }
-
-    return result < 0
-      ? this.normalizeResult(-1)
-      : this.normalizeResult(1);
+    return getFunctionResolvergetYear().resolver(value);
   }
 }

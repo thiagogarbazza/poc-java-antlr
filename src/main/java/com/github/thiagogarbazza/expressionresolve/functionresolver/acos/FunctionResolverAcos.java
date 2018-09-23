@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.NormalizeResult.normalizeResult;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -14,7 +15,7 @@ public class FunctionResolverAcos {
   public BigDecimal resolver(BigDecimal value) {
     final double acos = Math.acos(value.doubleValue());
 
-    return BigDecimal.valueOf(acos);
+    return normalizeResult(acos);
   }
 
   public static FunctionResolverAcos getFunctionResolverAcos() {
