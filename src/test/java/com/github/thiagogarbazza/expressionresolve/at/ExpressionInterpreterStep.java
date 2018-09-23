@@ -5,9 +5,11 @@ import com.github.thiagogarbazza.expressionresolve.domain.Expression;
 import com.github.thiagogarbazza.expressionresolve.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolve.domain.Result;
 import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -28,6 +30,26 @@ public class ExpressionInterpreterStep {
   public void before() {
     interpreter = new ExpressionInterpreter();
     context = new ExpressionContext();
+  }
+
+  @And("^the following booleans in the context$")
+  public void contextBackgroundBoolensInContext(DataTable numbers) throws Throwable {
+    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), toBoolean(cell.get(1))));
+  }
+
+  @And("^the following dates in the context$")
+  public void contextBackgroundDatesInContext(DataTable numbers) throws Throwable {
+    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), LocalDate.parse(cell.get(1).replaceAll("/", "-"))));
+  }
+
+  @And("^the following numbers in the context$")
+  public void contextBackgroundNumbersInContext(DataTable numbers) throws Throwable {
+    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), new BigDecimal(cell.get(1))));
+  }
+
+  @And("^the following strings in the context$")
+  public void contextBackgroundStringsInContext(DataTable numbers) throws Throwable {
+    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), cell.get(1)));
   }
 
   @Given("^Send the expression \"(.*)\".$")
