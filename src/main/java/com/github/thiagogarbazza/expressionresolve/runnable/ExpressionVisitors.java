@@ -8,6 +8,7 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
 import static org.apache.commons.lang3.BooleanUtils.negate;
@@ -255,11 +256,11 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionAcos(final ExpressionParser.FunctionAcosContext ctx) {
-    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
-    final double degrees = child.doubleValue();
-    final double acos = Math.acos(degrees);
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
 
-    return normalizeResult(acos);
+    BigDecimal acos = getFunctionResolverAcos().resolver(value);
+
+    return resultNormatize(acos);
   }
 
   @Override
