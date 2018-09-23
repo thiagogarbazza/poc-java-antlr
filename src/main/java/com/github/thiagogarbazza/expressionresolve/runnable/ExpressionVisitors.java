@@ -388,6 +388,12 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     return normalizeResult(result);
   }
 
+  private Object normalizeResult(final int value) {
+    final BigDecimal result = BigDecimal.valueOf(value);
+
+    return normalizeResult(result);
+  }
+
   private Object normalizeResult(final Integer result) {
     return normalizeResult(BigDecimal.valueOf(result));
   }
