@@ -5,7 +5,5 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(strict = true, plugin = {"pretty", "html:target/cucumber"}, tags = {"not @Ignore"},
-  features = "classpath:com/github/thiagogarbazza/expressionresolve/at/FunctionCompareStringAT.feature")
-public class FunctionCompareStringAT {
-}
+@CucumberOptions(features = "classpath:com/github/thiagogarbazza/expressionresolve/at/FunctionCompareStringAT.feature")
+public class FunctionCompareStringAT {}
