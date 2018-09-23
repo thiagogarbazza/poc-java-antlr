@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.atan.FunctionResolverAtan.getFunctionResolverAtan;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
@@ -251,9 +252,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionCos(final ExpressionParser.FunctionCosContext ctx) {
-    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
-    final double degrees = child.doubleValue();
-    final double cos = Math.cos(degrees);
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    final BigDecimal cos = getFunctionResolverCos().resolver(value);
 
     return normalizeResult(cos);
   }
