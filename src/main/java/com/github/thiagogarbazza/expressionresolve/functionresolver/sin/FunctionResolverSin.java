@@ -12,9 +12,9 @@ public class FunctionResolverSin {
   private static final FunctionResolverSin INSTANCE = new FunctionResolverSin();
 
   public BigDecimal resolver(BigDecimal value) {
-    final double asin = Math.sin(value.doubleValue());
+    final double sin = Math.sin(value.doubleValue());
 
-    return BigDecimal.valueOf(asin);
+    return BigDecimal.valueOf(sin);
   }
 
   public static FunctionResolverSin getFunctionResolverSin() {

@@ -15,6 +15,7 @@ import static com.github.thiagogarbazza.expressionresolve.functionresolver.cos.F
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.ln.FunctionResolverLn.getFunctionResolverLn;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.log.FunctionResolverLog.getFunctionResolverLog;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
+import static com.github.thiagogarbazza.expressionresolve.functionresolver.sqrt.FunctionResolverSqrt.getFunctionResolverSqrt;
 import static com.github.thiagogarbazza.expressionresolve.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
 import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
@@ -326,9 +327,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionSqrt(final ExpressionParser.FunctionSqrtContext ctx) {
-    final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion());
-    final double value = child.doubleValue();
-    final double sqrt = Math.sqrt(value);
+    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+
+    final BigDecimal sqrt = getFunctionResolverSqrt().resolver(value);
 
     return normalizeResult(sqrt);
   }
