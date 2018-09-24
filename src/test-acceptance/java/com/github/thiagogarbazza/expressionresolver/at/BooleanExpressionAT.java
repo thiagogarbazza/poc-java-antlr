@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolve.at;
+package com.github.thiagogarbazza.expressionresolver.at;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolve.at;
+package com.github.thiagogarbazza.expressionresolver.at;
 
 import com.github.thiagogarbazza.expressionresolve.ExpressionInterpreter;
 import com.github.thiagogarbazza.expressionresolve.domain.Expression;
