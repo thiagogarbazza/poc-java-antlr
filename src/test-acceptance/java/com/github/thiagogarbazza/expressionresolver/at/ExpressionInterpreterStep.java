@@ -1,9 +1,9 @@
 package com.github.thiagogarbazza.expressionresolver.at;
 
-import com.github.thiagogarbazza.expressionresolve.ExpressionInterpreter;
-import com.github.thiagogarbazza.expressionresolve.domain.Expression;
-import com.github.thiagogarbazza.expressionresolve.domain.ExpressionContext;
-import com.github.thiagogarbazza.expressionresolve.domain.Result;
+import com.github.thiagogarbazza.expressionresolver.ExpressionInterpreter;
+import com.github.thiagogarbazza.expressionresolver.domain.Expression;
+import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
+import com.github.thiagogarbazza.expressionresolver.domain.Result;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -14,7 +14,7 @@ import io.cucumber.datatable.DataTable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.github.thiagogarbazza.expressionresolve.util.LocalDateUtil.toLocalDate;
+import static com.github.thiagogarbazza.expressionresolver.util.LocalDateUtil.toLocalDate;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.apache.commons.lang3.StringUtils.contains;
 import static org.junit.Assert.assertEquals;

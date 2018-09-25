@@ -5,5 +5,5 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:com/github/thiagogarbazza/expressionresolve/at/FunctionAtanAT.feature")
+@CucumberOptions(features = "classpath:com/github/thiagogarbazza/expressionresolver/at/FunctionAtanAT.feature")
 public class FunctionAtanAT {}
