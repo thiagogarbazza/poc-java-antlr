@@ -15,7 +15,7 @@ Feature: IF condition expression
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression                                                                              | expression-result |
+      | expression                                                                      | expression-result |
       | if (true)   { return 1; } return 2;                                             | 1                 |
       | if (false)  { return 1; } return 2;                                             | 2                 |
       | if (true)   { return 1; } else { return 2; }                                    | 1                 |
