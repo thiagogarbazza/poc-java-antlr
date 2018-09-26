@@ -125,10 +125,10 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>${plugin.build-helper.version}</version>
         <executions>
           <execution>
-            <id>add-test-acceptance-source</id>
+            <id>add-test-custom-source</id>
             <phase>generate-test-sources</phase>
             <goals>
               <goal>add-test-source</goal>
@@ -136,12 +136,13 @@
             <configuration>
               <sources>
                 <source>src/test-acceptance/java</source>
+                <source>src/test-integration/java</source>
               </sources>
             </configuration>
           </execution>
           <execution>
-            <id>add-test-acceptance-resource</id>
-            <phase>generate-resources</phase>
+            <id>add-test-custom-resource</id>
+            <phase>generate-test-resources</phase>
             <goals>
               <goal>add-test-resource</goal>
             </goals>
@@ -150,29 +151,6 @@
                 <resource>
                   <directory>src/test-acceptance/resources</directory>
                 </resource>
-              </resources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>add-test-integration-source</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>add-test-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>src/test-integration/java</source>
-              </sources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>add-test-integration-resource</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>add-test-resource</goal>
-            </goals>
-            <configuration>
-              <resources>
                 <resource>
                   <directory>src/test-integration/resources</directory>
                 </resource>
