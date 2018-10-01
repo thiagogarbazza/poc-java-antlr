@@ -13,8 +13,7 @@ public final class Compiler {
   private final ParserBuilder parserBuilder = new ParserBuilder();
 
   public ParseTree compile(Expression expression) {
-    ExpressionInputStream in = new ExpressionInputStream(expression);
-    ExpressionLexer lexer = getExpressionLexerBuilder().build(in);
+    ExpressionLexer lexer = getExpressionLexerBuilder().build(expression);
     ExpressionParser parser = parserBuilder.build(lexer);
 
     return getParseTreeBuilder().build(parser);
