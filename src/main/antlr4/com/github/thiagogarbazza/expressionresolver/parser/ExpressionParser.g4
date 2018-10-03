@@ -31,6 +31,11 @@ expression
   | dateExpresion
   | numberExpresion
   | stringExpression
+  | collectionExpression
+  ;
+
+collectionExpression
+  : FN_DATE_FROM_RANGE LPAREN dateExpresion COMMA dateExpresion RPAREN  # functionDatesFromRange
   ;
 
 booleanExpression

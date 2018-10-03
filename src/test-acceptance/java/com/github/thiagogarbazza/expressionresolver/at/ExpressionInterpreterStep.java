@@ -14,9 +14,9 @@ import io.cucumber.datatable.DataTable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.github.thiagogarbazza.expressionresolver.util.LocalDateUtil.toLocalDate;
+import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDate;
+import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDates;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
-import static org.apache.commons.lang3.StringUtils.contains;
 import static org.junit.Assert.assertEquals;
 
 public class ExpressionInterpreterStep {
@@ -65,12 +65,14 @@ public class ExpressionInterpreterStep {
 
   @Then("^I should have resulted the date: \"(.*)\".$")
   public void thenIShouldHaveResultedTheDate(String expressionResult) throws Throwable {
-    Result expected;
-    if (contains(expressionResult, "is today")) {
-      expected = new Result(LocalDate.now());
-    } else {
-      expected = new Result(toLocalDate(expressionResult));
-    }
+    Result expected = new Result(stringToDate(expressionResult));
+
+    assertEquals(expected, this.expressionResult);
+  }
+
+  @Then("^I should have resulted the dates: \"(.*)\".$")
+  public void thenIShouldHaveResultedTheDates(String expressionResult) throws Throwable {
+    Result expected = new Result(stringToDates(expressionResult));
 
     assertEquals(expected, this.expressionResult);
   }

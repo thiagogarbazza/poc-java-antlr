@@ -16,6 +16,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.comp
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.FunctionResolverCompareString.getFunctionResolverCompareString;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.date.FunctionResolverDate.getFunctionResolverDate;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.FunctionResolverDatesFromRange.getFunctionResolverDatesFromRange;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.day.FunctionResolverDay.getFunctionResolverDay;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.ln.FunctionResolverLn.getFunctionResolverLn;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.log.FunctionResolverLog.getFunctionResolverLog;
@@ -83,6 +84,14 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     }
 
     return null;
+  }
+
+  @Override
+  public Object visitFunctionDatesFromRange(final ExpressionParser.FunctionDatesFromRangeContext ctx) {
+    final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
+    final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
+
+    return getFunctionResolverDatesFromRange().resolver(left, right);
   }
 
   @Override
