@@ -24,6 +24,9 @@ ELSE    : 'else';
 NULL    : 'null';
 RETURN  : 'return';
 
+FOR : 'for';
+IN  : 'in';
+
 OR   : '||';
 AND  : '&&';
 

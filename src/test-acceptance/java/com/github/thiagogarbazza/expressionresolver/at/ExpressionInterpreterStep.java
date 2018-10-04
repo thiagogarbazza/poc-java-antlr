@@ -12,8 +12,9 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
+import static com.github.thiagogarbazza.expressionresolver.at.UtilATBigDecimal.stringToBigDecimal;
+import static com.github.thiagogarbazza.expressionresolver.at.UtilATBigDecimal.stringToBigDecimals;
 import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDate;
 import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDates;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
@@ -33,23 +34,33 @@ public class ExpressionInterpreterStep {
   }
 
   @And("^the following booleans in the context$")
-  public void contextBackgroundBoolensInContext(DataTable numbers) throws Throwable {
-    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), toBoolean(cell.get(1))));
+  public void contextBackgroundBoolensInContext(DataTable booleans) throws Throwable {
+    booleans.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), toBoolean(cell.get(1))));
+  }
+
+  @And("^the following dates collections in the context$")
+  public void contextBackgroundDatesCollectionsInContext(DataTable dates) throws Throwable {
+    dates.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToDates(cell.get(1))));
   }
 
   @And("^the following dates in the context$")
-  public void contextBackgroundDatesInContext(DataTable numbers) throws Throwable {
-    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), LocalDate.parse(cell.get(1).replaceAll("/", "-"))));
+  public void contextBackgroundDatesInContext(DataTable dates) throws Throwable {
+    dates.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToDate(cell.get(1))));
+  }
+
+  @And("^the following numbers collections in the context$")
+  public void contextBackgroundNumbersCollectionsInContext(DataTable numbers) throws Throwable {
+    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToBigDecimals(cell.get(1))));
   }
 
   @And("^the following numbers in the context$")
   public void contextBackgroundNumbersInContext(DataTable numbers) throws Throwable {
-    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), new BigDecimal(cell.get(1))));
+    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToBigDecimal(cell.get(1))));
   }
 
   @And("^the following strings in the context$")
-  public void contextBackgroundStringsInContext(DataTable numbers) throws Throwable {
-    numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), cell.get(1)));
+  public void contextBackgroundStringsInContext(DataTable strings) throws Throwable {
+    strings.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), cell.get(1)));
   }
 
   @Given("^Send the expression \"(.*)\".$")

@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Iterator;
 
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
@@ -60,6 +61,19 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitIterableExpression(final ExpressionParser.IterableExpressionContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    Iterator iterator = (Iterator) ((Iterable) visit(ctx.collectionExpression())).iterator();
+
+    while (iterator.hasNext()) {
+      executionContext.set(identifier, iterator.next());
+      visit(ctx.statementBlock());
+    }
+
+    return null;
+  }
+
+  @Override
   public Object visitReturnExpression(final ExpressionParser.ReturnExpressionContext ctx) {
     if (this.valueToBeReturned == null) {
       this.valueToBeReturned = visit(ctx.expression());
@@ -84,14 +98,6 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     }
 
     return null;
-  }
-
-  @Override
-  public Object visitFunctionDatesFromRange(final ExpressionParser.FunctionDatesFromRangeContext ctx) {
-    final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
-    final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
-
-    return getFunctionResolverDatesFromRange().resolver(left, right);
   }
 
   @Override
@@ -157,6 +163,20 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     final String date = ctx.getText();
 
     return toLocalDate(date);
+  }
+
+  @Override
+  public Object visitIdentifierDates(final ExpressionParser.IdentifierDatesContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+
+    return executionContext.get(identifier);
+  }
+
+  @Override
+  public Object visitIdentifierNumbers(final ExpressionParser.IdentifierNumbersContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+
+    return executionContext.get(identifier);
   }
 
   @Override
@@ -270,6 +290,14 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public Object visitFunctionToday(final ExpressionParser.FunctionTodayContext ctx) {
     return executionContext.get("today", LocalDate.class);
+  }
+
+  @Override
+  public Object visitFunctionDatesFromRange(final ExpressionParser.FunctionDatesFromRangeContext ctx) {
+    final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
+    final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
+
+    return getFunctionResolverDatesFromRange().resolver(left, right);
   }
 
   @Override

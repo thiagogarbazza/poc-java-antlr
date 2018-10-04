@@ -17,9 +17,10 @@ statementBlock
   ;
 
 statement
-  : IDENTIFIER ASSIG expression SEMICOLON   # assignment
-  | conditionalStatements                   # conditionalStatement
-  | RETURN expression SEMICOLON             # returnExpression
+  : IDENTIFIER ASSIG expression SEMICOLON                                # assignment
+  | conditionalStatements                                                # conditionalStatement
+  | FOR LPAREN IDENTIFIER IN collectionExpression RPAREN statementBlock  # iterableExpression
+  | RETURN expression SEMICOLON                                          # returnExpression
   ;
 
 conditionalStatements
@@ -35,7 +36,8 @@ expression
   ;
 
 collectionExpression
-  : FN_DATE_FROM_RANGE LPAREN dateExpresion COMMA dateExpresion RPAREN  # functionDatesFromRange
+  : datesExpresion
+  | numbersExpresion
   ;
 
 booleanExpression
@@ -52,6 +54,15 @@ dateExpresion
   : functionsThatReturnDate  # functionThatReturnDate
   | IDENTIFIER               # identifierDate
   | DATE                     # primitiveDate
+  ;
+
+datesExpresion
+  : functionsThatReturnDates # functionThatReturnDates
+  | IDENTIFIER               # identifierDates
+  ;
+
+numbersExpresion
+  : IDENTIFIER                             # identifierNumbers
   ;
 
 numberExpresion
@@ -78,6 +89,10 @@ stringExpression
 functionsThatReturnDate
   : FN_DATE LPAREN numberExpresion COMMA numberExpresion COMMA numberExpresion RPAREN  # functionDate
   | FN_TODAY                                                                           # functionToday
+  ;
+
+functionsThatReturnDates
+  : FN_DATE_FROM_RANGE LPAREN dateExpresion COMMA dateExpresion RPAREN  # functionDatesFromRange
   ;
 
 functionsThatReturnNumber
