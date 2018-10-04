@@ -8,11 +8,12 @@ import com.github.thiagogarbazza.expressionresolver.runnable.Runnable;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import static com.github.thiagogarbazza.expressionresolver.compile.Compiler.getCompiler;
+import static com.github.thiagogarbazza.expressionresolver.runnable.Runnable.getRunnable;
 
 public final class ExpressionInterpreter {
 
   private final Compiler compiler = getCompiler();
-  private final Runnable runnable = new Runnable();
+  private final Runnable runnable = getRunnable();
 
   public Result toInterpret(final Expression expression, final ExpressionContext context) {
     ParseTree tree = compiler.compile(expression);
