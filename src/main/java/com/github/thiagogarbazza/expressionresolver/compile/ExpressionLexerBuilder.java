@@ -4,6 +4,7 @@ import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionLexer;
 import lombok.NoArgsConstructor;
 
+import static com.github.thiagogarbazza.expressionresolver.compile.LexerErrorListener.getLexerErrorListener;
 import static lombok.AccessLevel.PRIVATE;
 import static org.antlr.v4.runtime.CharStreams.fromString;
 
@@ -15,7 +16,7 @@ final class ExpressionLexerBuilder {
   public ExpressionLexer build(final Expression expression) {
     ExpressionLexer lexer = new ExpressionLexer(fromString(expression.getValue()));
     lexer.removeErrorListeners();
-    lexer.addErrorListener(new LexerErrorListener());
+    lexer.addErrorListener(getLexerErrorListener());
 
     return lexer;
   }

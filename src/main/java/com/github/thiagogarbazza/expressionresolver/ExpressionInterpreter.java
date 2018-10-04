@@ -7,9 +7,11 @@ import com.github.thiagogarbazza.expressionresolver.domain.Result;
 import com.github.thiagogarbazza.expressionresolver.runnable.Runnable;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import static com.github.thiagogarbazza.expressionresolver.compile.Compiler.getCompiler;
+
 public final class ExpressionInterpreter {
 
-  private final Compiler compiler = new Compiler();
+  private final Compiler compiler = getCompiler();
   private final Runnable runnable = new Runnable();
 
   public Result toInterpret(final Expression expression, final ExpressionContext context) {

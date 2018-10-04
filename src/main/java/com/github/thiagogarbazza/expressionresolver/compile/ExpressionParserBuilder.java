@@ -5,6 +5,8 @@ import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import static com.github.thiagogarbazza.expressionresolver.compile.LexerErrorListener.getLexerErrorListener;
+import static com.github.thiagogarbazza.expressionresolver.compile.ParserErrorStrategy.getParserErrorStrategy;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -17,8 +19,9 @@ final class ExpressionParserBuilder {
 
     ExpressionParser parser = new ExpressionParser(tokens);
     parser.removeErrorListeners();
-    parser.addErrorListener(new LexerErrorListener());
-    parser.setErrorHandler(new ParserErrorStrategy());
+    parser.addErrorListener(getLexerErrorListener());
+    parser.setErrorHandler(getParserErrorStrategy());
+
     return parser;
   }
 
