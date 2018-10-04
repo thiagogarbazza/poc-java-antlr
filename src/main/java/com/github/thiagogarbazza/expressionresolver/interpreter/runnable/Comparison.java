@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.runnable;
+package com.github.thiagogarbazza.expressionresolver.interpreter.runnable;
 
 import org.apache.commons.collections4.Predicate;
 

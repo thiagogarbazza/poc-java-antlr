@@ -1,14 +1,14 @@
 package com.github.thiagogarbazza.expressionresolver;
 
-import com.github.thiagogarbazza.expressionresolver.compile.Compiler;
+import com.github.thiagogarbazza.expressionresolver.interpreter.compile.Compiler;
 import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.domain.Result;
-import com.github.thiagogarbazza.expressionresolver.runnable.Runnable;
+import com.github.thiagogarbazza.expressionresolver.interpreter.runnable.Runnable;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import static com.github.thiagogarbazza.expressionresolver.compile.Compiler.getCompiler;
-import static com.github.thiagogarbazza.expressionresolver.runnable.Runnable.getRunnable;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.Compiler.getCompiler;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.runnable.Runnable.getRunnable;
 
 public final class ExpressionInterpreter {
 

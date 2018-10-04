@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.compile;
+package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import lombok.NoArgsConstructor;

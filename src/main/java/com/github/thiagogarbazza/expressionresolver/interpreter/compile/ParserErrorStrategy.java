@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.compile;
+package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.DefaultErrorStrategy;

@@ -1,10 +1,10 @@
-package com.github.thiagogarbazza.expressionresolver.compile;
+package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
 import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionLexer;
 import lombok.NoArgsConstructor;
 
-import static com.github.thiagogarbazza.expressionresolver.compile.LexerErrorListener.getLexerErrorListener;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.LexerErrorListener.getLexerErrorListener;
 import static lombok.AccessLevel.PRIVATE;
 import static org.antlr.v4.runtime.CharStreams.fromString;
 

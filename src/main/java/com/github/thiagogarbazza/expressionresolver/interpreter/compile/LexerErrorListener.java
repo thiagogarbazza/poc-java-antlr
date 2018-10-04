@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.compile;
+package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
 import com.github.thiagogarbazza.expressionresolver.exception.SyntaxException;
 import lombok.NoArgsConstructor;

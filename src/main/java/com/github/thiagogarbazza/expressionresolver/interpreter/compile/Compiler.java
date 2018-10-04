@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.compile;
+package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
 import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionLexer;
@@ -6,9 +6,9 @@ import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import static com.github.thiagogarbazza.expressionresolver.compile.ExpressionLexerBuilder.getExpressionLexerBuilder;
-import static com.github.thiagogarbazza.expressionresolver.compile.ExpressionParserBuilder.getExpressionParserBuilder;
-import static com.github.thiagogarbazza.expressionresolver.compile.ParseTreeBuilder.getParseTreeBuilder;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.ExpressionLexerBuilder.getExpressionLexerBuilder;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.ExpressionParserBuilder.getExpressionParserBuilder;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.ParseTreeBuilder.getParseTreeBuilder;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)

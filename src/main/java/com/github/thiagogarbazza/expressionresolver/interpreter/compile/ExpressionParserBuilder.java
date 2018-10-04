@@ -1,12 +1,12 @@
-package com.github.thiagogarbazza.expressionresolver.compile;
+package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionLexer;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import static com.github.thiagogarbazza.expressionresolver.compile.LexerErrorListener.getLexerErrorListener;
-import static com.github.thiagogarbazza.expressionresolver.compile.ParserErrorStrategy.getParserErrorStrategy;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.LexerErrorListener.getLexerErrorListener;
+import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.ParserErrorStrategy.getParserErrorStrategy;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
