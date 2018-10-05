@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public final class Runnable {
+public class Runnable {
 
   private static final Runnable INSTANCE = new Runnable();
 

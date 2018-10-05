@@ -12,7 +12,7 @@ import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.P
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public final class Compiler {
+public class Compiler {
 
   private static final Compiler INSTANCE = new Compiler();
 

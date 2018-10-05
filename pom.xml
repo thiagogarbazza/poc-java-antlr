@@ -26,6 +26,7 @@
     <dependency.cucumber.version>4.0.0</dependency.cucumber.version>
     <dependency.junit.version>4.12</dependency.junit.version>
     <dependency.lombok.version>1.18.2</dependency.lombok.version>
+    <dependency.mockito-core.version>2.22.0</dependency.mockito-core.version>
 
     <plugin.antlr.version>4.7.1</plugin.antlr.version>
     <plugin.build-helper.version>3.0.0</plugin.build-helper.version>
@@ -112,6 +113,13 @@
       <artifactId>commons-logging</artifactId>
       <version>${dependency.commons-logging.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${dependency.mockito-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
