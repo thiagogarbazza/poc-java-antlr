@@ -63,7 +63,8 @@ datesExpresion
   ;
 
 numbersExpresion
-  : IDENTIFIER                             # identifierNumbers
+  : LBRACK numberExpresion (COMMA numberExpresion)* RBRACK  # collectionNumberExpresion
+  | IDENTIFIER                                              # identifierNumbers
   ;
 
 numberExpresion

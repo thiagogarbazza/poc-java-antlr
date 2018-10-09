@@ -184,6 +184,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitCollectionNumberExpresion(final ExpressionParser.CollectionNumberExpresionContext ctx) {
+    final Collection<BigDecimal> numbers = new ArrayList<>();
+
+    ctx.numberExpresion().stream().forEach(context -> numbers.add((BigDecimal) visit(context)));
+
+    return numbers;
+  }
+
+  @Override
   public Object visitIdentifierNumbers(final ExpressionParser.IdentifierNumbersContext ctx) {
     final String identifier = ctx.IDENTIFIER().getText();
 

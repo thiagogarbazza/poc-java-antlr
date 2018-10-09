@@ -16,9 +16,10 @@ Feature: Iterable expression
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression                                                              | expression-result |
-      | $sum = 0; for ($n in $numbers) { $sum = $sum + $n; } return $sum;       | 35                |
-      | $sum = 0; for ($n in $numbers_empty) { $sum = $sum + $n; } return $sum; | 0                 |
+      | expression                                                                         | expression-result |
+      | $sum = 0; for ($n in $numbers) { $sum = $sum + $n; } return $sum;                  | 35                |
+      | $sum = 0; for ($n in $numbers_empty) { $sum = $sum + $n; } return $sum;            | 0                 |
+      | $ns = [5, 7, 13, 17]; $sum = 0; for ($n in $ns) { $sum = $sum + $n; } return $sum; | 42                |
 
   Scenario Outline: 02. Perform iterable in date collections .
     Given Send the expression "<expression>".
