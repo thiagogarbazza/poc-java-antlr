@@ -25,6 +25,7 @@ Feature: Iterable expression
     When I ask what the result is?
     Then I should have resulted the number: "<expression-result>".
     Examples:
-      | expression                                                                 | expression-result |
-      | $sum = 0; for ($d in $dates) { $sum = $sum + day($d); } return $sum;       | 34                |
-      | $sum = 0; for ($d in $dates_empty) { $sum = $sum + day($d); } return $sum; | 0                 |
+      | expression                                                                                        | expression-result |
+      | $sum = 0; for ($d in $dates) { $sum = $sum + day($d); } return $sum;                              | 34                |
+      | $sum = 0; for ($d in $dates_empty) { $sum = $sum + day($d); } return $sum;                        | 0                 |
+      | $ds = [1900/12/05, 1901/01/01]; $sum = 0; for ($d in $ds) { $sum = $sum + day($d); } return $sum; | 06                |

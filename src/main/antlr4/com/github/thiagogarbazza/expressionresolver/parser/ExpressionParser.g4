@@ -57,8 +57,9 @@ dateExpresion
   ;
 
 datesExpresion
-  : functionsThatReturnDates # functionThatReturnDates
-  | IDENTIFIER               # identifierDates
+  : functionsThatReturnDates                            # functionThatReturnDates
+  | LBRACK dateExpresion (COMMA dateExpresion)* RBRACK  # collectionDateExpresion
+  | IDENTIFIER                                          # identifierDates
   ;
 
 numbersExpresion

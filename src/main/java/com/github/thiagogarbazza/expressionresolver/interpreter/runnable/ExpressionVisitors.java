@@ -7,6 +7,8 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
@@ -163,6 +165,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     final String date = ctx.getText();
 
     return toLocalDate(date);
+  }
+
+  @Override
+  public Object visitCollectionDateExpresion(final ExpressionParser.CollectionDateExpresionContext ctx) {
+    final Collection<LocalDate> dates = new ArrayList<>();
+
+    ctx.dateExpresion().stream().forEach(context -> dates.add((LocalDate) visit(context)));
+
+    return dates;
   }
 
   @Override
