@@ -48,7 +48,7 @@ arrExpBoolean
   ;
 
 arrExpDate
-  : functionsThatReturnDates                    # functionThatReturnDates
+  : functionsThatReturnCollectionDate           # functionThatReturnCollectionDate
   | LBRACK vlExpDate (COMMA vlExpDate)* RBRACK  # collectionDateExpresion
   | IDENTIFIER                                  # identifierDates
   ;
@@ -108,15 +108,17 @@ vlExpString
   | STRING      # primitiveString
   ;
 
+// ####################################################################################################################
+// ##########     Write here functions that return date                                                      ##########
+// ####################################################################################################################
 functionsThatReturnDate
   : FN_DATE LPAREN vlExpNumber COMMA vlExpNumber COMMA vlExpNumber RPAREN  # functionDate
   | FN_TODAY                                                               # functionToday
   ;
 
-functionsThatReturnDates
-  : FN_DATE_FROM_RANGE LPAREN vlExpDate COMMA vlExpDate RPAREN  # functionDatesFromRange
-  ;
-
+// ####################################################################################################################
+// ##########     Write here functions that return number                                                    ##########
+// ####################################################################################################################
 functionsThatReturnNumber
   : FN_ACOS LPAREN vlExpNumber RPAREN                                # functionAcos
   | FN_ASIN LPAREN vlExpNumber RPAREN                                # functionAsin
@@ -133,4 +135,11 @@ functionsThatReturnNumber
   | FN_SQRT LPAREN vlExpNumber RPAREN                                # functionSqrt
   | FN_TAN  LPAREN vlExpNumber RPAREN                                # functionTan
   | FN_YEAR  LPAREN vlExpDate RPAREN                                 # functionYear
+  ;
+
+// ####################################################################################################################
+// ##########     Write here functions that return a collection of date                                      ##########
+// ####################################################################################################################
+functionsThatReturnCollectionDate
+  : FN_DATE_FROM_RANGE LPAREN vlExpDate COMMA vlExpDate RPAREN  # functionDatesFromRange
   ;
