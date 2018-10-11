@@ -30,7 +30,7 @@ public class ExpressionInterpreterStep {
 
   @Before
   public void before() {
-    interpreter = new ExpressionInterpreter();
+    interpreter = ExpressionInterpreter.getExpressionInterpreter();
     context = new ExpressionContext();
   }
 

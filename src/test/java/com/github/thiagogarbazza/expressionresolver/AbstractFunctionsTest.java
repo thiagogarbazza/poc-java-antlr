@@ -55,7 +55,7 @@ public abstract class AbstractFunctionsTest {
   protected static final Result RESULT_SQRT_25 = new Result(BigDecimal.valueOf(5));
   protected static final Result RESULT_TAN_90 = new Result(BigDecimal.valueOf(-1.995200412208242));
   protected static final Result RESULT_TRUE = new Result(Boolean.TRUE);
-  private final ExpressionInterpreter interpreter = new ExpressionInterpreter();
+  private final ExpressionInterpreter interpreter = ExpressionInterpreter.getExpressionInterpreter();
   protected ExpressionContext EXPRESSION_CONTEXT;
 
   @Before
