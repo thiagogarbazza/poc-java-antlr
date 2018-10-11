@@ -13,11 +13,11 @@ import io.cucumber.datatable.DataTable;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolver.at.steps.GsonUtil.gsonbuilder;
 import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATBigDecimal.stringToBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATBigDecimal.stringToBigDecimals;
 import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATDate.stringToDate;
 import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATDate.stringToDates;
-import static com.github.thiagogarbazza.expressionresolver.at.steps.GsonUtil.gsonbuilder;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.junit.Assert.assertEquals;
 
@@ -35,80 +35,80 @@ public class ExpressionInterpreterStep {
   }
 
   @And("^the following booleans in the context$")
-  public void contextBackgroundBoolensInContext(DataTable booleans) throws Throwable {
+  public void contextBackgroundBoolensInContext(DataTable booleans) {
     booleans.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), toBoolean(cell.get(1))));
   }
 
   @And("^the following dates collections in the context$")
-  public void contextBackgroundDatesCollectionsInContext(DataTable dates) throws Throwable {
+  public void contextBackgroundDatesCollectionsInContext(DataTable dates) {
     dates.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToDates(cell.get(1))));
   }
 
   @And("^the following dates in the context$")
-  public void contextBackgroundDatesInContext(DataTable dates) throws Throwable {
+  public void contextBackgroundDatesInContext(DataTable dates) {
     dates.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToDate(cell.get(1))));
   }
 
   @And("^the following numbers collections in the context$")
-  public void contextBackgroundNumbersCollectionsInContext(DataTable numbers) throws Throwable {
+  public void contextBackgroundNumbersCollectionsInContext(DataTable numbers) {
     numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToBigDecimals(cell.get(1))));
   }
 
   @And("^the following numbers in the context$")
-  public void contextBackgroundNumbersInContext(DataTable numbers) throws Throwable {
+  public void contextBackgroundNumbersInContext(DataTable numbers) {
     numbers.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), stringToBigDecimal(cell.get(1))));
   }
 
   @And("^the following strings in the context$")
-  public void contextBackgroundStringsInContext(DataTable strings) throws Throwable {
+  public void contextBackgroundStringsInContext(DataTable strings) {
     strings.cells().stream().skip(1).forEach(cell -> context.set(cell.get(0), cell.get(1)));
   }
 
   @Given("^Send the expression \"(.*)\".$")
-  public void givenSendTheExpression(String expression) throws Throwable {
+  public void givenSendTheExpression(String expression) {
     this.expression = new Expression(expression);
   }
 
   @Then("^I should have resulted the boolean: \"(.*)\".$")
-  public void thenIShouldHaveResultedTheBoolean(String expressionResult) throws Throwable {
+  public void thenIShouldHaveResultedTheBoolean(String expressionResult) {
     Result expected = new Result(toBoolean(expressionResult));
     assertEquals(expected, this.expressionResult);
   }
 
   @Then("^I should have resulted the date: \"(.*)\".$")
-  public void thenIShouldHaveResultedTheDate(String expressionResult) throws Throwable {
+  public void thenIShouldHaveResultedTheDate(String expressionResult) {
     Result expected = new Result(stringToDate(expressionResult));
 
     assertEquals(expected, this.expressionResult);
   }
 
   @Then("^I should have resulted the dates: \"(.*)\".$")
-  public void thenIShouldHaveResultedTheDates(String expressionResult) throws Throwable {
+  public void thenIShouldHaveResultedTheDates(String expressionResult) {
     Result expected = new Result(stringToDates(expressionResult));
 
     assertEquals(expected, this.expressionResult);
   }
 
   @Then("^I should have resulted the json: \"(.*)\".$")
-  public void thenIShouldHaveResultedTheJson(String expressionResult) throws Throwable {
+  public void thenIShouldHaveResultedTheJson(String expressionResult) {
     String json = gsonbuilder().toJson(this.expressionResult.getValue());
     assertEquals(expressionResult, json);
   }
 
   @Then("^I should have resulted the number: \"(.*)\".$")
-  public void thenIShouldHaveResultedTheNumber(String expressionResult) throws Throwable {
+  public void thenIShouldHaveResultedTheNumber(String expressionResult) {
     Result expected = new Result(new BigDecimal(expressionResult));
     assertEquals(expected, this.expressionResult);
   }
 
   @Then("^I should have resulted the string: \"(.*)\".$")
-  public void thenIShouldHaveResultedTheString(String expressionResult) throws Throwable {
+  public void thenIShouldHaveResultedTheString(String expressionResult) {
     Result expected = new Result(expressionResult);
     assertEquals(expected, this.expressionResult);
   }
 
   @When("^I ask what the result is\\?$")
-  public void whenIAskWhatTheResultIs() throws Throwable {
+  public void whenIAskWhatTheResultIs() {
     this.expressionResult = interpreter.toInterpret(this.expression, this.context);
   }
 }
