@@ -26,10 +26,10 @@ statementBlock
 expression
   : vlExpBoolean
   | vlExpDate
+  | vlExpJson
   | vlExpNumber
   | vlExpString
   | collectionExpression
-  | jsonExpression
   ;
 
 collectionExpression
@@ -39,12 +39,12 @@ collectionExpression
   | stringsExpression
   ;
   
-jsonExpression
+vlExpJson
   : LBRACE RBRACE
-  | LBRACE jsonExpressionPair (COMMA jsonExpressionPair)* RBRACE
+  | LBRACE vlExpJsonPair (COMMA vlExpJsonPair)* RBRACE
   ;
 
-jsonExpressionPair
+vlExpJsonPair
    : STRING TWO_POINT expression
    ;
 

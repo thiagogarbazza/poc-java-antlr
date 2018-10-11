@@ -105,10 +105,10 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitJsonExpression(final ExpressionParser.JsonExpressionContext ctx) {
+  public Object visitVlExpJson(final ExpressionParser.VlExpJsonContext ctx) {
     final Map<String, Object> map = new HashMap<>();
 
-    ctx.jsonExpressionPair().stream().forEach(context -> {
+    ctx.vlExpJsonPair().stream().forEach(context -> {
       final String key = context.STRING().getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
       map.put(key, visit(context.expression()));
     });
