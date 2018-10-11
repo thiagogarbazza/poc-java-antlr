@@ -194,7 +194,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public Object visitCollectionStringExpresion(final ExpressionParser.CollectionStringExpresionContext ctx) {
     final Collection<String> strings = new ArrayList<>();
 
-    ctx.stringExpression().stream().forEach(context -> strings.add((String) visit(context)));
+    ctx.vlExpString().stream().forEach(context -> strings.add((String) visit(context)));
 
     return strings;
   }
@@ -383,8 +383,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionCompareStrings(final ExpressionParser.FunctionCompareStringsContext ctx) {
-    final String left = (String) visit(ctx.stringExpression(0));
-    final String right = (String) visit(ctx.stringExpression(1));
+    final String left = (String) visit(ctx.vlExpString(0));
+    final String right = (String) visit(ctx.vlExpString(1));
 
     return getFunctionResolverCompareString().resolver(left, right);
   }

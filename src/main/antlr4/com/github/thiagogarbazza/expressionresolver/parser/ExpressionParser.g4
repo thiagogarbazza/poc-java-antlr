@@ -27,7 +27,7 @@ expression
   : vlExpBoolean
   | vlExpDate
   | vlExpNumber
-  | stringExpression
+  | vlExpString
   | collectionExpression
   | jsonExpression
   ;
@@ -69,7 +69,7 @@ booleansExpression
   ;
 
 stringsExpression
-  : LBRACK stringExpression (COMMA stringExpression)* RBRACK  # collectionStringExpresion
+  : LBRACK vlExpString (COMMA vlExpString)* RBRACK  # collectionStringExpresion
   ;
 
 datesExpresion
@@ -99,7 +99,7 @@ vlExpNumber
   | NUMBER                                 # primitiveNumber
   ;
 
-stringExpression
+vlExpString
   : IDENTIFIER  # identifierString
   | STRING      # primitiveString
   ;
@@ -118,7 +118,7 @@ functionsThatReturnNumber
   | FN_ASIN LPAREN vlExpNumber RPAREN                                    # functionAsin
   | FN_ATAN LPAREN vlExpNumber RPAREN                                    # functionAtan
   | FN_COMPARE_DATE LPAREN vlExpDate    COMMA vlExpDate    RPAREN    # functionCompareDates
-  | FN_COMPARE_STRING LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
+  | FN_COMPARE_STRING LPAREN vlExpString COMMA vlExpString RPAREN  # functionCompareStrings
   | FN_COMPARE_NUMBER LPAREN vlExpNumber  COMMA vlExpNumber  RPAREN  # functionCompareNumbers
   | FN_COS  LPAREN vlExpNumber RPAREN                                    # functionCos
   | FN_DAY   LPAREN vlExpDate RPAREN                                     # functionDay
