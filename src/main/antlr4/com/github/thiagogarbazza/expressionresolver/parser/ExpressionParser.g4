@@ -33,12 +33,12 @@ expression
   ;
 
 collectionExpression
-  : booleansExpression
-  | datesExpresion
-  | numbersExpresion
-  | stringsExpression
+  : arrExpBoolean
+  | arrExpDate
+  | arrExpNumber
+  | arrExpString
   ;
-  
+
 vlExpJson
   : LBRACE RBRACE
   | LBRACE vlExpJsonPair (COMMA vlExpJsonPair)* RBRACE
@@ -64,21 +64,21 @@ vlExpDate
   | DATE                     # primitiveDate
   ;
 
-booleansExpression
+arrExpBoolean
   : LBRACK vlExpBoolean (COMMA vlExpBoolean)* RBRACK  # collectionBooleanExpresion
   ;
 
-stringsExpression
+arrExpString
   : LBRACK vlExpString (COMMA vlExpString)* RBRACK  # collectionStringExpresion
   ;
 
-datesExpresion
+arrExpDate
   : functionsThatReturnDates                            # functionThatReturnDates
   | LBRACK vlExpDate (COMMA vlExpDate)* RBRACK  # collectionDateExpresion
   | IDENTIFIER                                          # identifierDates
   ;
 
-numbersExpresion
+arrExpNumber
   : LBRACK vlExpNumber (COMMA vlExpNumber)* RBRACK  # collectionNumberExpresion
   | IDENTIFIER                                              # identifierNumbers
   ;
