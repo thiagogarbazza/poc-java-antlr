@@ -13,10 +13,10 @@ block
   ;
 
 statement
-  : IDENTIFIER ASSIG expression SEMICOLON                                                                                               # assignment
-  | IF LPAREN booleanExpression RPAREN statementBlock (ELSE IF LPAREN booleanExpression RPAREN statementBlock)* (ELSE statementBlock)?  # ifConditional
-  | FOR LPAREN IDENTIFIER IN collectionExpression RPAREN statementBlock                                                                 # iterableExpression
-  | RETURN expression SEMICOLON                                                                                                         # returnExpression
+  : IDENTIFIER ASSIG expression SEMICOLON                                                                                     # assignment
+  | IF LPAREN vlExpBoolean RPAREN statementBlock (ELSE IF LPAREN vlExpBoolean RPAREN statementBlock)* (ELSE statementBlock)?  # ifConditional
+  | FOR LPAREN IDENTIFIER IN collectionExpression RPAREN statementBlock                                                       # iterableExpression
+  | RETURN expression SEMICOLON                                                                                               # returnExpression
   ;
 
 statementBlock
@@ -24,7 +24,7 @@ statementBlock
   ;
 
 expression
-  : booleanExpression
+  : vlExpBoolean
   | dateExpresion
   | numberExpresion
   | stringExpression
@@ -48,11 +48,11 @@ jsonExpressionPair
    : STRING TWO_POINT expression
    ;
 
-booleanExpression
-  : LPAREN booleanExpression RPAREN                # booleanGroupedBy
-  | NOT booleanExpression                          # booleanNegation
-  | booleanExpression AND booleanExpression        # booleanAND
-  | booleanExpression OR  booleanExpression        # booleanOR
+vlExpBoolean
+  : LPAREN vlExpBoolean RPAREN                # booleanGroupedBy
+  | NOT vlExpBoolean                          # booleanNegation
+  | vlExpBoolean AND vlExpBoolean        # booleanAND
+  | vlExpBoolean OR  vlExpBoolean        # booleanOR
   | numberExpresion op=COMPARISON numberExpresion  # booleanNumberComparison
   | IDENTIFIER                                     # identifierBoolean
   | BOOLEAN                                        # primitiveBoolean
@@ -65,7 +65,7 @@ dateExpresion
   ;
 
 booleansExpression
-  : LBRACK booleanExpression (COMMA booleanExpression)* RBRACK  # collectionBooleanExpresion
+  : LBRACK vlExpBoolean (COMMA vlExpBoolean)* RBRACK  # collectionBooleanExpresion
   ;
 
 stringsExpression

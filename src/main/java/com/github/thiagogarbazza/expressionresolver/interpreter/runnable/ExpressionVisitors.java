@@ -89,12 +89,12 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public Object visitIfConditional(final ExpressionParser.IfConditionalContext ctx) {
     int i = -1;
-    ExpressionParser.BooleanExpressionContext booleanExpressionContext;
+    ExpressionParser.VlExpBooleanContext vlExpBooleanCtx;
 
     do {
       i++;
-      booleanExpressionContext = ctx.booleanExpression(i);
-    } while (booleanExpressionContext != null && !(Boolean) visit(booleanExpressionContext));
+      vlExpBooleanCtx = ctx.vlExpBoolean(i);
+    } while (vlExpBooleanCtx != null && !(Boolean) visit(vlExpBooleanCtx));
 
     final ExpressionParser.StatementBlockContext statementBlock = ctx.statementBlock(i);
     if (statementBlock != null) {
@@ -118,7 +118,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
-    return visit(ctx.booleanExpression());
+    return visit(ctx.vlExpBoolean());
   }
 
   @Override
@@ -139,8 +139,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitBooleanOR(final ExpressionParser.BooleanORContext ctx) {
-    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
-    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+    Boolean left = (Boolean) visit(ctx.vlExpBoolean(0));
+    Boolean right = (Boolean) visit(ctx.vlExpBoolean(1));
 
     return left || right;
   }
@@ -154,15 +154,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitBooleanNegation(final ExpressionParser.BooleanNegationContext ctx) {
-    Boolean value = (Boolean) visit(ctx.booleanExpression());
+    Boolean value = (Boolean) visit(ctx.vlExpBoolean());
 
     return negate(value);
   }
 
   @Override
   public final Object visitBooleanAND(final ExpressionParser.BooleanANDContext ctx) {
-    Boolean left = (Boolean) visit(ctx.booleanExpression(0));
-    Boolean right = (Boolean) visit(ctx.booleanExpression(1));
+    Boolean left = (Boolean) visit(ctx.vlExpBoolean(0));
+    Boolean right = (Boolean) visit(ctx.vlExpBoolean(1));
 
     return left && right;
   }
@@ -185,7 +185,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public Object visitCollectionBooleanExpresion(final ExpressionParser.CollectionBooleanExpresionContext ctx) {
     final Collection<Boolean> booleans = new ArrayList<>();
 
-    ctx.booleanExpression().stream().forEach(context -> booleans.add((Boolean) visit(context)));
+    ctx.vlExpBoolean().stream().forEach(context -> booleans.add((Boolean) visit(context)));
 
     return booleans;
   }
