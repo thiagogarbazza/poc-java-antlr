@@ -75,6 +75,8 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
       visit(ctx.statementBlock());
     }
 
+    executionContext.set(identifier, null);
+
     return null;
   }
 
