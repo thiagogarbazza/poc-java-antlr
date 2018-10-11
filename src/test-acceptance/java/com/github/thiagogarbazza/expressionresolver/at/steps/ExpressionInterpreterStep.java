@@ -1,10 +1,9 @@
-package com.github.thiagogarbazza.expressionresolver.at;
+package com.github.thiagogarbazza.expressionresolver.at.steps;
 
 import com.github.thiagogarbazza.expressionresolver.ExpressionInterpreter;
 import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.domain.Result;
-import com.github.thiagogarbazza.expressionresolver.json.GsonUtil;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -14,11 +13,11 @@ import io.cucumber.datatable.DataTable;
 
 import java.math.BigDecimal;
 
-import static com.github.thiagogarbazza.expressionresolver.at.UtilATBigDecimal.stringToBigDecimal;
-import static com.github.thiagogarbazza.expressionresolver.at.UtilATBigDecimal.stringToBigDecimals;
-import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDate;
-import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDates;
-import static com.github.thiagogarbazza.expressionresolver.json.GsonUtil.gsonbuilder;
+import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATBigDecimal.stringToBigDecimal;
+import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATBigDecimal.stringToBigDecimals;
+import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATDate.stringToDate;
+import static com.github.thiagogarbazza.expressionresolver.at.steps.UtilATDate.stringToDates;
+import static com.github.thiagogarbazza.expressionresolver.at.steps.GsonUtil.gsonbuilder;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.junit.Assert.assertEquals;
 

@@ -5,6 +5,6 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:com/github/thiagogarbazza/expressionresolver/at/core/JsonExpressionAT.feature",
+@CucumberOptions(features = "classpath:com/github/thiagogarbazza/expressionresolver/at/core/BooleanExpressionAT.feature",
   glue = {"classpath:com/github/thiagogarbazza/expressionresolver/at/steps/"})
-public class JsonExpressionAT {}
+public class BooleanExpressionAT {}

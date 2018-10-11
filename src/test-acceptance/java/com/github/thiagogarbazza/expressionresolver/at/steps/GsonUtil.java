@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.json;
+package com.github.thiagogarbazza.expressionresolver.at.steps;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class GsonUtil {
+class GsonUtil {
 
 
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd");

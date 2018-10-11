@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.at;
+package com.github.thiagogarbazza.expressionresolver.at.steps;
 
 import java.math.BigDecimal;
 import java.util.Collection;
