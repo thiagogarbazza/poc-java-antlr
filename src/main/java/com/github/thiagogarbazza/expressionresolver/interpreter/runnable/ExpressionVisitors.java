@@ -203,7 +203,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public Object visitCollectionDateExpresion(final ExpressionParser.CollectionDateExpresionContext ctx) {
     final Collection<LocalDate> dates = new ArrayList<>();
 
-    ctx.dateExpresion().stream().forEach(context -> dates.add((LocalDate) visit(context)));
+    ctx.vlExpDate().stream().forEach(context -> dates.add((LocalDate) visit(context)));
 
     return dates;
   }
@@ -346,8 +346,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionDatesFromRange(final ExpressionParser.FunctionDatesFromRangeContext ctx) {
-    final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
-    final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
+    final LocalDate left = (LocalDate) visit(ctx.vlExpDate(0));
+    final LocalDate right = (LocalDate) visit(ctx.vlExpDate(1));
 
     return getFunctionResolverDatesFromRange().resolver(left, right);
   }
@@ -375,8 +375,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionCompareDates(final ExpressionParser.FunctionCompareDatesContext ctx) {
-    final LocalDate left = (LocalDate) visit(ctx.dateExpresion(0));
-    final LocalDate right = (LocalDate) visit(ctx.dateExpresion(1));
+    final LocalDate left = (LocalDate) visit(ctx.vlExpDate(0));
+    final LocalDate right = (LocalDate) visit(ctx.vlExpDate(1));
 
     return getFunctionResolverCompareDate().resolver(left, right);
   }
@@ -406,7 +406,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionDay(final ExpressionParser.FunctionDayContext ctx) {
-    final LocalDate value = (LocalDate) visit(ctx.dateExpresion());
+    final LocalDate value = (LocalDate) visit(ctx.vlExpDate());
 
     return getFunctionResolverDay().resolver(value);
   }
@@ -427,7 +427,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionMonth(final ExpressionParser.FunctionMonthContext ctx) {
-    final LocalDate value = (LocalDate) visit(ctx.dateExpresion());
+    final LocalDate value = (LocalDate) visit(ctx.vlExpDate());
 
     return getFunctionResolverMonth().resolver(value);
   }
@@ -455,7 +455,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionYear(final ExpressionParser.FunctionYearContext ctx) {
-    final LocalDate value = (LocalDate) visit(ctx.dateExpresion());
+    final LocalDate value = (LocalDate) visit(ctx.vlExpDate());
 
     return getFunctionResolvergetYear().resolver(value);
   }
