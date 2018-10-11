@@ -12,19 +12,15 @@ block
   : statement*
   ;
 
+statement
+  : IDENTIFIER ASSIG expression SEMICOLON                                                                                               # assignment
+  | IF LPAREN booleanExpression RPAREN statementBlock (ELSE IF LPAREN booleanExpression RPAREN statementBlock)* (ELSE statementBlock)?  # ifConditional
+  | FOR LPAREN IDENTIFIER IN collectionExpression RPAREN statementBlock                                                                 # iterableExpression
+  | RETURN expression SEMICOLON                                                                                                         # returnExpression
+  ;
+
 statementBlock
   : LBRACE statement RBRACE
-  ;
-
-statement
-  : IDENTIFIER ASSIG expression SEMICOLON                                # assignment
-  | conditionalStatements                                                # conditionalStatement
-  | FOR LPAREN IDENTIFIER IN collectionExpression RPAREN statementBlock  # iterableExpression
-  | RETURN expression SEMICOLON                                          # returnExpression
-  ;
-
-conditionalStatements
-  : IF LPAREN booleanExpression RPAREN statementBlock (ELSE IF LPAREN booleanExpression RPAREN statementBlock)* (ELSE statementBlock)?  # ifConditional
   ;
 
 expression
