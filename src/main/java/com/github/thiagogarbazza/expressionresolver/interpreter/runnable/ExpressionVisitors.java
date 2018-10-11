@@ -9,7 +9,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
@@ -103,6 +105,18 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitJsonExpression(final ExpressionParser.JsonExpressionContext ctx) {
+    final Map<String, Object> map = new HashMap<>();
+
+    ctx.jsonExpressionPair().stream().forEach(context -> {
+      final String key = context.STRING().getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
+      map.put(key, visit(context.expression()));
+    });
+
+    return map;
+  }
+
+  @Override
   public final Object visitBooleanGroupedBy(final ExpressionParser.BooleanGroupedByContext ctx) {
     return visit(ctx.booleanExpression());
   }
@@ -165,6 +179,24 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     final String date = ctx.getText();
 
     return toLocalDate(date);
+  }
+
+  @Override
+  public Object visitCollectionBooleanExpresion(final ExpressionParser.CollectionBooleanExpresionContext ctx) {
+    final Collection<Boolean> booleans = new ArrayList<>();
+
+    ctx.booleanExpression().stream().forEach(context -> booleans.add((Boolean) visit(context)));
+
+    return booleans;
+  }
+
+  @Override
+  public Object visitCollectionStringExpresion(final ExpressionParser.CollectionStringExpresionContext ctx) {
+    final Collection<String> strings = new ArrayList<>();
+
+    ctx.stringExpression().stream().forEach(context -> strings.add((String) visit(context)));
+
+    return strings;
   }
 
   @Override

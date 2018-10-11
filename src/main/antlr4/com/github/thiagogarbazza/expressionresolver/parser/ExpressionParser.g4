@@ -33,12 +33,24 @@ expression
   | numberExpresion
   | stringExpression
   | collectionExpression
+  | jsonExpression
   ;
 
 collectionExpression
-  : datesExpresion
+  : booleansExpression
+  | datesExpresion
   | numbersExpresion
+  | stringsExpression
   ;
+  
+jsonExpression
+  : LBRACE RBRACE
+  | LBRACE jsonExpressionPair (COMMA jsonExpressionPair)* RBRACE
+  ;
+
+jsonExpressionPair
+   : STRING TWO_POINT expression
+   ;
 
 booleanExpression
   : LPAREN booleanExpression RPAREN                # booleanGroupedBy
@@ -54,6 +66,14 @@ dateExpresion
   : functionsThatReturnDate  # functionThatReturnDate
   | IDENTIFIER               # identifierDate
   | DATE                     # primitiveDate
+  ;
+
+booleansExpression
+  : LBRACK booleanExpression (COMMA booleanExpression)* RBRACK  # collectionBooleanExpresion
+  ;
+
+stringsExpression
+  : LBRACK stringExpression (COMMA stringExpression)* RBRACK  # collectionStringExpresion
   ;
 
 datesExpresion

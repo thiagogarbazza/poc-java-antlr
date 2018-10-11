@@ -4,6 +4,7 @@ import com.github.thiagogarbazza.expressionresolver.ExpressionInterpreter;
 import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.domain.Result;
+import com.github.thiagogarbazza.expressionresolver.json.GsonUtil;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -17,6 +18,7 @@ import static com.github.thiagogarbazza.expressionresolver.at.UtilATBigDecimal.s
 import static com.github.thiagogarbazza.expressionresolver.at.UtilATBigDecimal.stringToBigDecimals;
 import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDate;
 import static com.github.thiagogarbazza.expressionresolver.at.UtilATDate.stringToDates;
+import static com.github.thiagogarbazza.expressionresolver.json.GsonUtil.gsonbuilder;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 import static org.junit.Assert.assertEquals;
 
@@ -88,13 +90,19 @@ public class ExpressionInterpreterStep {
     assertEquals(expected, this.expressionResult);
   }
 
-  @Then("^I should have resulted the number: \"([^\"]*)\".$")
+  @Then("^I should have resulted the json: \"(.*)\".$")
+  public void thenIShouldHaveResultedTheJson(String expressionResult) throws Throwable {
+    String json = gsonbuilder().toJson(this.expressionResult.getValue());
+    assertEquals(expressionResult, json);
+  }
+
+  @Then("^I should have resulted the number: \"(.*)\".$")
   public void thenIShouldHaveResultedTheNumber(String expressionResult) throws Throwable {
     Result expected = new Result(new BigDecimal(expressionResult));
     assertEquals(expected, this.expressionResult);
   }
 
-  @Then("^I should have resulted the string: \"([^\"]*)\".$")
+  @Then("^I should have resulted the string: \"(.*)\".$")
   public void thenIShouldHaveResultedTheString(String expressionResult) throws Throwable {
     Result expected = new Result(expressionResult);
     assertEquals(expected, this.expressionResult);
