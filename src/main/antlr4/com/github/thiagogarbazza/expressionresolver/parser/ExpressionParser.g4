@@ -74,6 +74,7 @@ vlExpBoolean
 
 vlExpDate
   : functionsThatReturnDate  # functionThatReturnDate
+  | FN_TODAY                 # functionToday
   | IDENTIFIER               # identifierDate
   | DATE                     # primitiveDate
   ;
@@ -113,7 +114,6 @@ vlExpString
 // ####################################################################################################################
 functionsThatReturnDate
   : FN_DATE LPAREN vlExpNumber COMMA vlExpNumber COMMA vlExpNumber RPAREN  # functionDate
-  | FN_TODAY                                                               # functionToday
   ;
 
 // ####################################################################################################################
