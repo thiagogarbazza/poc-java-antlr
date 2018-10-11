@@ -58,32 +58,10 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public final Object visitAssignment(final ExpressionParser.AssignmentContext ctx) {
     final String variable = ctx.IDENTIFIER().getText();
-    final Object value = visit(ctx.expression());
+    final Object value = visit(ctx.valueExpression());
     executionContext.set(variable, value);
 
     return value;
-  }
-
-  @Override
-  public Object visitIterableExpression(final ExpressionParser.IterableExpressionContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-    Iterator iterator = (Iterator) ((Iterable) visit(ctx.collectionExpression())).iterator();
-
-    while (iterator.hasNext()) {
-      executionContext.set(identifier, iterator.next());
-      visit(ctx.statementBlock());
-    }
-
-    return null;
-  }
-
-  @Override
-  public Object visitReturnExpression(final ExpressionParser.ReturnExpressionContext ctx) {
-    if (this.valueToBeReturned == null) {
-      this.valueToBeReturned = visit(ctx.expression());
-    }
-
-    return this.valueToBeReturned;
   }
 
   @Override
@@ -105,15 +83,75 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitVlExpJson(final ExpressionParser.VlExpJsonContext ctx) {
-    final Map<String, Object> map = new HashMap<>();
+  public Object visitIterableExpression(final ExpressionParser.IterableExpressionContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+    Iterator iterator = (Iterator) ((Iterable) visit(ctx.arrayExpression())).iterator();
 
-    ctx.vlExpJsonPair().stream().forEach(context -> {
-      final String key = context.STRING().getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
-      map.put(key, visit(context.expression()));
-    });
+    while (iterator.hasNext()) {
+      executionContext.set(identifier, iterator.next());
+      visit(ctx.statementBlock());
+    }
 
-    return map;
+    return null;
+  }
+
+  @Override
+  public Object visitReturnExpression(final ExpressionParser.ReturnExpressionContext ctx) {
+    if (this.valueToBeReturned == null) {
+      this.valueToBeReturned = visit(ctx.valueExpression());
+    }
+
+    return this.valueToBeReturned;
+  }
+
+  @Override
+  public Object visitCollectionBooleanExpresion(final ExpressionParser.CollectionBooleanExpresionContext ctx) {
+    final Collection<Boolean> booleans = new ArrayList<>();
+
+    ctx.vlExpBoolean().stream().forEach(context -> booleans.add((Boolean) visit(context)));
+
+    return booleans;
+  }
+
+  @Override
+  public Object visitCollectionDateExpresion(final ExpressionParser.CollectionDateExpresionContext ctx) {
+    final Collection<LocalDate> dates = new ArrayList<>();
+
+    ctx.vlExpDate().stream().forEach(context -> dates.add((LocalDate) visit(context)));
+
+    return dates;
+  }
+
+  @Override
+  public Object visitIdentifierDates(final ExpressionParser.IdentifierDatesContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+
+    return executionContext.get(identifier);
+  }
+
+  @Override
+  public Object visitCollectionNumberExpresion(final ExpressionParser.CollectionNumberExpresionContext ctx) {
+    final Collection<BigDecimal> numbers = new ArrayList<>();
+
+    ctx.vlExpNumber().stream().forEach(context -> numbers.add((BigDecimal) visit(context)));
+
+    return numbers;
+  }
+
+  @Override
+  public Object visitIdentifierNumbers(final ExpressionParser.IdentifierNumbersContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+
+    return executionContext.get(identifier);
+  }
+
+  @Override
+  public Object visitCollectionStringExpresion(final ExpressionParser.CollectionStringExpresionContext ctx) {
+    final Collection<String> strings = new ArrayList<>();
+
+    ctx.vlExpString().stream().forEach(context -> strings.add((String) visit(context)));
+
+    return strings;
   }
 
   @Override
@@ -182,53 +220,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
-  public Object visitCollectionBooleanExpresion(final ExpressionParser.CollectionBooleanExpresionContext ctx) {
-    final Collection<Boolean> booleans = new ArrayList<>();
+  public Object visitVlExpJson(final ExpressionParser.VlExpJsonContext ctx) {
+    final Map<String, Object> map = new HashMap<>();
 
-    ctx.vlExpBoolean().stream().forEach(context -> booleans.add((Boolean) visit(context)));
+    ctx.vlExpJsonPair().stream().forEach(context -> {
+      final String key = context.STRING().getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
+      map.put(key, visit(context.valueExpression()));
+    });
 
-    return booleans;
-  }
-
-  @Override
-  public Object visitCollectionStringExpresion(final ExpressionParser.CollectionStringExpresionContext ctx) {
-    final Collection<String> strings = new ArrayList<>();
-
-    ctx.vlExpString().stream().forEach(context -> strings.add((String) visit(context)));
-
-    return strings;
-  }
-
-  @Override
-  public Object visitCollectionDateExpresion(final ExpressionParser.CollectionDateExpresionContext ctx) {
-    final Collection<LocalDate> dates = new ArrayList<>();
-
-    ctx.vlExpDate().stream().forEach(context -> dates.add((LocalDate) visit(context)));
-
-    return dates;
-  }
-
-  @Override
-  public Object visitIdentifierDates(final ExpressionParser.IdentifierDatesContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-
-    return executionContext.get(identifier);
-  }
-
-  @Override
-  public Object visitCollectionNumberExpresion(final ExpressionParser.CollectionNumberExpresionContext ctx) {
-    final Collection<BigDecimal> numbers = new ArrayList<>();
-
-    ctx.vlExpNumber().stream().forEach(context -> numbers.add((BigDecimal) visit(context)));
-
-    return numbers;
-  }
-
-  @Override
-  public Object visitIdentifierNumbers(final ExpressionParser.IdentifierNumbersContext ctx) {
-    final String identifier = ctx.IDENTIFIER().getText();
-
-    return executionContext.get(identifier);
+    return map;
   }
 
   @Override
