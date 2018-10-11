@@ -123,8 +123,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitBooleanNumberComparison(final ExpressionParser.BooleanNumberComparisonContext ctx) {
-    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
-    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+    final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
     Comparison comparison = Comparison.findByOperator(ctx.op.getText());
 
     return comparison.compare(left, right);
@@ -219,7 +219,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   public Object visitCollectionNumberExpresion(final ExpressionParser.CollectionNumberExpresionContext ctx) {
     final Collection<BigDecimal> numbers = new ArrayList<>();
 
-    ctx.numberExpresion().stream().forEach(context -> numbers.add((BigDecimal) visit(context)));
+    ctx.vlExpNumber().stream().forEach(context -> numbers.add((BigDecimal) visit(context)));
 
     return numbers;
   }
@@ -233,7 +233,7 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitNumberOperationSign(final ExpressionParser.NumberOperationSignContext ctx) {
-    final BigDecimal result = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber());
     if (ctx.MINUS() != null) {
       return result.multiply(BigDecimal.valueOf(-1));
     }
@@ -250,9 +250,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitNumberOperationSubtract(final ExpressionParser.NumberOperationSubtractContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
-    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
+    BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber(0));
+    for (int i = 1; i < ctx.vlExpNumber().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.vlExpNumber(i));
       result = result.subtract(child);
     }
 
@@ -261,17 +261,17 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitNumberOperationPow(final ExpressionParser.NumberOperationPowContext ctx) {
-    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
-    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+    final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
     return left.pow(right.intValue());
   }
 
   @Override
   public final Object visitNumberOperationMultiply(final ExpressionParser.NumberOperationMultiplyContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
-    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
+    BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber(0));
+    for (int i = 1; i < ctx.vlExpNumber().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.vlExpNumber(i));
       result = result.multiply(child);
     }
 
@@ -280,9 +280,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitNumberOperationDivide(final ExpressionParser.NumberOperationDivideContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.numberExpresion(0));
-    for (int i = 1; i < ctx.numberExpresion().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.numberExpresion(i));
+    BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber(0));
+    for (int i = 1; i < ctx.vlExpNumber().size(); i++) {
+      final BigDecimal child = (BigDecimal) visit(ctx.vlExpNumber(i));
       result = result.divide(child, DECIMAL128);
     }
 
@@ -297,8 +297,8 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public final Object visitNumberOperationAddition(final ExpressionParser.NumberOperationAdditionContext ctx) {
     BigDecimal result = BigDecimal.ZERO;
-    for (ExpressionParser.NumberExpresionContext numberExpresionContext : ctx.numberExpresion()) {
-      BigDecimal child = (BigDecimal) visit(numberExpresionContext);
+    for (ExpressionParser.VlExpNumberContext vlExpNumberCtx : ctx.vlExpNumber()) {
+      BigDecimal child = (BigDecimal) visit(vlExpNumberCtx);
       result = result.add(child);
     }
 
@@ -307,15 +307,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitNumberOperationModulo(final ExpressionParser.NumberOperationModuloContext ctx) {
-    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
-    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+    final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
     return left.remainder(right);
   }
 
   @Override
   public final Object visitNumberGroupedBy(final ExpressionParser.NumberGroupedByContext ctx) {
-    return visit(ctx.numberExpresion());
+    return visit(ctx.vlExpNumber());
   }
 
   @Override
@@ -332,9 +332,9 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionDate(final ExpressionParser.FunctionDateContext ctx) {
-    BigDecimal year = (BigDecimal) visit(ctx.numberExpresion(0));
-    BigDecimal month = (BigDecimal) visit(ctx.numberExpresion(1));
-    BigDecimal day = (BigDecimal) visit(ctx.numberExpresion(2));
+    BigDecimal year = (BigDecimal) visit(ctx.vlExpNumber(0));
+    BigDecimal month = (BigDecimal) visit(ctx.vlExpNumber(1));
+    BigDecimal day = (BigDecimal) visit(ctx.vlExpNumber(2));
 
     return getFunctionResolverDate().resolver(year, month, day);
   }
@@ -354,21 +354,21 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionAcos(final ExpressionParser.FunctionAcosContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverAcos().resolver(value);
   }
 
   @Override
   public Object visitFunctionAsin(final ExpressionParser.FunctionAsinContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverAsin().resolver(value);
   }
 
   @Override
   public Object visitFunctionAtan(final ExpressionParser.FunctionAtanContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverAtan().resolver(value);
   }
@@ -391,15 +391,15 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionCompareNumbers(final ExpressionParser.FunctionCompareNumbersContext ctx) {
-    final BigDecimal left = (BigDecimal) visit(ctx.numberExpresion(0));
-    final BigDecimal right = (BigDecimal) visit(ctx.numberExpresion(1));
+    final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
     return getFunctionResolverCompareNumber().resolver(left, right);
   }
 
   @Override
   public Object visitFunctionCos(final ExpressionParser.FunctionCosContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverCos().resolver(value);
   }
@@ -413,14 +413,14 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionLn(final ExpressionParser.FunctionLnContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverLn().resolver(value);
   }
 
   @Override
   public Object visitFunctionLog(final ExpressionParser.FunctionLogContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverLog().resolver(value);
   }
@@ -434,21 +434,21 @@ final class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public Object visitFunctionSin(final ExpressionParser.FunctionSinContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverSin().resolver(value);
   }
 
   @Override
   public Object visitFunctionSqrt(final ExpressionParser.FunctionSqrtContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverSqrt().resolver(value);
   }
 
   @Override
   public Object visitFunctionTan(final ExpressionParser.FunctionTanContext ctx) {
-    final BigDecimal value = (BigDecimal) visit(ctx.numberExpresion());
+    final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
     return getFunctionResolverTan().resolver(value);
   }

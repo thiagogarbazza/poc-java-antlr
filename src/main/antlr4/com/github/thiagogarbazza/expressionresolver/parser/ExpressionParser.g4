@@ -26,7 +26,7 @@ statementBlock
 expression
   : vlExpBoolean
   | vlExpDate
-  | numberExpresion
+  | vlExpNumber
   | stringExpression
   | collectionExpression
   | jsonExpression
@@ -53,7 +53,7 @@ vlExpBoolean
   | NOT vlExpBoolean                          # booleanNegation
   | vlExpBoolean AND vlExpBoolean        # booleanAND
   | vlExpBoolean OR  vlExpBoolean        # booleanOR
-  | numberExpresion op=COMPARISON numberExpresion  # booleanNumberComparison
+  | vlExpNumber op=COMPARISON vlExpNumber  # booleanNumberComparison
   | IDENTIFIER                                     # identifierBoolean
   | BOOLEAN                                        # primitiveBoolean
   ;
@@ -79,21 +79,21 @@ datesExpresion
   ;
 
 numbersExpresion
-  : LBRACK numberExpresion (COMMA numberExpresion)* RBRACK  # collectionNumberExpresion
+  : LBRACK vlExpNumber (COMMA vlExpNumber)* RBRACK  # collectionNumberExpresion
   | IDENTIFIER                                              # identifierNumbers
   ;
 
-numberExpresion
-  : LBRACE numberExpresion RBRACE          # numberGroupedBy
-  | LBRACK numberExpresion RBRACK          # numberGroupedBy
-  | LPAREN numberExpresion RPAREN          # numberGroupedBy
-  | op = (PLUS | MINUS) numberExpresion    # numberOperationSign
-  | numberExpresion POW   numberExpresion  # numberOperationPow
-  | numberExpresion MULT  numberExpresion  # numberOperationMultiply
-  | numberExpresion DIV   numberExpresion  # numberOperationDivide
-  | numberExpresion MOD   numberExpresion  # numberOperationModulo
-  | numberExpresion MINUS numberExpresion  # numberOperationSubtract
-  | numberExpresion PLUS  numberExpresion  # numberOperationAddition
+vlExpNumber
+  : LBRACE vlExpNumber RBRACE          # numberGroupedBy
+  | LBRACK vlExpNumber RBRACK          # numberGroupedBy
+  | LPAREN vlExpNumber RPAREN          # numberGroupedBy
+  | op = (PLUS | MINUS) vlExpNumber    # numberOperationSign
+  | vlExpNumber POW   vlExpNumber  # numberOperationPow
+  | vlExpNumber MULT  vlExpNumber  # numberOperationMultiply
+  | vlExpNumber DIV   vlExpNumber  # numberOperationDivide
+  | vlExpNumber MOD   vlExpNumber  # numberOperationModulo
+  | vlExpNumber MINUS vlExpNumber  # numberOperationSubtract
+  | vlExpNumber PLUS  vlExpNumber  # numberOperationAddition
   | functionsThatReturnNumber              # functionThatReturnNumber
   | IDENTIFIER                             # identifierNumber
   | NUMBER                                 # primitiveNumber
@@ -105,7 +105,7 @@ stringExpression
   ;
 
 functionsThatReturnDate
-  : FN_DATE LPAREN numberExpresion COMMA numberExpresion COMMA numberExpresion RPAREN  # functionDate
+  : FN_DATE LPAREN vlExpNumber COMMA vlExpNumber COMMA vlExpNumber RPAREN  # functionDate
   | FN_TODAY                                                                           # functionToday
   ;
 
@@ -114,19 +114,19 @@ functionsThatReturnDates
   ;
 
 functionsThatReturnNumber
-  : FN_ACOS LPAREN numberExpresion RPAREN                                    # functionAcos
-  | FN_ASIN LPAREN numberExpresion RPAREN                                    # functionAsin
-  | FN_ATAN LPAREN numberExpresion RPAREN                                    # functionAtan
+  : FN_ACOS LPAREN vlExpNumber RPAREN                                    # functionAcos
+  | FN_ASIN LPAREN vlExpNumber RPAREN                                    # functionAsin
+  | FN_ATAN LPAREN vlExpNumber RPAREN                                    # functionAtan
   | FN_COMPARE_DATE LPAREN vlExpDate    COMMA vlExpDate    RPAREN    # functionCompareDates
   | FN_COMPARE_STRING LPAREN stringExpression COMMA stringExpression RPAREN  # functionCompareStrings
-  | FN_COMPARE_NUMBER LPAREN numberExpresion  COMMA numberExpresion  RPAREN  # functionCompareNumbers
-  | FN_COS  LPAREN numberExpresion RPAREN                                    # functionCos
+  | FN_COMPARE_NUMBER LPAREN vlExpNumber  COMMA vlExpNumber  RPAREN  # functionCompareNumbers
+  | FN_COS  LPAREN vlExpNumber RPAREN                                    # functionCos
   | FN_DAY   LPAREN vlExpDate RPAREN                                     # functionDay
-  | FN_LN   LPAREN numberExpresion RPAREN                                    # functionLn
-  | FN_LOG  LPAREN numberExpresion RPAREN                                    # functionLog
+  | FN_LN   LPAREN vlExpNumber RPAREN                                    # functionLn
+  | FN_LOG  LPAREN vlExpNumber RPAREN                                    # functionLog
   | FN_MONTH LPAREN vlExpDate RPAREN                                     # functionMonth
-  | FN_SIN  LPAREN numberExpresion RPAREN                                    # functionSin
-  | FN_SQRT LPAREN numberExpresion RPAREN                                    # functionSqrt
-  | FN_TAN  LPAREN numberExpresion RPAREN                                    # functionTan
+  | FN_SIN  LPAREN vlExpNumber RPAREN                                    # functionSin
+  | FN_SQRT LPAREN vlExpNumber RPAREN                                    # functionSqrt
+  | FN_TAN  LPAREN vlExpNumber RPAREN                                    # functionTan
   | FN_YEAR  LPAREN vlExpDate RPAREN                                     # functionYear
   ;
