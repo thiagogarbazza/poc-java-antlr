@@ -115,6 +115,15 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitCollectionJsonExpresion(final ExpressionParser.CollectionJsonExpresionContext ctx) {
+    final Collection<Map<String, Object>> booleans = new ArrayList<>();
+
+    ctx.vlExpJson().stream().forEach(context -> booleans.add((Map<String, Object>) visit(context)));
+
+    return booleans;
+  }
+
+  @Override
   public final Object visitCollectionNumberExpresion(final ExpressionParser.CollectionNumberExpresionContext ctx) {
     final Collection<BigDecimal> numbers = new ArrayList<>();
 
@@ -188,6 +197,11 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
     Boolean right = (Boolean) visit(ctx.vlExpBoolean(1));
 
     return left && right;
+  }
+
+  @Override
+  public final Object visitFunctionToday(final ExpressionParser.FunctionTodayContext ctx) {
+    return executionContext.get("today", LocalDate.class);
   }
 
   @Override
@@ -313,10 +327,5 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
   @Override
   public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
     return ctx.getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
-  }
-
-  @Override
-  public final Object visitFunctionToday(final ExpressionParser.FunctionTodayContext ctx) {
-    return executionContext.get("today", LocalDate.class);
   }
 }

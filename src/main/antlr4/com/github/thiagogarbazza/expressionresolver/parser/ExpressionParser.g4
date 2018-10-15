@@ -39,6 +39,7 @@ singleValueExpression
 arrayExpression
   : arrExpBoolean
   | arrExpDate
+  | arrExpJson
   | arrExpNumber
   | arrExpString
   ;
@@ -51,6 +52,10 @@ arrExpDate
   : functionsThatReturnCollectionDate           # functionThatReturnCollectionDate
   | LBRACK vlExpDate (COMMA vlExpDate)* RBRACK  # collectionDateExpresion
   | IDENTIFIER                                  # identifierDates
+  ;
+
+arrExpJson
+  : LBRACK vlExpJson (COMMA vlExpJson)* RBRACK  # collectionJsonExpresion
   ;
 
 arrExpNumber
