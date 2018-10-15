@@ -16,6 +16,7 @@ statement
   : IDENTIFIER ASSIG valueExpression SEMICOLON                                                                                # assignment
   | IF LPAREN vlExpBoolean RPAREN statementBlock (ELSE IF LPAREN vlExpBoolean RPAREN statementBlock)* (ELSE statementBlock)?  # ifConditional
   | FOR LPAREN IDENTIFIER IN arrayExpression RPAREN statementBlock                                                            # iterableExpression
+  | ARRAY_PUSH LPAREN IDENTIFIER COMMA valueExpression RPAREN SEMICOLON                                                       # arrayPushExpression
   | RETURN valueExpression SEMICOLON                                                                                          # returnExpression
   ;
 

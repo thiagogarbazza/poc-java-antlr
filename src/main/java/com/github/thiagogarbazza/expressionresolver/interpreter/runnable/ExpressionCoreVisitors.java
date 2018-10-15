@@ -115,6 +115,17 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
   }
 
   @Override
+  public Object visitArrayPushExpression(final ExpressionParser.ArrayPushExpressionContext ctx) {
+    final String identifier = ctx.IDENTIFIER().getText();
+
+    Collection array = (Collection) executionContext.get(identifier);
+
+    array.add(visit(ctx.valueExpression()));
+
+    return null;
+  }
+
+  @Override
   public Object visitCollectionJsonExpresion(final ExpressionParser.CollectionJsonExpresionContext ctx) {
     final Collection<Map<String, Object>> booleans = new ArrayList<>();
 

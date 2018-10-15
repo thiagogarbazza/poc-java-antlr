@@ -24,6 +24,8 @@ ELSE    : 'else';
 NULL    : 'null';
 RETURN  : 'return';
 
+ARRAY_PUSH: 'arrayPush';
+
 FOR : 'for';
 IN  : 'in';
 
