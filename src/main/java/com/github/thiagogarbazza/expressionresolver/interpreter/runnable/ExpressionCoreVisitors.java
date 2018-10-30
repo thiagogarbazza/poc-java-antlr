@@ -13,16 +13,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.primitive.ResolverPrimitiveString.getResolverPrimitiveString;
 import static com.github.thiagogarbazza.expressionresolver.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
 import static org.apache.commons.lang3.BooleanUtils.negate;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
-
-  private static final String END_QUOTES = "['\"]$";
-  private static final String START_QUOTES = "^['\"]";
 
   private final ExpressionContext executionContext;
 
@@ -234,7 +231,7 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
     final Map<String, Object> map = new HashMap<>();
 
     ctx.vlExpJsonPair().stream().forEach(context -> {
-      final String key = context.STRING().getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
+      final String key = getResolverPrimitiveString().resolver(context.STRING().getText());
       map.put(key, visit(context.valueExpression()));
     });
 
@@ -337,6 +334,6 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitPrimitiveString(final ExpressionParser.PrimitiveStringContext ctx) {
-    return ctx.getText().replaceAll(START_QUOTES, EMPTY).replaceAll(END_QUOTES, EMPTY);
+    return getResolverPrimitiveString().resolver(ctx.getText());
   }
 }
