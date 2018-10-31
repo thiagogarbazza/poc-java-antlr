@@ -18,7 +18,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.date
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.day.ResolverFunctionDay.getResolverFunctionDay;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.ln.ResolverFunctionLn.getResolverFunctionLn;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.log.ResolverFunctionLog.getResolverFunctionLog;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.month.FunctionResolverMonth.getFunctionResolverMonth;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.month.ResolverFunctionMonth.getResolverFunctionMonth;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sqrt.FunctionResolverSqrt.getFunctionResolverSqrt;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
@@ -116,7 +116,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionMonth(final ExpressionParser.FunctionMonthContext ctx) {
     final LocalDate value = (LocalDate) visit(ctx.vlExpDate());
 
-    return getFunctionResolverMonth().resolver(value);
+    return getResolverFunctionMonth().resolver(value);
   }
 
   @Override

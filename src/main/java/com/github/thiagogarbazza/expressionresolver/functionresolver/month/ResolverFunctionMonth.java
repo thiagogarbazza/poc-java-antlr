@@ -9,9 +9,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverMonth {
+public class ResolverFunctionMonth {
 
-  private static final FunctionResolverMonth INSTANCE = new FunctionResolverMonth();
+  private static final ResolverFunctionMonth INSTANCE = new ResolverFunctionMonth();
 
   public BigDecimal resolver(LocalDate value) {
     final int day = value.getMonthValue();
@@ -19,7 +19,7 @@ public class FunctionResolverMonth {
     return normalizeResult(day);
   }
 
-  public static FunctionResolverMonth getFunctionResolverMonth() {
+  public static ResolverFunctionMonth getResolverFunctionMonth() {
     return INSTANCE;
   }
 }
