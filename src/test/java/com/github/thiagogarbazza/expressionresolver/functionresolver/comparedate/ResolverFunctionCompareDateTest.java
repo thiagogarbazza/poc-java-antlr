@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getFunctionResolverCompareDate;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getResolverFunctionCompareDate;
 import static org.junit.Assert.assertEquals;
 
 public class ResolverFunctionCompareDateTest {
@@ -15,7 +15,7 @@ public class ResolverFunctionCompareDateTest {
 
   @Before
   public void before() {
-    resolverFunctionCompareDate = getFunctionResolverCompareDate();
+    resolverFunctionCompareDate = getResolverFunctionCompareDate();
   }
 
   @Test

@@ -19,7 +19,7 @@ public class ResolverFunctionCompareDate {
     return normalizeResultCompare(result);
   }
 
-  public static ResolverFunctionCompareDate getFunctionResolverCompareDate() {
+  public static ResolverFunctionCompareDate getResolverFunctionCompareDate() {
     return INSTANCE;
   }
 }

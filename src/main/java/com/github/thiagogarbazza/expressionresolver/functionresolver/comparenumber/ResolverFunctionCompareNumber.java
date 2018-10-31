@@ -8,9 +8,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverCompareNumber {
+public class ResolverFunctionCompareNumber {
 
-  private static final FunctionResolverCompareNumber INSTANCE = new FunctionResolverCompareNumber();
+  private static final ResolverFunctionCompareNumber INSTANCE = new ResolverFunctionCompareNumber();
 
   public BigDecimal resolver(BigDecimal left, BigDecimal right) {
     final Integer result = left.compareTo(right);
@@ -18,7 +18,7 @@ public class FunctionResolverCompareNumber {
     return normalizeResultCompare(result);
   }
 
-  public static FunctionResolverCompareNumber getFunctionResolverCompareNumber() {
+  public static ResolverFunctionCompareNumber getResolverFunctionCompareNumber() {
     return INSTANCE;
   }
 }

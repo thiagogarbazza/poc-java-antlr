@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.ResolverFunctionAcos.getResolverFunctionAcos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.asin.ResolverFunctionAsin.getResolverFunctionAsin;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.atan.ResolverFunctionAtan.getResolverFunctionAtan;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getFunctionResolverCompareDate;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparenumber.FunctionResolverCompareNumber.getFunctionResolverCompareNumber;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getResolverFunctionCompareDate;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparenumber.ResolverFunctionCompareNumber.getResolverFunctionCompareNumber;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.FunctionResolverCompareString.getFunctionResolverCompareString;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.date.FunctionResolverDate.getFunctionResolverDate;
@@ -65,7 +65,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
     final LocalDate left = (LocalDate) visit(ctx.vlExpDate(0));
     final LocalDate right = (LocalDate) visit(ctx.vlExpDate(1));
 
-    return getFunctionResolverCompareDate().resolver(left, right);
+    return getResolverFunctionCompareDate().resolver(left, right);
   }
 
   @Override
@@ -81,7 +81,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
     final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
     final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
-    return getFunctionResolverCompareNumber().resolver(left, right);
+    return getResolverFunctionCompareNumber().resolver(left, right);
   }
 
   @Override
