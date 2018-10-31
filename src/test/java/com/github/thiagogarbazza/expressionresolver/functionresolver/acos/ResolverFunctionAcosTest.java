@@ -5,16 +5,16 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.ResolverFunctionAcos.getResolverFunctionAcos;
 import static org.junit.Assert.assertEquals;
 
-public class FunctionResolverAcosTest {
+public class ResolverFunctionAcosTest {
 
-  private FunctionResolverAcos functionResolverAcos;
+  private ResolverFunctionAcos functionResolverAcos;
 
   @Before
   public void before() {
-    functionResolverAcos = getFunctionResolverAcos();
+    functionResolverAcos = getResolverFunctionAcos();
   }
 
   @Test

@@ -6,7 +6,7 @@ import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.FunctionResolverAcos.getFunctionResolverAcos;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.ResolverFunctionAcos.getResolverFunctionAcos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.asin.FunctionResolverAsin.getFunctionResolverAsin;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.atan.FunctionResolverAtan.getFunctionResolverAtan;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.FunctionResolverCompareDate.getFunctionResolverCompareDate;
@@ -43,7 +43,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionAcos(final ExpressionParser.FunctionAcosContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverAcos().resolver(value);
+    return getResolverFunctionAcos().resolver(value);
   }
 
   @Override

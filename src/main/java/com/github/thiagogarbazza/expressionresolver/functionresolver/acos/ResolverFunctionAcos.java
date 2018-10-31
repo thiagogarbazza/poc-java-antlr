@@ -8,9 +8,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverAcos {
+public class ResolverFunctionAcos {
 
-  private static final FunctionResolverAcos INSTANCE = new FunctionResolverAcos();
+  private static final ResolverFunctionAcos INSTANCE = new ResolverFunctionAcos();
 
   public BigDecimal resolver(BigDecimal value) {
     final double acos = Math.acos(value.doubleValue());
@@ -18,7 +18,7 @@ public class FunctionResolverAcos {
     return normalizeResult(acos);
   }
 
-  public static FunctionResolverAcos getFunctionResolverAcos() {
+  public static ResolverFunctionAcos getResolverFunctionAcos() {
     return INSTANCE;
   }
 }
