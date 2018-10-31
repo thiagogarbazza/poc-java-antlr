@@ -22,7 +22,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.mont
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sin.ResolverFunctionSin.getResolverFunctionSin;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sqrt.ResolverFunctionSqrt.getResolverFunctionSqrt;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.tan.ResolverFunctionTan.getResolverFunctionTan;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.year.FunctionResolverYear.getFunctionResolvergetYear;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.year.ResolverFunctionYear.getResolverFunctionYear;
 
 class ExpressionVisitors extends ExpressionCoreVisitors {
 
@@ -144,7 +144,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionYear(final ExpressionParser.FunctionYearContext ctx) {
     final LocalDate value = (LocalDate) visit(ctx.vlExpDate());
 
-    return getFunctionResolvergetYear().resolver(value);
+    return getResolverFunctionYear().resolver(value);
   }
 
   @Override
