@@ -12,7 +12,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.atan
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getResolverFunctionCompareDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparenumber.ResolverFunctionCompareNumber.getResolverFunctionCompareNumber;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.ResolverFunctionCompareString.getResolverFunctionCompareString;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.cos.ResolverFunctionCos.getResolverFunctionCos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.date.FunctionResolverDate.getFunctionResolverDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.FunctionResolverDatesFromRange.getFunctionResolverDatesFromRange;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.day.FunctionResolverDay.getFunctionResolverDay;
@@ -88,7 +88,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionCos(final ExpressionParser.FunctionCosContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverCos().resolver(value);
+    return getResolverFunctionCos().resolver(value);
   }
 
   @Override
