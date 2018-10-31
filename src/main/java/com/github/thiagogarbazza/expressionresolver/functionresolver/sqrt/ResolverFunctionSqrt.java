@@ -8,9 +8,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverSqrt {
+public class ResolverFunctionSqrt {
 
-  private static final FunctionResolverSqrt INSTANCE = new FunctionResolverSqrt();
+  private static final ResolverFunctionSqrt INSTANCE = new ResolverFunctionSqrt();
 
   public BigDecimal resolver(BigDecimal value) {
     final double sqrt = Math.sqrt(value.doubleValue());
@@ -18,7 +18,7 @@ public class FunctionResolverSqrt {
     return normalizeResult(sqrt);
   }
 
-  public static FunctionResolverSqrt getFunctionResolverSqrt() {
+  public static ResolverFunctionSqrt getResolverFunctionSqrt() {
     return INSTANCE;
   }
 }

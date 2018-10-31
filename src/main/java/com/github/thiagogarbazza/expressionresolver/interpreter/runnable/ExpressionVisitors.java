@@ -19,8 +19,8 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.day.
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.ln.ResolverFunctionLn.getResolverFunctionLn;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.log.ResolverFunctionLog.getResolverFunctionLog;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.month.ResolverFunctionMonth.getResolverFunctionMonth;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.sqrt.FunctionResolverSqrt.getFunctionResolverSqrt;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.sin.ResolverFunctionSin.getResolverFunctionSin;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.sqrt.ResolverFunctionSqrt.getResolverFunctionSqrt;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.year.FunctionResolverYear.getFunctionResolvergetYear;
 
@@ -123,14 +123,14 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionSin(final ExpressionParser.FunctionSinContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverSin().resolver(value);
+    return getResolverFunctionSin().resolver(value);
   }
 
   @Override
   public final Object visitFunctionSqrt(final ExpressionParser.FunctionSqrtContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverSqrt().resolver(value);
+    return getResolverFunctionSqrt().resolver(value);
   }
 
   @Override
