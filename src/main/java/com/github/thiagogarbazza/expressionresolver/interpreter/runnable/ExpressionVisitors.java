@@ -11,7 +11,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.asin
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.atan.ResolverFunctionAtan.getResolverFunctionAtan;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getResolverFunctionCompareDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparenumber.ResolverFunctionCompareNumber.getResolverFunctionCompareNumber;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.FunctionResolverCompareString.getFunctionResolverCompareString;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.ResolverFunctionCompareString.getResolverFunctionCompareString;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.cos.FunctionResolverCos.getFunctionResolverCos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.date.FunctionResolverDate.getFunctionResolverDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.FunctionResolverDatesFromRange.getFunctionResolverDatesFromRange;
@@ -73,7 +73,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
     final String left = (String) visit(ctx.vlExpString(0));
     final String right = (String) visit(ctx.vlExpString(1));
 
-    return getFunctionResolverCompareString().resolver(left, right);
+    return getResolverFunctionCompareString().resolver(left, right);
   }
 
   @Override
