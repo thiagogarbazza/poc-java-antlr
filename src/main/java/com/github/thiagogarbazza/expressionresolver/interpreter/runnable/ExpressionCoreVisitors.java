@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.primitive.ResolverPrimitiveString.getResolverPrimitiveString;
+import static com.github.thiagogarbazza.expressionresolver.resolver.primitive.ResolverPrimitiveString.getResolverPrimitiveString;
 import static com.github.thiagogarbazza.expressionresolver.util.LocalDateUtil.toLocalDate;
 import static java.math.MathContext.DECIMAL128;
 import static org.apache.commons.lang3.BooleanUtils.negate;
