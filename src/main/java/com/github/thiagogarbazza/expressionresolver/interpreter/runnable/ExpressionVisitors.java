@@ -21,7 +21,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.log.
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.month.ResolverFunctionMonth.getResolverFunctionMonth;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sin.ResolverFunctionSin.getResolverFunctionSin;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sqrt.ResolverFunctionSqrt.getResolverFunctionSqrt;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.tan.FunctionResolverTan.getFunctionResolverTan;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.tan.ResolverFunctionTan.getResolverFunctionTan;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.year.FunctionResolverYear.getFunctionResolvergetYear;
 
 class ExpressionVisitors extends ExpressionCoreVisitors {
@@ -137,7 +137,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionTan(final ExpressionParser.FunctionTanContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverTan().resolver(value);
+    return getResolverFunctionTan().resolver(value);
   }
 
   @Override

@@ -8,9 +8,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverTan {
+public class ResolverFunctionTan {
 
-  private static final FunctionResolverTan INSTANCE = new FunctionResolverTan();
+  private static final ResolverFunctionTan INSTANCE = new ResolverFunctionTan();
 
   public BigDecimal resolver(BigDecimal value) {
     final double tan = Math.tan(value.doubleValue());
@@ -18,7 +18,7 @@ public class FunctionResolverTan {
     return normalizeResult(tan);
   }
 
-  public static FunctionResolverTan getFunctionResolverTan() {
+  public static ResolverFunctionTan getResolverFunctionTan() {
     return INSTANCE;
   }
 }
