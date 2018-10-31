@@ -17,7 +17,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.date
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.ResolverFunctionDatesFromRange.getResolverFunctionDatesFromRange;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.day.ResolverFunctionDay.getResolverFunctionDay;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.ln.ResolverFunctionLn.getResolverFunctionLn;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.log.FunctionResolverLog.getFunctionResolverLog;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.log.ResolverFunctionLog.getResolverFunctionLog;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.month.FunctionResolverMonth.getFunctionResolverMonth;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sin.FunctionResolverSin.getFunctionResolverSin;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.sqrt.FunctionResolverSqrt.getFunctionResolverSqrt;
@@ -109,7 +109,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionLog(final ExpressionParser.FunctionLogContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverLog().resolver(value);
+    return getResolverFunctionLog().resolver(value);
   }
 
   @Override
