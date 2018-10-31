@@ -9,9 +9,9 @@ import java.util.TreeSet;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverDatesFromRange {
+public class ResolverFunctionDatesFromRange {
 
-  private static final FunctionResolverDatesFromRange INSTANCE = new FunctionResolverDatesFromRange();
+  private static final ResolverFunctionDatesFromRange INSTANCE = new ResolverFunctionDatesFromRange();
 
   public Collection<LocalDate> resolver(LocalDate left, LocalDate right) {
     Collection<LocalDate> dates = new TreeSet<>();
@@ -25,7 +25,7 @@ public class FunctionResolverDatesFromRange {
     return dates;
   }
 
-  public static FunctionResolverDatesFromRange getFunctionResolverDatesFromRange() {
+  public static ResolverFunctionDatesFromRange getResolverFunctionDatesFromRange() {
     return INSTANCE;
   }
 }

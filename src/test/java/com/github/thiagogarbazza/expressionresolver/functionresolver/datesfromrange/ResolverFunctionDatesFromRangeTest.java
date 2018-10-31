@@ -7,16 +7,16 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.Collection;
 
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.FunctionResolverDatesFromRange.getFunctionResolverDatesFromRange;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.ResolverFunctionDatesFromRange.getResolverFunctionDatesFromRange;
 import static org.junit.Assert.assertEquals;
 
-public class FunctionResolverDatesFromRangeTest {
+public class ResolverFunctionDatesFromRangeTest {
 
-  private FunctionResolverDatesFromRange functionResolverDatesFromRange;
+  private ResolverFunctionDatesFromRange resolverFunctionDatesFromRange;
 
   @Before
   public void before() {
-    functionResolverDatesFromRange = getFunctionResolverDatesFromRange();
+    resolverFunctionDatesFromRange = getResolverFunctionDatesFromRange();
   }
 
   @Test
@@ -24,7 +24,7 @@ public class FunctionResolverDatesFromRangeTest {
     LocalDate left = LocalDate.of(2000, 1, 1);
     LocalDate right = LocalDate.of(2000, 1, 2);
 
-    final Collection<LocalDate> dates = functionResolverDatesFromRange.resolver(left, right);
+    final Collection<LocalDate> dates = resolverFunctionDatesFromRange.resolver(left, right);
 
     assertEquals(2, dates.size());
     assertEquals(left, IterableUtils.get(dates, 0));
@@ -36,7 +36,7 @@ public class FunctionResolverDatesFromRangeTest {
     LocalDate left = LocalDate.of(2000, 1, 1);
     LocalDate right = LocalDate.of(2000, 1, 1);
 
-    final Collection<LocalDate> dates = functionResolverDatesFromRange.resolver(left, right);
+    final Collection<LocalDate> dates = resolverFunctionDatesFromRange.resolver(left, right);
 
     assertEquals(1, dates.size());
     assertEquals(left, IterableUtils.get(dates, 0));
@@ -48,7 +48,7 @@ public class FunctionResolverDatesFromRangeTest {
     LocalDate middle = LocalDate.of(2000, 1, 2);
     LocalDate right = LocalDate.of(2000, 1, 3);
 
-    final Collection<LocalDate> dates = functionResolverDatesFromRange.resolver(left, right);
+    final Collection<LocalDate> dates = resolverFunctionDatesFromRange.resolver(left, right);
 
     assertEquals(3, dates.size());
     assertEquals(left, IterableUtils.get(dates, 0));
