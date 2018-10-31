@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.acos.ResolverFunctionAcos.getResolverFunctionAcos;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.asin.ResolverFunctionAsin.getResolverFunctionAsin;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.atan.FunctionResolverAtan.getFunctionResolverAtan;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.atan.ResolverFunctionAtan.getResolverFunctionAtan;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.FunctionResolverCompareDate.getFunctionResolverCompareDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparenumber.FunctionResolverCompareNumber.getFunctionResolverCompareNumber;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.FunctionResolverCompareString.getFunctionResolverCompareString;
@@ -57,7 +57,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
   public final Object visitFunctionAtan(final ExpressionParser.FunctionAtanContext ctx) {
     final BigDecimal value = (BigDecimal) visit(ctx.vlExpNumber());
 
-    return getFunctionResolverAtan().resolver(value);
+    return getResolverFunctionAtan().resolver(value);
   }
 
   @Override
