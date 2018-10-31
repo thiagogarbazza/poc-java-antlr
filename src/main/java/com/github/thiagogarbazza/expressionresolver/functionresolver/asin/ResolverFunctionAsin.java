@@ -8,9 +8,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverAsin {
+public class ResolverFunctionAsin {
 
-  private static final FunctionResolverAsin INSTANCE = new FunctionResolverAsin();
+  private static final ResolverFunctionAsin INSTANCE = new ResolverFunctionAsin();
 
   public BigDecimal resolver(BigDecimal value) {
     final double asin = Math.asin(value.doubleValue());
@@ -18,7 +18,7 @@ public class FunctionResolverAsin {
     return normalizeResult(asin);
   }
 
-  public static FunctionResolverAsin getFunctionResolverAsin() {
+  public static ResolverFunctionAsin getResolverFunctionAsin() {
     return INSTANCE;
   }
 }
