@@ -13,7 +13,7 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.comp
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparenumber.ResolverFunctionCompareNumber.getResolverFunctionCompareNumber;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparestring.ResolverFunctionCompareString.getResolverFunctionCompareString;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.cos.ResolverFunctionCos.getResolverFunctionCos;
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.date.FunctionResolverDate.getFunctionResolverDate;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.date.ResolverFunctionDate.getResolverFunctionDate;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.datesfromrange.FunctionResolverDatesFromRange.getFunctionResolverDatesFromRange;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.day.FunctionResolverDay.getFunctionResolverDay;
 import static com.github.thiagogarbazza.expressionresolver.functionresolver.ln.FunctionResolverLn.getFunctionResolverLn;
@@ -36,7 +36,7 @@ class ExpressionVisitors extends ExpressionCoreVisitors {
     BigDecimal month = (BigDecimal) visit(ctx.vlExpNumber(1));
     BigDecimal day = (BigDecimal) visit(ctx.vlExpNumber(2));
 
-    return getFunctionResolverDate().resolver(year, month, day);
+    return getResolverFunctionDate().resolver(year, month, day);
   }
 
   @Override
