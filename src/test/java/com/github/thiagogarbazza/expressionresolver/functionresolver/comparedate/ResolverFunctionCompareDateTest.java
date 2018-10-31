@@ -6,16 +6,16 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.FunctionResolverCompareDate.getFunctionResolverCompareDate;
+import static com.github.thiagogarbazza.expressionresolver.functionresolver.comparedate.ResolverFunctionCompareDate.getFunctionResolverCompareDate;
 import static org.junit.Assert.assertEquals;
 
-public class FunctionResolverCompareDateTest {
+public class ResolverFunctionCompareDateTest {
 
-  private FunctionResolverCompareDate functionResolverCompareDate;
+  private ResolverFunctionCompareDate resolverFunctionCompareDate;
 
   @Before
   public void before() {
-    functionResolverCompareDate = getFunctionResolverCompareDate();
+    resolverFunctionCompareDate = getFunctionResolverCompareDate();
   }
 
   @Test
@@ -23,7 +23,7 @@ public class FunctionResolverCompareDateTest {
     LocalDate left = LocalDate.of(2000, 1, 1);
     LocalDate right = LocalDate.of(2000, 1, 1);
 
-    assertEquals(new BigDecimal("0"), functionResolverCompareDate.resolver(left, right));
+    assertEquals(new BigDecimal("0"), resolverFunctionCompareDate.resolver(left, right));
   }
 
   @Test
@@ -31,7 +31,7 @@ public class FunctionResolverCompareDateTest {
     LocalDate left = LocalDate.of(2020, 1, 1);
     LocalDate right = LocalDate.of(2000, 1, 1);
 
-    assertEquals(new BigDecimal("1"), functionResolverCompareDate.resolver(left, right));
+    assertEquals(new BigDecimal("1"), resolverFunctionCompareDate.resolver(left, right));
   }
 
   @Test
@@ -39,6 +39,6 @@ public class FunctionResolverCompareDateTest {
     LocalDate left = LocalDate.of(2000, 1, 1);
     LocalDate right = LocalDate.of(2020, 1, 1);
 
-    assertEquals(new BigDecimal("-1"), functionResolverCompareDate.resolver(left, right));
+    assertEquals(new BigDecimal("-1"), resolverFunctionCompareDate.resolver(left, right));
   }
 }

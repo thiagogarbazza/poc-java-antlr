@@ -9,9 +9,9 @@ import static com.github.thiagogarbazza.expressionresolver.functionresolver.Norm
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class FunctionResolverCompareDate {
+public class ResolverFunctionCompareDate {
 
-  private static final FunctionResolverCompareDate INSTANCE = new FunctionResolverCompareDate();
+  private static final ResolverFunctionCompareDate INSTANCE = new ResolverFunctionCompareDate();
 
   public BigDecimal resolver(LocalDate left, LocalDate right) {
     final Integer result = left.compareTo(right);
@@ -19,7 +19,7 @@ public class FunctionResolverCompareDate {
     return normalizeResultCompare(result);
   }
 
-  public static FunctionResolverCompareDate getFunctionResolverCompareDate() {
+  public static ResolverFunctionCompareDate getFunctionResolverCompareDate() {
     return INSTANCE;
   }
 }
