@@ -10,15 +10,15 @@ import static org.junit.Assert.assertEquals;
 
 public class ResolverFunctionAcosTest {
 
-  private ResolverFunctionAcos functionResolverAcos;
+  private ResolverFunctionAcos resolverFunctionAcos;
 
   @Before
   public void before() {
-    functionResolverAcos = getResolverFunctionAcos();
+    resolverFunctionAcos = getResolverFunctionAcos();
   }
 
   @Test
   public void verifyResolver() {
-    assertEquals(new BigDecimal("0.45102681179626236"), functionResolverAcos.resolver(new BigDecimal("0.9")));
+    assertEquals(new BigDecimal("0.45102681179626236"), resolverFunctionAcos.resolver(new BigDecimal("0.9")));
   }
 }
