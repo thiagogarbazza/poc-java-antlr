@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
-import static com.github.thiagogarbazza.expressionresolver.domain.PropertieUtil.getPropertie;
+import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.getPropertie;
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
 

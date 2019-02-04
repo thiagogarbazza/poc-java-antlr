@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import static com.github.thiagogarbazza.expressionresolver.domain.PropertieUtil.getPropertie;
+import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.getPropertie;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 import static org.apache.commons.lang3.Validate.notNull;
 

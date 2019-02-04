@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.domain;
+package com.github.thiagogarbazza.expressionresolver.util;
 
 import java.util.ResourceBundle;
 
