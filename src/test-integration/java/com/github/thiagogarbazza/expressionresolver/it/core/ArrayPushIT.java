@@ -1,7 +1,7 @@
 package com.github.thiagogarbazza.expressionresolver.it.core;
 
 import com.github.thiagogarbazza.expressionresolver.Expression;
-import com.github.thiagogarbazza.expressionresolver.domain.Result;
+import com.github.thiagogarbazza.expressionresolver.Result;
 import com.github.thiagogarbazza.expressionresolver.it.AbstractIT;
 import org.junit.Test;
 

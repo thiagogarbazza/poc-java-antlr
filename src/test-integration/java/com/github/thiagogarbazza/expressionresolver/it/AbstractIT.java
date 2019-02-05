@@ -2,8 +2,8 @@ package com.github.thiagogarbazza.expressionresolver.it;
 
 import com.github.thiagogarbazza.expressionresolver.Expression;
 import com.github.thiagogarbazza.expressionresolver.ExpressionInterpreter;
+import com.github.thiagogarbazza.expressionresolver.Result;
 import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
-import com.github.thiagogarbazza.expressionresolver.domain.Result;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
