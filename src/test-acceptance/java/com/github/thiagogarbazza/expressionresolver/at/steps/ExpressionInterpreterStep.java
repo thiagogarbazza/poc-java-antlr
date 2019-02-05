@@ -2,8 +2,8 @@ package com.github.thiagogarbazza.expressionresolver.at.steps;
 
 import com.github.thiagogarbazza.expressionresolver.Expression;
 import com.github.thiagogarbazza.expressionresolver.ExpressionInterpreter;
+import com.github.thiagogarbazza.expressionresolver.Result;
 import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
-import com.github.thiagogarbazza.expressionresolver.domain.Result;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
