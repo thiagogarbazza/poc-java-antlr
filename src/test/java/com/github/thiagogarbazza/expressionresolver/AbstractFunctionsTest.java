@@ -1,6 +1,5 @@
 package com.github.thiagogarbazza.expressionresolver;
 
-import com.github.thiagogarbazza.expressionresolver.domain.Expression;
 import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.domain.Result;
 import org.junit.Assert;
@@ -68,7 +67,7 @@ public abstract class AbstractFunctionsTest {
       interpreter.toInterpret(expression, EXPRESSION_CONTEXT);
       Assert.fail("Exception expected!");
     } catch (Exception e) {
-      Assert.assertEquals("Exception message invalid.", message, e.getMessage());
+      Assert.assertEquals("Exception messageProperty invalid.", message, e.getMessage());
     }
   }
 

@@ -1,6 +1,6 @@
 package com.github.thiagogarbazza.expressionresolver.interpreter.compile;
 
-import com.github.thiagogarbazza.expressionresolver.domain.Expression;
+import com.github.thiagogarbazza.expressionresolver.Expression;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionLexer;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import lombok.NoArgsConstructor;
