@@ -4,7 +4,9 @@ import com.github.thiagogarbazza.expressionresolver.interpreter.compile.Compiler
 import com.github.thiagogarbazza.expressionresolver.interpreter.runnable.Runnable;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -17,6 +19,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ExpressionInterpreterTest {
 
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
   @Mock
   private Compiler compiler;
   @InjectMocks
@@ -45,6 +49,22 @@ public class ExpressionInterpreterTest {
   }
 
   @Test
+  public void verifyToInterpretContextNotBeNull() {
+    thrown.expectMessage("Expression context can not be null.");
+    thrown.expect(NullPointerException.class);
+
+    expressionInterpreter.toInterpret(new Expression("return 5;"), null);
+  }
+
+  @Test
+  public void verifyToInterpretExpressionNotBeNull() {
+    thrown.expectMessage("Expression can not be null or empty.");
+    thrown.expect(NullPointerException.class);
+
+    expressionInterpreter.toInterpret(null, new ExpressionContext());
+  }
+
+  @Test
   public void verifyToValid() {
     Expression expression = mock(Expression.class);
     ParseTree parseTree = mock(ParseTree.class);
@@ -54,5 +74,13 @@ public class ExpressionInterpreterTest {
     expressionInterpreter.toValid(expression);
 
     verify(compiler, timeout(1)).compile(expression);
+  }
+
+  @Test
+  public void verifyToValidExpressionNotBeNull() {
+    thrown.expectMessage("Expression can not be null or empty.");
+    thrown.expect(NullPointerException.class);
+
+    expressionInterpreter.toValid(null);
   }
 }

@@ -1,10 +1,10 @@
 package com.github.thiagogarbazza.expressionresolver;
 
-import com.github.thiagogarbazza.expressionresolver.util.PropertieUtil;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.messageProperty;
 import static org.apache.commons.lang3.Validate.notBlank;
 
 @ToString(of = {"value"})
@@ -15,7 +15,7 @@ public class Expression {
   private final String value;
 
   public Expression(final String value) {
-    notBlank(value, PropertieUtil.messageProperty("validation.expression.not-be-null-or-empty"));
+    notBlank(value, messageProperty("validation.expression.not-be-null-or-empty"));
     this.value = value;
   }
 }
