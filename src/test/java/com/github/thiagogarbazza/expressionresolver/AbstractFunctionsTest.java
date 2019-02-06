@@ -1,6 +1,5 @@
 package com.github.thiagogarbazza.expressionresolver;
 
-import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import org.junit.Assert;
 import org.junit.Before;
 

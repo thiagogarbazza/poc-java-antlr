@@ -1,6 +1,5 @@
 package com.github.thiagogarbazza.expressionresolver;
 
-import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.interpreter.compile.Compiler;
 import com.github.thiagogarbazza.expressionresolver.interpreter.runnable.Runnable;
 import org.antlr.v4.runtime.tree.ParseTree;

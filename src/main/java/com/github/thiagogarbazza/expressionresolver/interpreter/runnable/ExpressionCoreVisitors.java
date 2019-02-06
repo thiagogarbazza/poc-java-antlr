@@ -1,6 +1,6 @@
 package com.github.thiagogarbazza.expressionresolver.interpreter.runnable;
 
-import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
+import com.github.thiagogarbazza.expressionresolver.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParserBaseVisitor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.github.thiagogarbazza.expressionresolver.interpreter.runnable;
 
+import com.github.thiagogarbazza.expressionresolver.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.Result;
-import com.github.thiagogarbazza.expressionresolver.domain.ExpressionContext;
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.tree.ParseTree;
 

@@ -1,4 +1,4 @@
-package com.github.thiagogarbazza.expressionresolver.domain;
+package com.github.thiagogarbazza.expressionresolver;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
