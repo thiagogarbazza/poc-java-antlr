@@ -1,21 +1,19 @@
 package com.github.thiagogarbazza.expressionresolver;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.messageProperty;
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-@Getter
-@ToString
-@EqualsAndHashCode
+@ToString(of = {"variables"})
+@EqualsAndHashCode(of = {"variables"})
 public class ExpressionContext {
 
   private static final Pattern PATTERN_VARIABLE = Pattern.compile("^\\$[a-zA-Z][a-zA-Z0-9_]*$");
@@ -23,7 +21,7 @@ public class ExpressionContext {
   private final Map<String, Object> variables;
 
   public ExpressionContext() {
-    this.variables = new HashMap<>();
+    this.variables = new TreeMap<>();
     setCurrentDate(LocalDate.now());
   }
 
