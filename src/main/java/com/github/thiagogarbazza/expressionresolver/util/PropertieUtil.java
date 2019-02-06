@@ -48,13 +48,13 @@ public class PropertieUtil {
 
     try (InputStream input = getResource(filename)) {
       if (input == null) {
-        throw new IllegalArgumentException(format("Configuration file '{0}' not found.", filename));
+        throw new IllegalArgumentException(format("Configuration file {0} not found.", filename));
       }
 
       properties.load(input);
       return properties.getProperty(key);
     } catch (IOException e) {
-      throw new IllegalArgumentException(format("Error reading configuration file '{0}'.", filename));
+      throw new IllegalArgumentException(format("Error reading configuration file {0}.", filename));
     }
   }
 
