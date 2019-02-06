@@ -209,7 +209,7 @@ class ExpressionCoreVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitFunctionToday(final ExpressionParser.FunctionTodayContext ctx) {
-    return executionContext.get("today", LocalDate.class);
+    return executionContext.getCurrentDate();
   }
 
   @Override

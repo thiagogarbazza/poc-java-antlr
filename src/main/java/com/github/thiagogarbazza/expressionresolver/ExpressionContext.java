@@ -7,10 +7,10 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
-import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.getPropertie;
-import static org.apache.commons.lang3.StringUtils.trimToNull;
-import static org.apache.commons.lang3.Validate.isInstanceOf;
+import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.messageProperty;
+import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @Getter
@@ -18,38 +18,48 @@ import static org.apache.commons.lang3.Validate.notNull;
 @EqualsAndHashCode
 public class ExpressionContext {
 
+  private static final Pattern PATTERN_VARIABLE = Pattern.compile("^\\$[a-zA-Z][a-zA-Z0-9_]*$");
+  private static final String VAR_CURRENT_DATE = "$CURRENT_DATE";
   private final Map<String, Object> variables;
 
   public ExpressionContext() {
-    variables = new HashMap<String, Object>();
-    set("today", LocalDate.now());
+    this.variables = new HashMap<>();
+    setCurrentDate(LocalDate.now());
   }
 
   public Object get(final String variable) {
-    final String key = buildKey(variable);
-    final Object value = variables.get(key);
-    notNull(value, getPropertie("context.variable.not-present"), key);
+    validationVariable(variable);
+    final Object value = variables.get(variable);
+    notNull(value, messageProperty("validation.context.variable.not-present", variable));
 
     return value;
   }
 
-  public <T> T get(final String variable, Class<T> type) {
-    final String key = buildKey(variable);
-    final Object value = variables.get(key);
-    notNull(value, getPropertie("context.variable.not-present"), key);
-    isInstanceOf(type, value, getPropertie("context.variable.not-instance-valid"), key, type);
-    return (T) value;
-  }
-
   public ExpressionContext set(final String variable, final Object value) {
-    final String key = buildKey(variable);
-    variables.put(key, value);
+    validationVariable(variable);
+    variables.put(variable, value);
+
     return this;
   }
 
-  private String buildKey(final String variable) {
-    final String key = trimToNull(variable);
-    notNull(key, getPropertie("context.variable.name-not-be-null-or-empty"));
-    return key;
+  private void validationVariable(final String variable) {
+    notBlank(variable, messageProperty("validation.context.variable.incorrect-name", variable));
+
+    if (!PATTERN_VARIABLE.matcher(variable).find()) {
+      throw new IllegalArgumentException(messageProperty("validation.context.variable.incorrect-name", variable));
+    }
+  }
+
+  public LocalDate getCurrentDate() {
+    final LocalDate currentDate = (LocalDate) this.variables.get(VAR_CURRENT_DATE);
+    notNull(currentDate, messageProperty("validation.context.variable.not-present", VAR_CURRENT_DATE));
+
+    return currentDate;
+  }
+
+  public ExpressionContext setCurrentDate(final LocalDate currentDate) {
+    this.variables.put(VAR_CURRENT_DATE, currentDate);
+
+    return this;
   }
 }
