@@ -9,6 +9,8 @@ Feature: IF condition expression
     And the following numbers in the context
       | name-in-context | value |
       | $A              | 99    |
+      | $B_17           | 17    |
+      | $B_13           | 13    |
 
   Scenario Outline: 01. Perform condition IF.
     Given Send the expression "<expression>".
@@ -34,4 +36,6 @@ Feature: IF condition expression
       | if (true)   { $A = 1; } else if (true)  { $A = 2; } else { $A = 3; } return $A; | 1                 |
       | if (false)  { $A = 1; } else if (true)  { $A = 2; } else { $A = 3; } return $A; | 2                 |
       | if (false)  { $A = 1; } else if (false) { $A = 2; } else { $A = 3; } return $A; | 3                 |
+      | if (true)  { return $B_17; } else { return $B_13; }                             | 17                |
+      | if (false) { return $B_17; } else { return $B_13; }                             | 13                |
 
