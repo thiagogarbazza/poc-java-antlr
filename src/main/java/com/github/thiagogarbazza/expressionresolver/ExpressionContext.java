@@ -12,12 +12,13 @@ import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.me
 import static org.apache.commons.lang3.Validate.notBlank;
 import static org.apache.commons.lang3.Validate.notNull;
 
-@ToString(of = {"variables"})
+@ToString(includeFieldNames = true)
 @EqualsAndHashCode(of = {"variables"})
 public class ExpressionContext {
 
   private static final Pattern PATTERN_VARIABLE = Pattern.compile("^\\$[a-zA-Z][a-zA-Z0-9_]*$");
   private static final String VAR_CURRENT_DATE = "$CURRENT_DATE";
+
   private final Map<String, Object> variables;
 
   public ExpressionContext() {

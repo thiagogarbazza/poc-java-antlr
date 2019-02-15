@@ -18,8 +18,8 @@ class RunnerExpressionInterpreter {
     final Expression expression = new Expression(getFormula());
     //final Expression expression  = new Expression("return 55 * 10;");
 
-    final ExpressionContext context = new ExpressionContext();
-    context.set("$response", new ArrayList<>());
+    final ExpressionContext context = new ExpressionContext()
+      .set("$response", new ArrayList<>());
 
     try {
       final Result result = ExpressionInterpreter.getExpressionInterpreter().toInterpret(expression, context);
