@@ -20,6 +20,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <dependency.antlr.version>4.7.1</dependency.antlr.version>
+    <dependency.aspectjrt.version>1.9.2</dependency.aspectjrt.version>
     <dependency.commons-collections4.version>4.2</dependency.commons-collections4.version>
     <dependency.commons-lang3.version>3.8</dependency.commons-lang3.version>
     <dependency.commons-logging.version>1.2</dependency.commons-logging.version>
@@ -116,6 +117,11 @@
       <version>${dependency.commons-collections4.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>${dependency.aspectjrt.version}</version>
+    </dependency>
+    <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>${dependency.commons-logging.version}</version>
@@ -169,6 +175,32 @@
                   <directory>src/test-integration/resources</directory>
                 </resource>
               </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>aspectj-maven-plugin</artifactId>
+        <version>1.11</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <complianceLevel>${java.version}</complianceLevel>
+              <source>${java.version}</source>
+              <target>${java.version}</target>
+              <encoding>${project.build.sourceEncoding}</encoding>
+              <showWeaveInfo>false</showWeaveInfo>
+              <verbose>true</verbose>
+              <Xlint>ignore</Xlint>
+              <forceAjcCompile>true</forceAjcCompile>
+              <sources/><!-- this is important!-->
+              <weaveDirectories>
+                <weaveDirectory>${project.build.directory}/classes</weaveDirectory>
+              </weaveDirectories>
             </configuration>
           </execution>
         </executions>

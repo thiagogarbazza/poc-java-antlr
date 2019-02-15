@@ -1,0 +1,9 @@
+<aspectj>
+  <aspects>
+    <aspect name="com.github.thiagogarbazza.expressionresolver.logging.LogObserverResolver"/>
+  </aspects>
+  <weaver options="-verbose -showWeaveInfo -debug">
+    <!-- only weave classes in our application-specific packages -->
+    <include within="com.github.thiagogarbazza.expressionresolver.*"/>
+  </weaver>
+</aspectj>
