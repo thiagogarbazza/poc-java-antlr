@@ -8,9 +8,13 @@ import org.aspectj.lang.Signature;
 @UtilityClass
 public class AspectUtils {
 
-  public static final String MSG_LOG_ENDING = "<> Finishing {0} and return {1} in {2}";
-  public static final String MSG_LOG_ERROR = "<> Error executing {0} by reason \"{1}\" after {2}.";
-  public static final String MSG_LOG_START = "<> Starting {0}";
+  public static final String MSG_LOG_ENDING = "{0} Finishing {1} and return \"{2}\" in {3}";
+  public static final String MSG_LOG_ERROR = "{0} Error executing {1} by reason \"{2}\" after {3}.";
+  public static final String MSG_LOG_START = "{0} Starting {1}";
+  public static final String MSG_SYMBOL_ADAPTER = "<!>>";
+  public static final String MSG_SYMBOL_API = "<!>>>>>>>>>>>>";
+  public static final String MSG_SYMBOL_RESOLVER = "<!>>>>>>>>";
+  public static final String MSG_SYMBOL_SERVICE = "<!>>>>>";
 
   public static String toStringArgumentsBuild(Object value) {
     return value == null ? "null" : value.toString();
