@@ -24,4 +24,8 @@ public class AbstractIT {
 
     assertEquals("Result value invalid.", expected, result);
   }
+
+  protected void toValid(final Expression expression) {
+    interpreter.toValid(expression);
+  }
 }
