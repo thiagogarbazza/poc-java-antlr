@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.log.ResolverFunctionLog.getResolverFunctionLog;
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +20,6 @@ public class ResolverFunctionLogTest {
 
   @Test
   public void verifyResolver() {
-    assertEquals(new BigDecimal("0.6989700043360189"), resolverFunctionLog.resolver(new BigDecimal("5")));
+    assertEquals(toBigDecimal("0.6989700043360189"), resolverFunctionLog.resolver(new BigDecimal("5")));
   }
 }

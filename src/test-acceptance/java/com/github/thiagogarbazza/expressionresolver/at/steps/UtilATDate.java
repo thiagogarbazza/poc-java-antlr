@@ -9,7 +9,7 @@ import static org.apache.commons.lang3.StringUtils.contains;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 
-public class UtilATDate {
+class UtilATDate {
 
   private static final String COLLECTION_SEPARATOR = "::";
 

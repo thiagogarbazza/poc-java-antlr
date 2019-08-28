@@ -3,6 +3,11 @@ package com.github.thiagogarbazza.expressionresolver.interpreter.runnable;
 import com.github.thiagogarbazza.expressionresolver.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParser;
 import com.github.thiagogarbazza.expressionresolver.parser.ExpressionParserBaseVisitor;
+import com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult;
+import com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationDivision;
+import com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationPow;
+import com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationSubtraction;
+import com.github.thiagogarbazza.expressionresolver.resolver.primitive.ResolverPrimitiveNumber;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -25,7 +30,12 @@ import static com.github.thiagogarbazza.expressionresolver.resolver.datesfromran
 import static com.github.thiagogarbazza.expressionresolver.resolver.day.ResolverFunctionDay.getResolverFunctionDay;
 import static com.github.thiagogarbazza.expressionresolver.resolver.ln.ResolverFunctionLn.getResolverFunctionLn;
 import static com.github.thiagogarbazza.expressionresolver.resolver.log.ResolverFunctionLog.getResolverFunctionLog;
+import static com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationDivision.getResolverNumberOperationDivision;
+import static com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationMultiply.getResolverNumberOperationMultiply;
+import static com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationPow.getResolverNumberOperationPow;
+import static com.github.thiagogarbazza.expressionresolver.resolver.math.ResolverNumberOperationSubtraction.getResolverNumberOperationSubtraction;
 import static com.github.thiagogarbazza.expressionresolver.resolver.month.ResolverFunctionMonth.getResolverFunctionMonth;
+import static com.github.thiagogarbazza.expressionresolver.resolver.primitive.ResolverPrimitiveNumber.getResolverPrimitiveNumber;
 import static com.github.thiagogarbazza.expressionresolver.resolver.primitive.ResolverPrimitiveString.getResolverPrimitiveString;
 import static com.github.thiagogarbazza.expressionresolver.resolver.sin.ResolverFunctionSin.getResolverFunctionSin;
 import static com.github.thiagogarbazza.expressionresolver.resolver.sqrt.ResolverFunctionSqrt.getResolverFunctionSqrt;
@@ -274,13 +284,10 @@ class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   @Override
   public final Object visitNumberOperationSubtract(final ExpressionParser.NumberOperationSubtractContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber(0));
-    for (int i = 1; i < ctx.vlExpNumber().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.vlExpNumber(i));
-      result = result.subtract(child);
-    }
+    final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
-    return result;
+    return getResolverNumberOperationSubtraction().resolver(left, right);
   }
 
   @Override
@@ -288,34 +295,28 @@ class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
     final BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
     final BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
-    return left.pow(right.intValue());
+    return getResolverNumberOperationPow().resolver(left, right);
   }
 
   @Override
   public final Object visitNumberOperationMultiply(final ExpressionParser.NumberOperationMultiplyContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber(0));
-    for (int i = 1; i < ctx.vlExpNumber().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.vlExpNumber(i));
-      result = result.multiply(child);
-    }
+    BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
-    return result;
+    return getResolverNumberOperationMultiply().resolver(left, right);
   }
 
   @Override
   public final Object visitNumberOperationDivide(final ExpressionParser.NumberOperationDivideContext ctx) {
-    BigDecimal result = (BigDecimal) visit(ctx.vlExpNumber(0));
-    for (int i = 1; i < ctx.vlExpNumber().size(); i++) {
-      final BigDecimal child = (BigDecimal) visit(ctx.vlExpNumber(i));
-      result = result.divide(child, DECIMAL128);
-    }
+    BigDecimal left = (BigDecimal) visit(ctx.vlExpNumber(0));
+    BigDecimal right = (BigDecimal) visit(ctx.vlExpNumber(1));
 
-    return result;
+    return getResolverNumberOperationDivision().resolver(left, right);
   }
 
   @Override
   public final Object visitPrimitiveNumber(final ExpressionParser.PrimitiveNumberContext ctx) {
-    return new BigDecimal(ctx.getText());
+    return getResolverPrimitiveNumber().resolver(ctx.getText());
   }
 
   @Override

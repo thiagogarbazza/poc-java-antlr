@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.month.ResolverFunctionMonth.getResolverFunctionMonth;
 import static org.junit.Assert.assertEquals;
 
@@ -20,6 +21,6 @@ public class ResolverFunctionMonthTest {
 
   @Test
   public void verifyResolver() {
-    assertEquals(new BigDecimal("2"), resolverFunctionMonth.resolver(LocalDate.of(2018, 2, 28)));
+    assertEquals(toBigDecimal("2"), resolverFunctionMonth.resolver(LocalDate.of(2018, 2, 28)));
   }
 }

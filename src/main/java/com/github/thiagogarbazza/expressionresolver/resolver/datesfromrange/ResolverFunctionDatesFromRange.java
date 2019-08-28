@@ -3,6 +3,7 @@ package com.github.thiagogarbazza.expressionresolver.resolver.datesfromrange;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
@@ -14,7 +15,7 @@ public class ResolverFunctionDatesFromRange {
   private static final ResolverFunctionDatesFromRange INSTANCE = new ResolverFunctionDatesFromRange();
 
   public Collection<LocalDate> resolver(LocalDate left, LocalDate right) {
-    Collection<LocalDate> dates = new TreeSet<>();
+    Collection<LocalDate> dates = new ArrayList<>();
 
     LocalDate aux = left;
     while (aux.compareTo(right) <= 0) {

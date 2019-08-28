@@ -2,17 +2,15 @@ Feature: Function ln
   It is necessary that expression-resolver perform math ln.
 
   Background:
-    Given the following numbers in the context
-      | name-in-context | value |
-      | $N              | 4     |
-      | $OTHER_VALUE_N  | 5     |
+    Given the $N variable is in context with the value 4.
+    And the $OTHER_VALUE_N variable is in context with the value 5.
 
   Scenario Outline: 01. Perform function ln.
-    Given Send the expression "<expression>".
+    Given Send the expression <expression>.
     When I ask what the result is?
-    Then I should have resulted the number: "<expression-result>".
+    Then I should have resulted <result>.
     Examples:
-      | expression                 | expression-result  |
+      | expression                 | result             |
       | return ln(4);              | 1.3862943611198906 |
       | return ln(5);              | 1.6094379124341003 |
       | return ln($N);             | 1.3862943611198906 |

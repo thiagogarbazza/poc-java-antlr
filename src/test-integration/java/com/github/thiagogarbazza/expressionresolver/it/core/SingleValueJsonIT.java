@@ -3,12 +3,15 @@ package com.github.thiagogarbazza.expressionresolver.it.core;
 import com.github.thiagogarbazza.expressionresolver.Expression;
 import com.github.thiagogarbazza.expressionresolver.Result;
 import com.github.thiagogarbazza.expressionresolver.it.AbstractIT;
+import com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 
 public class SingleValueJsonIT extends AbstractIT {
 
@@ -17,7 +20,7 @@ public class SingleValueJsonIT extends AbstractIT {
     final Map<String, Object> resultExpected = new TreeMap<>();
     resultExpected.put("any-boolean", true);
     resultExpected.put("any-date", LocalDate.of(2018, 2, 28));
-    resultExpected.put("any-number", new BigDecimal("13"));
+    resultExpected.put("any-number", toBigDecimal("13"));
     resultExpected.put("any-string", "any-string-value");
     resultExpected.put("any-json", new TreeMap<String, Object>());
 

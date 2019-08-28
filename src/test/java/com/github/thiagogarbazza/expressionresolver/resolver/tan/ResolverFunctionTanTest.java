@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.tan.ResolverFunctionTan.getResolverFunctionTan;
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +20,6 @@ public class ResolverFunctionTanTest {
 
   @Test
   public void verifyResolver() {
-    assertEquals(new BigDecimal("-1.995200412208242"), resolverFunctionTan.resolver(new BigDecimal("90")));
+    assertEquals(toBigDecimal("-1.995200412208242"), resolverFunctionTan.resolver(new BigDecimal("90")));
   }
 }

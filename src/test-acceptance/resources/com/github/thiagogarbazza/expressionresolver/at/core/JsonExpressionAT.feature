@@ -2,11 +2,11 @@ Feature: JSON expression
   It is necessary that expression-resolver perform json expression.
 
   Scenario Outline: 01. Perform json expression.
-    Given Send the expression "<expression>".
+    Given Send the expression <expression>.
     When I ask what the result is?
-    Then I should have resulted the json: "<expression-result>".
+    Then I should have resulted <result>.
     Examples:
-      | expression                                     | expression-result                       |
+      | expression                                     | result                                  |
       | return { };                                    | {}                                      |
       | return {"any-key" : 5};                        | {"any-key":5}                           |
       | return {"any-key" : [5, 7]};                   | {"any-key":[5,7]}                       |

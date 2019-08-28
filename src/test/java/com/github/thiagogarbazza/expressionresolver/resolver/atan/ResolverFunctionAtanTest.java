@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.atan.ResolverFunctionAtan.getResolverFunctionAtan;
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +20,6 @@ public class ResolverFunctionAtanTest {
 
   @Test
   public void verifyResolver() {
-    assertEquals(new BigDecimal("0.6747409422235527"), resolverFunctionAtan.resolver(new BigDecimal("0.8")));
+    assertEquals(toBigDecimal("0.6747409422235527"), resolverFunctionAtan.resolver(new BigDecimal("0.8")));
   }
 }

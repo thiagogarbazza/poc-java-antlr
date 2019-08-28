@@ -35,7 +35,11 @@ public class ExpressionInterpreter {
 
   public static ExpressionInterpreter getExpressionInterpreter() {
     if (instance == null) {
-      instance = new ExpressionInterpreter();
+      synchronized (ExpressionInterpreter.class) {
+        if (instance == null) {
+          instance = new ExpressionInterpreter();
+        }
+      }
     }
 
     return instance;

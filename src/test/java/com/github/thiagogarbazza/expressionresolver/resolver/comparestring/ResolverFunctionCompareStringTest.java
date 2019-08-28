@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.comparestring.ResolverFunctionCompareString.getResolverFunctionCompareString;
 import static org.junit.Assert.assertEquals;
 
@@ -22,7 +23,7 @@ public class ResolverFunctionCompareStringTest {
     String left = "A";
     String right = "A";
 
-    assertEquals(new BigDecimal("0"), resolverFunctionCompareString.resolver(left, right));
+    assertEquals(toBigDecimal("0"), resolverFunctionCompareString.resolver(left, right));
   }
 
   @Test
@@ -30,7 +31,7 @@ public class ResolverFunctionCompareStringTest {
     String left = "B";
     String right = "A";
 
-    assertEquals(new BigDecimal("1"), resolverFunctionCompareString.resolver(left, right));
+    assertEquals(toBigDecimal("1"), resolverFunctionCompareString.resolver(left, right));
   }
 
   @Test
@@ -38,6 +39,6 @@ public class ResolverFunctionCompareStringTest {
     String left = "A";
     String right = "B";
 
-    assertEquals(new BigDecimal("-1"), resolverFunctionCompareString.resolver(left, right));
+    assertEquals(toBigDecimal("-1"), resolverFunctionCompareString.resolver(left, right));
   }
 }

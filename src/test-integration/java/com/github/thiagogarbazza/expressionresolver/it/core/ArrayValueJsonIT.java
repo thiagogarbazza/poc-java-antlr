@@ -3,11 +3,13 @@ package com.github.thiagogarbazza.expressionresolver.it.core;
 import com.github.thiagogarbazza.expressionresolver.Expression;
 import com.github.thiagogarbazza.expressionresolver.Result;
 import com.github.thiagogarbazza.expressionresolver.it.AbstractIT;
+import com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.TreeMap;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static java.util.Arrays.asList;
 
 public class ArrayValueJsonIT extends AbstractIT {
@@ -19,14 +21,14 @@ public class ArrayValueJsonIT extends AbstractIT {
       put("key-1", true);
     }};
     final TreeMap<String, Object> item1 = new TreeMap<String, Object>() {{
-      put("key", asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5")));
+      put("key", asList(toBigDecimal("1"), toBigDecimal("3"), toBigDecimal("5")));
     }};
     final TreeMap<String, Object> item2 = new TreeMap<String, Object>() {{
       put("key-0", "value0");
-      put("key-1", new BigDecimal("7"));
+      put("key-1", toBigDecimal("7"));
     }};
     final TreeMap<String, Object> item3 = new TreeMap<String, Object>() {{
-      put("key-0", new TreeMap<String, Object>() {{ put("sub-key", new BigDecimal("5")); }});
+      put("key-0", new TreeMap<String, Object>() {{ put("sub-key", toBigDecimal("5")); }});
     }};
 
     assertExpression(

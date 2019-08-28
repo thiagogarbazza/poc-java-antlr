@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.comparedate.ResolverFunctionCompareDate.getResolverFunctionCompareDate;
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +24,7 @@ public class ResolverFunctionCompareDateTest {
     LocalDate left = LocalDate.of(2000, 1, 1);
     LocalDate right = LocalDate.of(2000, 1, 1);
 
-    assertEquals(new BigDecimal("0"), resolverFunctionCompareDate.resolver(left, right));
+    assertEquals(toBigDecimal("0"), resolverFunctionCompareDate.resolver(left, right));
   }
 
   @Test
@@ -31,7 +32,7 @@ public class ResolverFunctionCompareDateTest {
     LocalDate left = LocalDate.of(2020, 1, 1);
     LocalDate right = LocalDate.of(2000, 1, 1);
 
-    assertEquals(new BigDecimal("1"), resolverFunctionCompareDate.resolver(left, right));
+    assertEquals(toBigDecimal("1"), resolverFunctionCompareDate.resolver(left, right));
   }
 
   @Test
@@ -39,6 +40,6 @@ public class ResolverFunctionCompareDateTest {
     LocalDate left = LocalDate.of(2000, 1, 1);
     LocalDate right = LocalDate.of(2020, 1, 1);
 
-    assertEquals(new BigDecimal("-1"), resolverFunctionCompareDate.resolver(left, right));
+    assertEquals(toBigDecimal("-1"), resolverFunctionCompareDate.resolver(left, right));
   }
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static com.github.thiagogarbazza.expressionresolver.resolver.sqrt.ResolverFunctionSqrt.getResolverFunctionSqrt;
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +20,6 @@ public class ResolverFunctionSqrtTest {
 
   @Test
   public void verifyResolver() {
-    assertEquals(new BigDecimal("3.0"), resolverFunctionSqrt.resolver(new BigDecimal("9")));
+    assertEquals(toBigDecimal("3.0"), resolverFunctionSqrt.resolver(new BigDecimal("9")));
   }
 }

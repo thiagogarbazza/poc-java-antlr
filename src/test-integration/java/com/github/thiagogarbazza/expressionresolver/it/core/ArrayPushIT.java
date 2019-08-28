@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.TreeMap;
 
+import static com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult.toBigDecimal;
 import static java.util.Arrays.asList;
 
 public class ArrayPushIT extends AbstractIT {
@@ -29,9 +30,9 @@ public class ArrayPushIT extends AbstractIT {
 
   @Test
   public void verifyArrayPushJson() {
-    final TreeMap<String, Object> item0 = new TreeMap<String, Object>() {{put("key-0", new BigDecimal("3"));}};
-    final TreeMap<String, Object> item1 = new TreeMap<String, Object>() {{put("key-1", new BigDecimal("5"));}};
-    final TreeMap<String, Object> item2 = new TreeMap<String, Object>() {{put("key-2", new BigDecimal("7"));}};
+    final TreeMap<String, Object> item0 = new TreeMap<String, Object>() {{put("key-0", toBigDecimal("3"));}};
+    final TreeMap<String, Object> item1 = new TreeMap<String, Object>() {{put("key-1", toBigDecimal("5"));}};
+    final TreeMap<String, Object> item2 = new TreeMap<String, Object>() {{put("key-2", toBigDecimal("7"));}};
 
     assertExpression(
       new Expression("$a = [{'key-0':3}, {'key-1':5}]; arrayPush($a, {'key-2':7}); return $a;"),
@@ -42,7 +43,7 @@ public class ArrayPushIT extends AbstractIT {
   public void verifyArrayPushNumber() {
     assertExpression(
       new Expression("$a = [1, 3]; arrayPush($a, 5); return $a;"),
-      new Result(asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"))));
+      new Result(asList(toBigDecimal("1"), toBigDecimal("3"), toBigDecimal("5"))));
   }
 
   @Test

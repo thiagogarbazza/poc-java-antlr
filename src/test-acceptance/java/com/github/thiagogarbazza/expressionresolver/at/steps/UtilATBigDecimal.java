@@ -1,5 +1,7 @@
 package com.github.thiagogarbazza.expressionresolver.at.steps;
 
+import com.github.thiagogarbazza.expressionresolver.resolver.NormalizeResult;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.TreeSet;
@@ -7,12 +9,16 @@ import java.util.TreeSet;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.trimToNull;
 
-public class UtilATBigDecimal {
+class UtilATBigDecimal {
 
   private static final String COLLECTION_SEPARATOR = "::";
 
   public static BigDecimal stringToBigDecimal(final String number) {
-    return new BigDecimal(trimToNull(number));
+    if (isBlank(number)) {
+      return null;
+    }
+
+    return NormalizeResult.toBigDecimal(number);
   }
 
   public static Collection<BigDecimal> stringToBigDecimals(final String numbers) {
