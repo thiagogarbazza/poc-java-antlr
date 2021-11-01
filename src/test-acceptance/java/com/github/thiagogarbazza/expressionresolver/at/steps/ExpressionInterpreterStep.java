@@ -1,6 +1,5 @@
 package com.github.thiagogarbazza.expressionresolver.at.steps;
 
-import com.github.thiagogarbazza.expressionresolver.Expression;
 import com.github.thiagogarbazza.expressionresolver.ExpressionContext;
 import com.github.thiagogarbazza.expressionresolver.ExpressionInterpreter;
 import com.github.thiagogarbazza.expressionresolver.Result;
@@ -9,54 +8,85 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.util.Collection;
-
-import static com.github.thiagogarbazza.expressionresolver.at.steps.ValueObjectUtil.stringToCollectionValueObject;
-import static com.github.thiagogarbazza.expressionresolver.at.steps.ValueObjectUtil.stringToValueObject;
-import static org.junit.Assert.assertEquals;
+import static com.github.thiagogarbazza.expressionresolver.AssertionsCustom.assertNotThrowException;
+import static com.github.thiagogarbazza.expressionresolver.AssertionsCustom.assertResultEquals;
+import static com.github.thiagogarbazza.expressionresolver.AssertionsCustom.assertThrowException;
+import static com.github.thiagogarbazza.expressionresolver.at.steps.ConverterData.stringToValue;
 
 public class ExpressionInterpreterStep {
 
-  private ExpressionContext context;
-  private Expression expression;
-  private Result expressionResult;
-  private ExpressionInterpreter interpreter;
+  private Exception exception;
+  private String expression;
+  private ExpressionContext expressionContext;
+  private ExpressionInterpreter expressionInterpreter;
+  private Result result;
 
   @Before
   public void before() {
-    interpreter = ExpressionInterpreter.getExpressionInterpreter();
-    context = new ExpressionContext();
+    this.exception = null;
+    this.expression = null;
+    this.result = null;
+    this.expressionInterpreter = ExpressionInterpreter.getExpressionInterpreter();
+    this.expressionContext = new ExpressionContext();
   }
 
-  @Given("Send the expression (.*).")
-  public void givenSendTheExpression(String expression) {
-    this.expression = new Expression(expression);
+  @Given("send the expression: {}")
+  public void givenSendTheExpression(final String expressao) {
+    this.expression = expressao;
   }
 
-  @Given("the (\\$.*) variable is in context with the collection (.*).")
-  public void givenTheVariableIsInContextWithTheCollection(String nameVariable, String value) {
-    context.set(nameVariable, stringToCollectionValueObject(value));
+  @Given("send the expression:")
+  public void givenSendTheExpressionDocString(final String expressao) {
+    this.expression = expressao;
   }
 
-  @Given("the (\\$.*) variable is in context with the value (.*).")
-  public void givenTheVariableIsInContextWithTheValue(String nameVariable, String value) {
-    context.set(nameVariable, stringToValueObject(value));
+  @Given("the variable named {variable} is in the expression's execution context with the value: {}")
+  public void givenTheVariableNamedIsInTheExpressionSExecutionContextWithTheValue(final String variable, final String value) {
+    expressionContext.set(variable, stringToValue(value));
   }
 
-  @Then("I should have resulted (.*).")
-  public void thenIShouldHaveResulted(String result) {
-    assertEquals(new Result(stringToValueObject(result)), this.expressionResult);
+  @Given("the variable named {variable} is in the expression's execution context with the value:")
+  public void givenTheVariableNamedIsInTheExpressionSExecutionContextWithTheValueDocString(final String variable, final String value) {
+    expressionContext.set(variable, stringToValue(value));
   }
 
-  @Then("I should have the collection as resulted (.*).")
-  public void thenIShouldHaveResultedCollection(String result) {
-    final Collection<Object> value = stringToCollectionValueObject(result);
-
-    assertEquals(new Result(value), this.expressionResult);
+  @Then("will should not to get error message")
+  public void thenWillShouldNotToGetErrorMessage() {
+    assertNotThrowException(this.exception);
   }
 
-  @When("I ask what the result is?")
-  public void whenIAskWhatTheResultIs() {
-    this.expressionResult = interpreter.toInterpret(this.expression, this.context);
+  @Then("will should to get the error message: {}")
+  public void thenWillShouldToGetTheErrorMessage(final String mensagem) {
+    assertThrowException(mensagem, this.exception);
+  }
+
+  @Then("will should to get the result: {}")
+  public void thenWillShouldToGetTheResult(final String expected) {
+    assertNotThrowException(this.exception);
+    assertResultEquals(new Result(stringToValue(expected)), this.result);
+  }
+
+  @Then("will should to get the result:")
+  public void thenWillShouldToGetTheResultDocString(final String expected) {
+    assertNotThrowException(this.exception);
+    assertResultEquals(new Result(stringToValue(expected)), this.result);
+  }
+
+  @When("to request expression validation")
+  public void whenToRequestExpressionValidation() {
+    try {
+      expressionInterpreter.toValid(this.expression);
+    } catch (Exception e) {
+      this.exception = e;
+    }
+  }
+
+  @When("to request expression execution")
+  public void whenToRunTheExpression() {
+    try {
+      this.result = expressionInterpreter.toInterpret(this.expression, this.expressionContext);
+    } catch (Exception e) {
+      this.exception = e;
+    }
   }
 }

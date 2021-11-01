@@ -1,5 +1,7 @@
 package com.github.thiagogarbazza.expressionresolver;
 
+import com.github.thiagogarbazza.expressionresolver.exception.RunnableExpressionException;
+import com.github.thiagogarbazza.expressionresolver.exception.SyntaxExpressionException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -9,10 +11,10 @@ import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.messageProperty;
-import static org.apache.commons.lang3.Validate.notBlank;
-import static org.apache.commons.lang3.Validate.notNull;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 
-@ToString(includeFieldNames = true)
+@ToString(of = {"variables"})
 @EqualsAndHashCode(of = {"variables"})
 public class ExpressionContext {
 
@@ -23,15 +25,23 @@ public class ExpressionContext {
 
   public ExpressionContext() {
     this.variables = new TreeMap<>();
-    setCurrentDate(LocalDate.now());
+    this.variables.put(VAR_CURRENT_DATE, LocalDate.now());
   }
 
   public Object get(final String variable) {
     validationVariable(variable);
-    final Object value = variables.get(variable);
-    notNull(value, messageProperty("validation.context.variable.not-present", variable));
 
-    return value;
+    if (!isVariablePresent(variable)) {
+      throw new RunnableExpressionException(messageProperty("validation.context.variable.not-present", variable));
+    }
+
+    return variables.get(variable);
+  }
+
+  public boolean isVariablePresent(final String variable) {
+    final String key = trimToEmpty(variable);
+
+    return this.variables.containsKey(key);
   }
 
   public ExpressionContext set(final String variable, final Object value) {
@@ -42,23 +52,8 @@ public class ExpressionContext {
   }
 
   private void validationVariable(final String variable) {
-    notBlank(variable, messageProperty("validation.context.variable.incorrect-name", variable));
-
-    if (!PATTERN_VARIABLE.matcher(variable).find()) {
-      throw new IllegalArgumentException(messageProperty("validation.context.variable.incorrect-name", variable));
+    if (isBlank(variable) || !PATTERN_VARIABLE.matcher(variable).find()) {
+      throw new SyntaxExpressionException(messageProperty("validation.context.variable.incorrect-name", variable));
     }
-  }
-
-  public LocalDate getCurrentDate() {
-    final LocalDate currentDate = (LocalDate) this.variables.get(VAR_CURRENT_DATE);
-    notNull(currentDate, messageProperty("validation.context.variable.not-present", VAR_CURRENT_DATE));
-
-    return currentDate;
-  }
-
-  public ExpressionContext setCurrentDate(final LocalDate currentDate) {
-    this.variables.put(VAR_CURRENT_DATE, currentDate);
-
-    return this;
   }
 }

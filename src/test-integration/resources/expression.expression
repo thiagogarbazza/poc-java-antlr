@@ -1,1 +1,1 @@
-t
+$var = 11; return $var;

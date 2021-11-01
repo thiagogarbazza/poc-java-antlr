@@ -1,11 +1,16 @@
 lexer grammar ExpressionLexer;
 
+//╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+//╠═════════ Write the function names here                                                                                                  ═════════╣
+//╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
 FN_ACOS               : 'acos';
 FN_ASIN               : 'asin';
 FN_ATAN               : 'atan';
 FN_COMPARE_DATE       : 'compareDate';
 FN_COMPARE_NUMBER     : 'compareNumber';
 FN_COMPARE_STRING     : 'compareString';
+FN_COLLECTION_ADD     : 'collectionAdd';
 FN_COS                : 'cos';
 FN_DATE               : 'date';
 FN_DATE_FROM_RANGE    : 'datesFromRange';
@@ -19,12 +24,39 @@ FN_TAN                : 'tan';
 FN_TODAY              : 'today';
 FN_YEAR               : 'year';
 
+//╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+//╠═════════ Write the primitive types here                                                                                                 ═════════╣
+//╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+BOOLEAN
+  : 'true'
+  | 'false'
+  ;
+
+DATE
+  : QuotesSimple DateYear MINUS DateMonth MINUS DateDay QuotesSimple;
+
+NUMBER
+  : Integer
+  | Decimal
+  ;
+
+STRING
+  : QuotesSimple Anything QuotesSimple
+  | QuotesDouble Anything QuotesDouble
+  ;
+
+IDENTIFIER       : Dollar Letter LetterOrDigit*;
+IDENTIFIER_ATTR  : IDENTIFIER (POINT Letter LetterOrDigit*)*;
+
+//╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+//╠═════════ Write the other tokens here                                                                                                    ═════════╣
+//╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
 IF      : 'if';
 ELSE    : 'else';
 NULL    : 'null';
 RETURN  : 'return';
-
-ARRAY_PUSH: 'arrayPush';
 
 FOR : 'for';
 IN  : 'in';
@@ -55,24 +87,9 @@ RBRACK  : ']';
 LBRACE  : '{';
 RBRACE  : '}';
 
-BOOLEAN
-  : 'true'
-  | 'false'
-  ;
-
-NUMBER
-  : Integer
-  | Decimal
-  ;
-
-STRING
-  : QuotesSimple Anything QuotesSimple
-  | QuotesDouble Anything QuotesDouble
-  ;
-
-DATE  : DateYear '/' DateMonth '/' DateDay;
-
-IDENTIFIER  : Dollar Letter LetterOrDigit*;
+//╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+//╠═════════ Write the fragments here to assemble the types                                                                                 ═════════╣
+//╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
 fragment Digit    : [0-9];
 fragment Digit4   : Digit Digit Digit Digit;
@@ -121,6 +138,6 @@ fragment Nov  : [Nn][Oo][Vv];
 fragment Dec  : [Dd][Ee][Cc];
 
 // COMMENT and WS are stripped from the output token stream by sending to a different channel 'skip'
-COMMENT_LINE  : '//' ~[\r\n]*       -> channel(HIDDEN);
-COMMENT_BLOCK : '/*' .*? '*/'       -> channel(HIDDEN);
-WHITESPACE    : [ \f\n\r\t\u000C]+  -> channel(HIDDEN);
+COMMENT_LINE  : '//' ~[\r\n]*     -> channel(HIDDEN);
+COMMENT_BLOCK : '/*' .*? '*/'     -> channel(HIDDEN);
+WHITESPACE    : [ \n\r\t\u000C]+  -> channel(HIDDEN);

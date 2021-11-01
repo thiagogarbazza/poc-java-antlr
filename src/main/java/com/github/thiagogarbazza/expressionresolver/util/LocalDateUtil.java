@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
 @UtilityClass
 public class LocalDateUtil {
 
-  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+  private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-  public static LocalDate toLocalDate(String date) {
+  public static LocalDate toLocalDate(final String date) {
     return LocalDate.parse(date, DATE_FORMAT);
   }
 }

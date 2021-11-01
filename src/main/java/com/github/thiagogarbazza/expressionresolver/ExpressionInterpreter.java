@@ -1,47 +1,40 @@
 package com.github.thiagogarbazza.expressionresolver;
 
-import com.github.thiagogarbazza.expressionresolver.interpreter.compile.Compiler;
-import com.github.thiagogarbazza.expressionresolver.interpreter.runnable.Runnable;
-import lombok.NoArgsConstructor;
+import com.github.thiagogarbazza.expressionresolver.interpreter.compile.CompilerService;
+import com.github.thiagogarbazza.expressionresolver.interpreter.runnable.RunnableService;
+import com.github.thiagogarbazza.expressionresolver.util.dependencyinjection.Inject;
+import com.github.thiagogarbazza.expressionresolver.util.dependencyinjection.Service;
+import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.Compiler.getCompiler;
-import static com.github.thiagogarbazza.expressionresolver.interpreter.runnable.Runnable.getRunnable;
+import static com.github.thiagogarbazza.expressionresolver.exception.SyntaxExpressionException.isExpressionNotEmpty;
 import static com.github.thiagogarbazza.expressionresolver.util.PropertieUtil.messageProperty;
+import static com.github.thiagogarbazza.expressionresolver.util.dependencyinjection.DependencyInjection.getDependencyInjection;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.Validate.notNull;
 
-@NoArgsConstructor(access = PRIVATE)
+@Service
+@RequiredArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
 public class ExpressionInterpreter {
 
-  private static ExpressionInterpreter instance;
+  private final CompilerService compilerService;
+  private final RunnableService runnableService;
 
-  private Compiler compiler = getCompiler();
-  private Runnable runnable = getRunnable();
-
-  public Result toInterpret(final Expression expression, final ExpressionContext context) {
-    notNull(expression, messageProperty("validation.expression.not-be-null-or-empty"));
+  public Result toInterpret(final String expression, final ExpressionContext context) {
+    isExpressionNotEmpty(expression);
     notNull(context, messageProperty("validation.context.not-be-null"));
 
-    ParseTree tree = compiler.compile(expression);
-    return runnable.run(tree, context);
+    final ParseTree tree = compilerService.compile(expression);
+    return runnableService.run(tree, context);
   }
 
-  public void toValid(final Expression expression) {
-    notNull(expression, messageProperty("validation.expression.not-be-null-or-empty"));
+  public void toValid(final String expression) {
+    isExpressionNotEmpty(expression);
 
-    compiler.compile(expression);
+    compilerService.compile(expression);
   }
 
   public static ExpressionInterpreter getExpressionInterpreter() {
-    if (instance == null) {
-      synchronized (ExpressionInterpreter.class) {
-        if (instance == null) {
-          instance = new ExpressionInterpreter();
-        }
-      }
-    }
-
-    return instance;
+    return getDependencyInjection().getBean(ExpressionInterpreter.class);
   }
 }
