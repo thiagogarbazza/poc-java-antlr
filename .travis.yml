@@ -6,8 +6,6 @@ jdk:
 addons:
   sonarcloud:
     organization: "thiagogarbazza-github"
-    token:
-      secure: ${SONAR_TOKEN}
 
 cache:
   directories:
@@ -16,8 +14,8 @@ cache:
 
 script:
   - mvn clean
-  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
-  - mvn sonar:sonar
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:prepare-agent-integration verify org.jacoco:jacoco-maven-plugin:report
+  - mvn sonar:sonar -Dsonar.login=${SONAR_TOKEN}
 
 before_deploy:
   - echo -e ${GPG_IMPORT} > target/gpg.asc
