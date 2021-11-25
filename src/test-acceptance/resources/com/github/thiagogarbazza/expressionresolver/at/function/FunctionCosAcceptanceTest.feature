@@ -11,5 +11,5 @@ Feature: Function cos
     Examples:
       | expression to be executed | result expected     |
       | return cos(45);           | 0.5253219888177297  |
-      | return cos(90);           | -0.4480736161291702 |
+      | return cos(90);           | -0.4480736161291701 |
       | return cos($N);           | 0.5253219888177297  |
