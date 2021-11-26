@@ -20,7 +20,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <dependency.antlr.version>4.9.3</dependency.antlr.version>
-    <dependency.aspectjrt.version>1.9.7</dependency.aspectjrt.version>
+    <dependency.aspectj.version>1.9.7</dependency.aspectj.version>
     <dependency.commons-collections4.version>4.4</dependency.commons-collections4.version>
     <dependency.commons-lang3.version>3.12.0</dependency.commons-lang3.version>
     <dependency.commons-logging.version>1.2</dependency.commons-logging.version>
@@ -32,6 +32,7 @@
     <dependency.mockito-core.version>4.0.0</dependency.mockito-core.version>
 
     <plugin.antlr.version>4.9.2</plugin.antlr.version>
+    <plugin.aspectj.version>1.14.0</plugin.aspectj.version>
     <plugin.build-helper.version>3.0.0</plugin.build-helper.version>
     <plugin.lombok.version>1.18.20.0</plugin.lombok.version>
     <plugin.maven-compiler.version>3.8.1</plugin.maven-compiler.version>
@@ -42,6 +43,19 @@
     <plugin.maven-release.version>2.5.3</plugin.maven-release.version>
     <plugin.maven-source.version>3.1.0</plugin.maven-source.version>
     <plugin.maven-surefire.version>3.0.0-M5</plugin.maven-surefire.version>
+
+    <!-- JaCoCo Configuration -->
+    <jacoco.append>true</jacoco.append>
+    <jacoco.destFile>${project.build.directory}/coverage-reports/jacoco.exec</jacoco.destFile>
+    <jacoco.dataFile>${project.build.directory}/coverage-reports/jacoco.exec</jacoco.dataFile>
+
+    <!-- Sonar Configuration -->
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.jacoco.xmlReportPaths>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.coverage.exclusions> <!-- Sonar Configuration coverage exclusions --> </sonar.coverage.exclusions>
+    <sonar.cpd.exclusions> <!-- Sonar Configuration duplications exclusions --> </sonar.cpd.exclusions>
   </properties>
 
   <developers>
@@ -130,7 +144,7 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>${dependency.aspectjrt.version}</version>
+      <version>${dependency.aspectj.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
@@ -203,7 +217,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>aspectj-maven-plugin</artifactId>
-        <version>1.14.0</version>
+        <version>${plugin.aspectj.version}</version>
         <executions>
           <execution>
             <goals>
