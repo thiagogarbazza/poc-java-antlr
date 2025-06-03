@@ -1,4 +1,5 @@
-# expression-resolver
+# poc-java-antlr
+
 An example of Antlr implementation.
 
 [![Build Status](https://travis-ci.com/thiagogarbazza/expression-resolver.svg?branch=master)](https://app.travis-ci.org/thiagogarbazza/expression-resolver)
