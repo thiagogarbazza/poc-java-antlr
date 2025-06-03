@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.thiagogarbazza</groupId>
-  <artifactId>expression-resolver</artifactId>
+  <groupId>com.github.thiagogarbazza.pocs</groupId>
+  <artifactId>poc-java-antlr</artifactId>
   <version>0.1.0-SNAPSHOT</version>
 
-  <name>Expression resolver</name>
+  <name>poc-java-antlr</name>
   <description>An example of Antlr implementation.</description>
-  <url>https://github.com/thiagogarbazza/expression-resolver</url>
+  <url>https://github.com/thiagogarbazza/poc-java-antlr</url>
 
   <properties>
     <java.version>11</java.version>
@@ -68,25 +68,25 @@
   <licenses>
     <license>
       <name>MIT License</name>
-      <url>https://github.com/thiagogarbazza/expression-resolver/blob/master/LICENSE</url>
+      <url>https://github.com/thiagogarbazza/poc-java-antlr/blob/master/LICENSE</url>
     </license>
   </licenses>
 
   <scm>
-    <url>https://github.com/thiagogarbazza/expression-resolver</url>
-    <connection>scm:git:git@github.com:thiagogarbazza/expression-resolver.git</connection>
-    <developerConnection>scm:git:git@github.com:thiagogarbazza/expression-resolver.git</developerConnection>
+    <url>https://github.com/thiagogarbazza/poc-java-antlr</url>
+    <connection>scm:git:git@github.com:thiagogarbazza/poc-java-antlr.git</connection>
+    <developerConnection>scm:git:git@github.com:thiagogarbazza/poc-java-antlr.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <ciManagement>
     <system>Travis</system>
-    <url>https://travis-ci.org/thiagogarbazza/expression-resolver</url>
+    <url>https://github.com/thiagogarbazza/poc-java-antlr/actions</url>
   </ciManagement>
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/thiagogarbazza/expression-resolver/issues</url>
+    <url>https://github.com/thiagogarbazza/poc-java-antlr/issues</url>
   </issueManagement>
 
   <dependencies>
@@ -357,24 +357,12 @@
           </excludes>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok-maven-plugin</artifactId>
-        <version>${plugin.lombok.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${dependency.lombok.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
     </plugins>
   </build>
 
   <profiles>
     <profile>
-      <id>prepare-release</id>
+      <id>release</id>
 
       <build>
         <plugins>
@@ -415,35 +403,8 @@
               </execution>
             </executions>
           </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${plugin.maven-gpg.version}</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
         </plugins>
       </build>
     </profile>
   </profiles>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
 </project>
