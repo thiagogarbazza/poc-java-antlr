@@ -45,7 +45,7 @@ import static java.util.stream.Collectors.toList;
 import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.BooleanUtils.negate;
 
-@RequiredArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@RequiredArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 class ExpressionVisitors extends ExpressionParserBaseVisitor<Object> {
 
   private final ExpressionContext expressionContext;

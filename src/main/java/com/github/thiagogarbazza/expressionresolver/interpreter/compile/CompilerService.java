@@ -13,7 +13,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Service
 @CommonsLog
-@RequiredArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@RequiredArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class CompilerService {
 
   private final ExpressionLexerFactory expressionLexerFactory;

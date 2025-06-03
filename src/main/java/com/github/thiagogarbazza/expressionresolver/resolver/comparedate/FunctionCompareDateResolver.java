@@ -11,7 +11,7 @@ import static com.github.thiagogarbazza.expressionresolver.util.NumberUtil.norma
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class FunctionCompareDateResolver {
 
   public BigDecimal resolver(final LocalDate left, final LocalDate right) {

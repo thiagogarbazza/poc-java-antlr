@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.antlr.v4.runtime.CharStreams.fromString;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 class ExpressionLexerFactory {
 
   public ExpressionLexer create(final String expression) {

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class NumberOperationDivisionResolver {
 
   public BigDecimal resolver(final BigDecimal left, final BigDecimal right) {

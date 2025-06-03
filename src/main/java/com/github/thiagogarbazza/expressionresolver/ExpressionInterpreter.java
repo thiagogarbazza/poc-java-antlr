@@ -14,7 +14,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @Service
-@RequiredArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@RequiredArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class ExpressionInterpreter {
 
   private final CompilerService compilerService;

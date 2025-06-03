@@ -8,7 +8,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class PrimitiveTextResolver {
 
   private static final String END_QUOTES = "['\"]$";

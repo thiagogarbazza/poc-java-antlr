@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class RunnableService {
 
   public Result run(final ParseTree tree, final ExpressionContext expressionContext) {

@@ -12,7 +12,7 @@ import static com.github.thiagogarbazza.expressionresolver.interpreter.compile.P
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 class ExpressionParserFactory {
 
   public ExpressionParser create(final ExpressionLexer lexer) {

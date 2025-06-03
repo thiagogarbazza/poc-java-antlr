@@ -9,7 +9,7 @@ import java.util.Collection;
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class FunctionCollectionAddResolver {
 
   public Object resolver(final Collection<Object> collection, final Object value) {

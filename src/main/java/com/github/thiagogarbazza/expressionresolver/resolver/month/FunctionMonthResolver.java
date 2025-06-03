@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class FunctionMonthResolver {
 
   public BigDecimal resolver(final LocalDate value) {

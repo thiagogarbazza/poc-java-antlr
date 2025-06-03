@@ -8,7 +8,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.apache.commons.lang3.BooleanUtils.toBoolean;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class PrimitiveBooleanResolver {
 
   public Boolean resolver(final String value) {

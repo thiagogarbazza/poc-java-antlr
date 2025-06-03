@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class FunctionDateResolver {
 
   public LocalDate resolver(final BigDecimal year, final BigDecimal month, final BigDecimal day) {

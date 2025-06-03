@@ -21,7 +21,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
-@NoArgsConstructor(access = PROTECTED, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PROTECTED, onConstructor_ = {@Inject})
 class IdentifierAttrService {
 
   Object getter(final ExpressionContext expressionContext, final String variablePath) {

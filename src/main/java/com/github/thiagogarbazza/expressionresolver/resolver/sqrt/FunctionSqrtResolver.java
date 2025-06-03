@@ -10,7 +10,7 @@ import static com.github.thiagogarbazza.expressionresolver.util.NumberUtil.toBig
 import static lombok.AccessLevel.PRIVATE;
 
 @Service
-@NoArgsConstructor(access = PRIVATE, onConstructor = @__(@Inject))
+@NoArgsConstructor(access = PRIVATE, onConstructor_ = {@Inject})
 public class FunctionSqrtResolver {
 
   public BigDecimal resolver(final BigDecimal value) {
