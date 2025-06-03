@@ -359,10 +359,12 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>${plugin.maven-release.version}</version>
         <configuration>
-          <preparationGoals>clean verify</preparationGoals>
-          <tagNameFormat>@{project.version}</tagNameFormat>
           <autoVersionSubmodules>true</autoVersionSubmodules>
+          <preparationGoals>clean verify</preparationGoals>
           <releaseProfiles>prepare-release</releaseProfiles>
+          <scmDevelopmentCommitComment>release: prepare for next development iteration</scmDevelopmentCommitComment>
+          <scmReleaseCommitComment>release: @{releaseLabel}</scmReleaseCommitComment>
+          <tagNameFormat>@{project.version}</tagNameFormat>
           <useReleaseProfile>true</useReleaseProfile>
         </configuration>
       </plugin>
@@ -403,6 +405,9 @@
   </build>
 
   <profiles>
+    <profile>
+      <id>prepare-release</id>
+    </profile>
     <profile>
       <id>release</id>
 
