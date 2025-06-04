@@ -16,3 +16,6 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
       - name: execute next version script
         run: bash .config/ci/release-next-minor-version.sh
+      - name: Git push
+        run: |
+          git push
