@@ -11,10 +11,8 @@ echo -e "
   next_version: $next_version
 "
 
-./mvnw \
-  --batch-mode \
-  -DdevelopmentVersion="$next_version" \
-  release:update-versions
+echo "Updating version in pom.xml to $next_version"
+./mvnw versions:set -DnewVersion=$next_version
 
 if  [[ $(sed -ne '5,10 s/<version>\(.*\)<\/version>/\1/p' pom.xml | tr -d '[:space:]') == "$next_version" ]]; then
   echo "Version updated successfully to $next_version"

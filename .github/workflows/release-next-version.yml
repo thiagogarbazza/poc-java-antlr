@@ -1,21 +1,30 @@
 name: Release - next version
 on:
   workflow_dispatch:
-permissions:
-  contents: write
+    inputs:
+      type:
+        type: choice
+        description: Wich type of version to release
+        default: minor
+        options:
+          - minor
+          - major
 
 jobs:
 
   close-version:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - name: Configure Git
+      - name: Git - configure user
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
-      - name: execute next version script
-        run: bash .config/ci/release-next-minor-version.sh
-      - name: Git push
+      - name: Execute next version script
+        run: bash .config/workflows/release-next-${{ github.event.inputs.type }}-version.sh
+      - name: Git - push modifications
         run: |
           git push
