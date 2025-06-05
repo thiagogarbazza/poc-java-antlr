@@ -4,7 +4,7 @@
 
   <groupId>com.github.thiagogarbazza.pocs</groupId>
   <artifactId>poc-java-antlr</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
 
   <name>poc-java-antlr</name>
   <description>An example of Antlr implementation.</description>
